@@ -1,0 +1,46 @@
+summary:
+
+the efficient movement of people throughout a city is 
+one of the more difficult challenges faced by a metropolitan
+government. there are many options for commuters 
+(car, rail, bus, etc.), but we want to be able to model
+the most efficient form of transport (with regards time and 
+fuel consumption). Therefore, we will be modeling a public 
+transit system and the shortest way to get from point A to 
+point B within said system
+
+
+propositions:
+
+* C(x, y, z) 
+  means x is a commuter starting from stop y, ending at stop z
+* Met(x, y) 
+  x is a metro line with y number of stops each numbered 
+  from 1 to y
+* Bus(x, y) 
+  x is a bus line with y number of stops
+* Leg()
+* S(x, y, z) 
+  means x is stop z on line y
+* F(x, [Leg1, ..., legn]) 
+  means the shortest route from x's start to end is Leg1-Legn
+* Intr(x, [(y, ys), (z, zs), ..., (n, ns)) 
+  x is stop ys on line y and stop xs on line x, thus meaning 
+  you can transfer between y and z (to n) at stop x
+* P(x) it is possible for commuter x to go from its starting 
+  stop to its ending stop
+* NP(x) it is not possible for commuter x to go from its 
+  starting stop to its ending stop
+
+(Met(r,9) ^ Met(b,5) ^ Stop(s,r,1) ^ Stop(e,b,5) ^ Intr(t,(r,9),(b,1))) ^ C(a,s,e) -> 
+
+ok perhaps instaed of trying to find the fastets rout we 
+could just model if it was possible to got from point
+a to point b in the system. or maybe both
+
+EuEd.(EuEd.(Met(u,7)^Met(d,4) ^ EaEbEi.(S(a,d,2)^S(b,u,6)^Intr(i,(u,5),(d,1)) ^ Ex.C(x,a,b)))) -> Ex.P(x)
+
+there is the u line (7 stops), and the d line (4 stops). a 
+commuter wants to get from (d,2) to (u,6). you can transfer
+between lines at ((u,5)(d,1)). this imples that it is 
+possible for the commuter to get from (d,2) to (u,6)

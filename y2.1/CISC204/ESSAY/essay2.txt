@@ -1,0 +1,8 @@
+summary:
+
+Since the industrial revolution moving people and goods by train has been an important logitical challenge to
+overcome. Particularly, people were interested in how to get as many trains on the tracks as possible as, mor
+-e trains equals more money. in order to create efficient timetables one would use a 'train graph' that model
+-s a train using a line with a variable angle that represents speed; and a variable (xmin,xmax),(ymin,ymax) r
+-ange, that represents the starting & ending times and the starting and ending stations respectively. This mo
+-del will represent a train graph timetable and the many states it can have.
