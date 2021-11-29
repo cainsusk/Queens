@@ -1,0 +1,72 @@
+#CISC204A5
+
+in this assignment we are finding models, for example:
+doimain = {0,1,2}
+P = {(0,1), (1,2)} # the inputs that make P true assuming P takes 2 parameters
+Q = {(0), (1)} # ""
+R = {} # ""
+
+
+q1.(∀z.∃y.P(y,z)∨∃y.Q(y))
+
+1a.find a model that = T;
+
+	domain = {0}
+	P = {(0,0)}
+	Q = {}
+
+1b.find a model that = F;
+
+	domain = {0,1}
+	p = {(0,1)}
+ 	Q = {}
+
+
+q2.(∀z.∀x.R(z,x)∧∀z.∃x.(¬(Q(z)∧T(z))→R(z,x)))
+
+2a.find a model that = T;
+
+	domain = {0}
+	R = {(0,0)}
+	Q = {}
+	T = {}
+
+2b.find a model that = F;
+
+	domain = {0,1}
+	R = {(0,0)}
+	Q = {(0)}
+	T = {(0)}
+
+
+q3.(∃z.(R(z)∧T(z))∨∀z.R(z))__(∃z.(¬∀x.R(x)→¬T(z))∨∀z.R(z))
+
+3a.find a model that staisfies q3.1 but not q3.2;
+
+	domain = {0,1}
+	R = {(0)}
+	T = {(0)}
+
+3b.find a model that satisfies q3.2 but not q3.1;
+
+	domain = {0,1}
+	R = {}
+	T = {(0)}
+
+3c.find a model that satisfies all of q3;
+
+	domain = {0,1}
+	R = {(0),(1)}
+	T = {}
+
+3d.find a model that satisfies none of q3;
+
+	domain = {0,1,2}
+	R = {(2)}
+	T = {(0),(1)}
+
+
+q4.make_one_up
+
+	∀z.∀x.∃y.(R(z)∧T(y,z))∨∀z.∃x.(¬(Q(z)∧T(z))→(R(x)∧T(x)))	
+

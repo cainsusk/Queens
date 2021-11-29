@@ -1,0 +1,50 @@
+In this assignment, you will be converting concepts all about famous people eating food they like at dining halls.
+
+[Predicates]
+
+S(x): x is a student
+H(x): x is a dining hall
+F(x): x is full
+W(x): x is famous
+E(x, y): x eats at y
+D(x, y): x dislikes food at y
+K(x, y): x knows y
+G(x, y): x eats food they dislike at y
+
+
+[Q1: Translate sentence to logic (1pt)]
+
+A student dislikes food at a dining hall.
+
+	Answer: 
+	∃x∃y((S(x) ∧ H(y)) → (D(x, y)))
+
+[Q2: Translate sentence to logic (1pt)]
+
+No student eats food they dislike at a dining hall.
+
+	Answer: 
+	∀x∃y((S(x) ∧ H(y)) → ¬(G(x, y)))
+
+[Q3: Translate sentence to logic (2pt)]
+
+If two students eat at a dining hall, then they know each other.
+
+	Answer: 
+	∃x∃y∃z((S(x) ∧ S(y) ∧ H(z) ∧ (E(x, z) ∧ E(y, z))) → (K(x, y) ∧ K(y, x)))
+
+[Q4: Translate formula to English (1pt)]
+
+∃x∃y(S(x)∧H(y)∧(E(x,y)→F(x)))
+
+	Answer: 
+	there is a student and dining hall such that, when said student has eaten at said dining hall, the student is full
+
+[Q5: Invent a Problem (1pt)]
+
+	[Q5: translate to Logic (2pt)]
+
+	If 2 students know eachother and eat at the same dining hall, then one of the two student will eat food from a dining hall that they dislike
+
+		Answer:
+		∃x∃y(S(x) ∧ S(y) ∧ K(x, y) ∧ K(y, x) ∧ ∃z(H(z) ∧ E(x, z) ∧ E(y, z)) → (D(x, z) ∨ D(y, z)))
