@@ -1,0 +1,1 @@
+albert.to.alfred.test
