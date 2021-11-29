@@ -1,5 +1,0 @@
-CONJECTUREPANEL Quiz
-
-
-
-END
