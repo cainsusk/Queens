@@ -1,9 +1,0 @@
-# specfile: cool kids
-cain.java
-hannah.java
-#emma.java
-britt.java
-ki2.java
-
-
-

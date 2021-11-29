@@ -1,4 +1,0 @@
-append.sh
-cain.txt
-nextodd.sh
-set_path.sh
