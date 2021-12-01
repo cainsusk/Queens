@@ -1,0 +1,139 @@
+ 26 Strings 2, Input-output.txt
+#####################
+
+
+SEARCING STRINGS
+==================
+char *strchr(const char *str, int ch)
+-----------------------------------------
+	this finds the FIRST occurrence of a char in a numm terminated string
+	returns a pointer to the found char
+	returns *null if not found
+
+char *strrchr(const char *str, int ch)
+------------------------------------------
+	finds the LAST occurence of char in a null terminated string
+	returns a pointer to the found char
+	returns *null if not found
+
+an EXAMPLE of using these 2 functions and pointer subtraction to find the index of the found char
+-----------------                      --------------                                       -------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main(int argc, char *argv[]) {
+	if (argc != 3) {
+		fprintf(stderr, "Usage: index_of str char\n");
+		exit(1);
+	}
+	char *str = argv[1];
+	char c = argv[2][0]; // first character of the string argv[2]
+
+	char *first = strchr(str, c);
+	char *last = strrchr(str, c);
+	if (first) {
+		printf("first index : %lu\n", first - str); // SUBTRACTS *CHAR FROM THE *STR TO GET THE INDEX OF CHAR IN STR
+		printf("last index : %lu\n", last - str);
+	}
+}
+
+char *strstr(const char *str, const char *substr)
+--------------------------------------------------------
+	finds FIRST occurence of null terminated substring in null terminated string
+	returns a pointer to the first char of the found substring
+	returns *nill if not found
+
+char *strtok(char *str, const char *delim)
+------------------------------------------------
+	find the next token in a null terminated string where the tokens ae seperated by DELIM
+		returns a pointer to the next token or null if the substring is not found
+	if STR is not null then srttok assumes that this is the first time the funstion os being used to tokenize this string
+		it then searches for the first character that is not a delimiter
+		if it finds one, it replaces the character with '\0' and returns
+	if STR is null then strtok continues from where it left off
+		it searches the first character that is not a deleimiter 
+		if it finds one, then it searches for te first character that IS a delimiter and replaces it with '\0' and returns
+
+tokenization
+--------------
+	tokenization is a common taks when dealing with dats exchange formats
+	every common spreadsheet program can read comma seperated values CSV files
+	these is also tab seperated values TSV
+
+
+INPUT / OUTPUT
+===============
+	rather than delaing with the very low level details of transferring info between various hardware devices, C abstracts I/O using streams
+	a stream can be thougt of as a source or sink for chars or bytes
+	chars=text-based	bytes=binary-based
+
+streams in C
+---------------
+	the data structure that represents a stream is called a FILE
+	 a file object stores all of the info needed to control an I/O system (this info is not readily available to the programmer)
+	file objects are managed internally by an input/output library of functions. dont try to create your own objects of type FILE, let the library do it
+	your program should only deal with FILE* values rather than the objects themselves
+
+standard streams
+--------------------
+	when the main function of a program runs, it has three opened streams ready for use:
+		FILE *stdin;
+		FILE *stdout;
+		FILE *stderr;
+
+buffering
+-----------
+	I/O operations are often buffered
+	this means data is stored in a temporary buffer untill the buffer is full or manuallt flushed and then the contents of the buffer is transferred
+	this is done because I/O operations have a high latency
+	streams can have their own buffers as well
+	a stream can be in one of 3 buffered states:
+		unbuffered
+			data is transfered as soon as possible when it appears (ie. stderr)
+		fully buffered
+			data is transfered when the buffer is full (ie. reading and writing files)
+		line buffered
+			data is transfered as lines (delimited by a newline char) (ie. stdout/stdin in a terminal)
+
+opening streams
+-------------------
+	a stream must be opened before reading or writing to the stream
+	the standard streams are normally open already
+	if one wanted to read or write a file, then you have to attach a stream to that file using the function
+		FILE *fopen(const char *filename, const char *mode)
+			opens the file indicated by FILENAME and returns a pointer to the stream associated with the file
+	possible file access modes:
+		mode	meaning	explaination		if already exist	does not exist
+
+		r	read	open file for reading		read from start	failure
+		w	write	create file for writing		destroy contents	create new
+		a	append	append to file		write an end	create new
+		r+	read ext.	open file to r/w		read from start	error
+		w+	write ext.	create a file to r/w		destroy contents	create new
+		a+	append e.	open file to r/w		write at end	create new
+
+closing streams
+------------------
+	if you repeatedly open a file without closing it, you will eventually run out of resources
+	to close a stream use:
+		int fclose(FILE *stream)
+			any unwritten data is delivered to the OS so that is can be written
+	any unread buffer is discarded
+	fclose can fail, which will return the const value EOF
+	the stream is no longer associated with the file after calling fclose, even if it fails
+
+reading characters
+----------------------
+	use fget to read a char from an input stream:
+		int fgetc(FILE *stream)
+			reads the next char as an unsigned char converted to an int
+		returns EOF on failure
+
+reading lines
+---------------
+	using:
+		char *fgets(char *str, int count, FILE *stream)
+			reads at most (count - 1) chars from the stream and stores them in STR writing a null terminator to the string
+		parsing stops at newline or end of file
+		returns STR on success or NULL* on failure

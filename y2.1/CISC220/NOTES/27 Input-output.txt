@@ -1,0 +1,281 @@
+27 Input-output.txt
+#############
+
+
+READING CHARS
+===============
+	use fget to read a char from an input stream
+		int fgetc( FILE *stream );
+
+	reads the next character from the input stream and returns the char as an unsigned char converted to intEXAMPLE
+
+EXAMPLE
+--------------
+#include <stdio.h>
+#include <stdlib.h>
+int main(void) {
+	const char *filename = "tmp.txt";
+	FILE *f = fopen(filename, "r");
+	if (!f) {
+		fprintf(stderr, "Could not open tmp.txt for reading");
+		exit(1);
+	}
+	int c;
+	while ((c = fgetc(f)) != EOF) {
+		putchar(c);
+	}
+	fclose(f);
+}
+
+
+READING LINES
+==============
+	use fgets to read lines of text
+		char *fgets( char *str, int count, FILE *stream );
+	see prev notes for further explaination
+
+EXAMPLE
+--------------
+#include <stdio.h>
+#include <stdlib.h>
+int main(void) {
+	const char *filename = "tmp2.txt";
+	FILE *f = fopen(filename, "r");
+	if (!f) {
+		fprintf(stderr, "Could not open tmp.txt for reading");
+		exit(1);
+	}
+	char buf[100];
+	while (fgets(buf, 100, f)) {
+		printf("%s", buf);
+	}
+	fclose(f);
+}
+
+
+READING STD INPUT
+==================
+	use gets to read stdin
+		char *gets(char *str);
+	reads stdin into the char array pointed to by STR until a new line char is found or end of file occurs
+	dangerous cause there is no parameter for number of char to be read
+	because of this, it is not suitable for production code as it can cause exploits
+
+EXAMPLE
+--------------
+#include <stdio.h>
+#include <string.h>
+// Probably need -std=c99 to compile
+// gcc -std=c99 -o readkeybd readkeybd.c
+int main(void) {
+	puts("Enter some text and press Enter");
+	char str[10];
+	char unused[10];
+	gets(str);
+	puts("You wrote:");
+	puts(str);
+	puts(unused);
+}
+
+better way to read stdin
+----------------------------
+	use fgets to read stdin usong stdin as the stream pointer
+	you can also use getc or fgetc to read stdin one char at a time
+
+EXAMPLE
+--------------
+#include <stdio.h>
+#include <string.h>
+int main(void) {
+	puts("Enter some text and press Enter");
+	char str[10];
+	char *res = fgets(str, 10, stdin);
+	puts("You wrote:");
+	int n = 0;
+	while (res) {
+		printf("%s", str);
+		if (str[strlen(str) - 1] == '\n') {
+			res = NULL;
+		}
+		else {
+			res = fgets(str, 10, stdin);
+		}
+	}
+}
+
+
+READING FORMATTED INPUT
+==========================
+	to read a formatted string yu can use fgets to read and then parse the resulting string, possibly using sscanf or strtok
+	fgets()
+	sscanf()
+	strtok()
+
+
+WRITING CHARACTERS
+=====================
+	use fputc to write chars to an output stream
+		int fputc( int ch, FILE *stream );
+	writes a char to an output stream
+	returns the written char on success, EOF on fail
+
+
+WRITING STRINGS
+================
+	use fputs to write to an output stream
+		int fputc( const char *str, FILE *stream );
+	writes a null terminated string to an output stream
+		the terminating cahr is not written
+		returns non-neg values on success, or EOF on fail
+
+
+WRITING FORMATTED TEXT
+=========================
+	use fprintf to write formatted text to output stream
+		int fprintf( FILE *stream, const char *format, ... );
+	works similar to printf except it WRITES to SPECIFIED STREAM instead to stdout
+
+EXAMPLE
+--------------
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+	FILE *f = fopen("formatted.txt", "w");
+	fprintf(f, "char : %c\n", 'a');
+	fprintf(f, "int : %d\n", -100);
+	fprintf(f, "unsigned int : %u\n", 1999);
+	fprintf(f, "long : %ld\n", LONG_MAX);
+	fprintf(f, "double : %f\n", 1.0);
+	fprintf(f, "string : %s\n", "hello");
+	fprintf(f, "mix of values: %c%d %s\n", 'c', 99, "wheee!");
+	fclose(f);
+}
+
+
+FILE POSITON
+=============
+	an open file has a FILE POSITION that points to the NEXT CHAR to be read or written
+	usually equal to the number of bytes from the beginning of the file
+	set to beginning when first opened
+	each time a char from a file is read, the file position is incramented by 1
+	normal files allow for read and write in any posistion
+		called Random Access files
+	streams opened for appennd access always append sequentially to then end of the file regardless of file position
+		file position only affects reading operations for such streams
+	functions to read/manipulate the file position
+		ftell
+		fseek
+		rewind
+
+ftell
+---------------------------
+	returns the file position for a stream
+		long ftell( FILE *stream );
+	if the stream is open in text mode, the value returned is unspecified and is only meaninful as THE INPUT to FSEEK
+
+EXAMPLE
+
+Contents of tell.txt:
+ABCDE
+FGHIJ
+KLMNO
+PQRST
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+	FILE *f = fopen("tell.txt", "r");
+	char c;
+	long pos = ftell(f);
+	while ((c = fgetc(f)) != EOF) {
+		printf("%c : position = %ld\n", c, pos);
+		pos = ftell(f);
+	}
+	fclose(f);
+}
+
+fseek
+-------------------------------
+	fseek sets the file position for a stream
+		int fseek( FILE *stream, long offset, int origin );
+	if the stream is in binary mode (bytes), then the new position is exactly offset bytes measures from the beginning of the file if the origin is SEEK_SET, from the current
+	file position if the origin is SEEK_CUR, and from the end of the file if origin is SEEK_END
+		the stream doesnt have to be binary to use SEEK_END
+
+EXAMPLE
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+	FILE *f = fopen("tell.txt", "r");
+	char buf[4];
+	while (1) {
+		puts("Enter a position to seek to: ");
+		fgets(buf, 4, stdin);
+		int pos = atoi(buf);
+		if (pos < 0) {
+			break;
+		}
+		if (pos >= 0 && pos < 24) {
+			fseek(f, pos, SEEK_SET);
+			char c = fgetc(f);
+			printf("found : %c at position : %d\n", c, pos);
+		}
+	}
+	fclose(f);
+}
+
+rewind
+-----------------------------
+	rewind moves the file position to THE START OF THE file
+		void rewind( FILE *stream );
+
+EXAMPLE
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+	FILE *f = fopen("tell.txt", "r");
+	char c;
+	long pos = ftell(f);
+	while ((c = fgetc(f)) != EOF) {
+		printf("%c : position = %ld\n", c, pos);
+		if (pos == 23) {
+			rewind(f);
+		}
+		pos = ftell(f);
+	}
+	fclose(f);
+}
+
+
+READING & WRITING TO FILE
+==========================
+	when a file is opened in update mode (r+,w+,a+), both input and output can be performed
+		output cannot be followed by input without an intervening call to fflush, fseek, fsetpos, or rewind
+	input cannot be followed by output without an intervening call to fseek, fsetpos, or rewind, unless the input operation encountered end of file
+	NOTE: there is no way using this function to insert a char into the middle of a file, or delete a char
+		instead, you would have to read the fll file into an array and then perform the insert etc.
+
+EXAMPLE
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+	if (argc != 4) {
+		fprintf(stderr, "Usage: replace_char file targetchar replacementchar\n");
+		exit(1);
+	}
+	FILE *f = fopen(argv[1], "r+");
+	char target = argv[2][0];
+	char replace = argv[3][0];
+	char c;
+	while ((c = fgetc(f)) != EOF) {
+		if (c == target) {
+			fseek(f, -1, SEEK_CUR);
+			fputc(replace, f);
+		}
+	}
+	fclose(f);
+}
