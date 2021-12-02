@@ -31,7 +31,7 @@ EXAMPLE
 sscanf
 --------
 	sscanf uses a format string to control the tokenization of a string.
-		sscanf( const char *read, const char *format, storage variables );
+		sscanf( const char *read, const char *format, storage variables ); storage variables must be a pointer/address so if int: &storeint, if str: storestr
 	it returns the number of tokens successfully converted.
 	returns EOF if string is empty, all whitespace, or the current conversion isnt %c
 	it is similar to find or something like this in bash as it uses something similar to what can be found in 
@@ -39,13 +39,13 @@ sscanf
 
 EXAMPLE
 
-		// scan non-blank string, restrict number of characters that are read
+	// scan non-blank string, restrict number of characters that are read
     
-		n = sscanf("abc xyz", "%2s%s", str1, str2);
+	n = sscanf("abc xyz", "%2s%s", str1, str2);
  // each %s represents a string to be read. the # before s indicates the number of chars to 
-						   read in each string. there are 2 str, 'abc','xyz' we know they are str because they are spep
-						   -erated by a space
-		printf("n = %d, str1 = %s, str2 = %s\n", n, str1, str2);
+					   read in each string. there are 2 str, 'abc','xyz' we know they are str because they are spep
+					   -erated by a space
+	printf("n = %d, str1 = %s, str2 = %s\n", n, str1, str2);
 
 	it is possible to match a quoted string with a space withou using %s by using
 		"\"%[^\"]\""
