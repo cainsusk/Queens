@@ -1,0 +1,7 @@
+  "Bacon",  "Chris P.", , , "missed all assignments"
+    "Chi",       "Kim", 92 , 85 ,  79
+"O'Quent",      "Elle", ",", ",", "," 
+"Oatmeal", "Shaquille", 100, 100, 99 
+"Student",   "Average", 70, 70, 70 
+   "Time",    "Justin", 50, 51, 55 
+   "Zenz",       "Ray",    , 82, 

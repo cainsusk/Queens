@@ -1,0 +1,9 @@
+"Beach", "Rocky", 75
+"Dababi", "Carrie", 67
+"Fresco", "Al", 89
+"Hardy", "Lauerl Ann", 92
+"Howe", "Annie", 91
+"Melon", "Walter", 72
+"O'Shea", "Rick", 77
+"Payne", "Royal", 76
+"Shu", "Jim", 71

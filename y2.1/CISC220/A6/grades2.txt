@@ -1,0 +1,6 @@
+"al-Khwarizmi",   ,                95, 99,       100, 96
+"Berners-Lee", "Tim", "enrolled late", 98,       100, 95
+"Booth", "Kathleen",               95, 99,       100, 92
+"Hopper", "Grace",                100, 97,        95, "computer broke, received extension"
+"Knuth", "Donald",                 99, 99, "illness", 99
+"Yao", "Andrew",                  100, 98,          , 98
