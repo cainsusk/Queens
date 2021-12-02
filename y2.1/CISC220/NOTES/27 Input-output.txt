@@ -4,7 +4,7 @@
 
 READING CHARS
 ===============
-	use fget to read a char from an input stream
+	use fgetc to read a char from an input stream
 		int fgetc( FILE *stream );
 
 	reads the next character from the input stream and returns the char as an unsigned char converted to intEXAMPLE
@@ -106,7 +106,7 @@ int main(void) {
 
 READING FORMATTED INPUT
 ==========================
-	to read a formatted string yu can use fgets to read and then parse the resulting string, possibly using sscanf or strtok
+	to read a formatted string you can use fgets to read and then parse the resulting string, possibly using sscanf or strtok
 	fgets()
 	sscanf()
 	strtok()
