@@ -1,0 +1,53 @@
+28 Input-output 3.txt
+#####################
+
+
+READING FORMATTED DATA
+=========================
+	many file types contain line oriented, formatted data
+	they also can be formatted but not line oriented
+		ie. JSON, HTML, etc.
+
+/etc/passwd
+---------------
+	consider the database containing the basic info about authorozed users
+	plain txt, one record per line with feilds seperated by colons, for example
+		jsmith:x:1001:1000:Joe Smith,Room 1007:/home/jsmith:/bin/bash
+		username : password : UserID : Group ID : user info(GECOS) : home dir : login shell
+
+strtok
+-------
+	line oriented data can be read from a file using fgets and then processed using strtok or sscanf
+
+EXAMPLE
+
+	here is an example with an epty GECOS feild:
+		jsmith : x : 1001 : 1000 : : /home/jsmith : /bin/bash \0
+	after tokenizing the first 4 feilds the str looks like:
+		jsmith \0 x \0 1001 \0 1000 \0 : /home/jsmith : /bin/bash \0
+	this shows how strtok can fail as it cannot deal with empty feilds because it will call strtok too many times 
+	see passwd2.c in lecturefiles for an example
+
+sscanf
+--------
+	sscanf uses a format string to control the tokenization of a string.
+		sscanf( const char *read, const char *format, storage variables );
+	it returns the number of tokens successfully converted.
+	returns EOF if string is empty, all whitespace, or the current conversion isnt %c
+	it is similar to find or something like this in bash as it uses something similar to what can be found in 
+	REGEX:
+
+EXAMPLE
+
+		// scan non-blank string, restrict number of characters that are read
+    
+		n = sscanf("abc xyz", "%2s%s", str1, str2);
+ // each %s represents a string to be read. the # before s indicates the number of chars to 
+						   read in each string. there are 2 str, 'abc','xyz' we know they are str because they are spep
+						   -erated by a space
+		printf("n = %d, str1 = %s, str2 = %s\n", n, str1, str2);
+
+	it is possible to match a quoted string with a space withou using %s by using
+		"\"%[^\"]\""
+		 \"          \"	matches the opening & closing double quote
+		    %[^\"]	matches any sequence of chars that does not contain an ending double quote
