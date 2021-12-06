@@ -6,7 +6,7 @@ SEARCING STRINGS
 ==================
 char *strchr(const char *str, int ch)
 -----------------------------------------
-	this finds the FIRST occurrence of a char in a numm terminated string
+	this finds the FIRST occurrence of a char in a null terminated string
 	returns a pointer to the found char
 	returns *null if not found
 
@@ -52,7 +52,7 @@ char *strtok(char *str, const char *delim)
 		it then searches for the first character that is not a delimiter
 		if it finds one, it replaces the character with '\0' and returns
 	if STR is null then strtok continues from where it left off
-		it searches the first character that is not a deleimiter 
+		it searches the first character that is not a deleimiter
 		if it finds one, then it searches for te first character that IS a delimiter and replaces it with '\0' and returns
 
 tokenization

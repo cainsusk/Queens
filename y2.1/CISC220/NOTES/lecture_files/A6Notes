@@ -1,0 +1,8 @@
+average_grades1
+###############
+
+perhaps in the find comma function, we replace the commas with an obscure char
+instead of counting them or finding the position for later.
+
+once the real commas are replaced with a unique char, we can tokenize the str
+and process the data

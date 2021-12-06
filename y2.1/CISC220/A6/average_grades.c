@@ -18,6 +18,17 @@ int checkInString(char c, int b){
   }
 }
 
+int str_cut(char *str, int begin, int len){
+    int l = strlen(str);
+
+    if (len < 0) len = l - begin;
+    if (begin + len > l) len = l - begin;
+    memmove(str + begin, str + begin + len, l - len + 1);
+
+    return len;
+}
+
+
 int countLines(FILE *file) {
   int lines = 1;
   int c;
@@ -32,62 +43,54 @@ int countLines(FILE *file) {
   return lines;
 }
 
-int countFields(char *s, char *types){
-  char type = 'n';
-  int count = 0;
+int delimFields(char *s){
+  int count = 1;
   int inString = 0;
 
   if (!strrchr(s, '\n')){
     strcat(s, (char*) "\n");
   }
-
-  printf("\n");
   for (int i=0; s[i]; i++){
-    printf("%c", s[i]);
-    if (isalpha(s[i]) || s[i] == '\"') {
-      type = 's';
-    }
-
-    if (isdigit(s[i])) {
-      type = 'd';
-    }
-
     inString = checkInString(s[i], inString);
-    if ((s[i] == ',' || s[i] == '\n' ) && inString == 0){
-      *types++ = type;
-      type = 'n';
-      count++;
+    if ((s[i] == ',') && inString == 0){
+      s[i]= '>';
+      count ++;
     }
   }
   return count;
 }
 
-char* translateTypes(char *types, char *ans){
-  int count;
-  char add[21];
-  for (count=0; types[count]; count++){
-    switch (types[count]) {
-      case 'n':
-      strcat(add, " ,");
-      case 'd':
-      strcat(add, " %d,");
-      case 's':
-      strcat(add, " \"%*[^\"]\", ");
+void average(FILE *file, int ass, int lines){
+  int grades[ass];
+  memset(grades, 0, (4*ass) * sizeof(char));
+  int missing[ass];
+  memset(missing, 0, (4*ass) * sizeof(char));
+  char line[100];
+  while (fgets(line, 100, file)){
+    delimFields(line);
+    for (int i=0; i<ass; i++){
+      char *a = malloc(20*sizeof(char));
+      a = strrchr(line, '>');
+      int grade = atoi((a+1));
+
+      if (grade == 0){
+        missing[i] = missing[i] + 1;
+      }else{
+        grades[i] = grades[i] + grade;
+      }
+      str_cut(line, strlen(line)-strlen(a), strlen(a));
     }
-    strcat(ans, add);
-    memset(add, 0, sizeof(add));
+  }
+
+  int assNum = 1;
+  for (int i=ass; i>0; i--){
+    float finAss = lines - missing[i-1];
+    printf("\nA%d: %.1f\n",assNum++, (float) grades[i-1]/finAss);
   }
 }
 
-
 int main() {
-  char first[21], last[21];
-  int grade1;
-  int grade2;
-  int grade3;
-  int grade4;
-
-  FILE *file = fopen("grades3.txt","r");
+  FILE *file = fopen("grades2.txt","r");
 
   if (!file){
     fprintf(stderr, "Could not open csv for reading");
@@ -95,23 +98,14 @@ int main() {
   }
 
   int lines = countLines(file);
-  printf("LINES: %d\n", lines);
 
   char line[100];
   fgets(line, 100, file);
-
   rewind(file);
-  char buf[100];
-  char *types = (char*) (malloc(50*sizeof(char)));
-  char *translation = (char*) (malloc(50*sizeof(char)));
-    while (fgets(buf, 100, file)) {
-      int fields = countFields(buf, types);
-      translateTypes(types, translation);
-      printf("FIELDS: %d\n", fields);
-      printf("TYPES: %s\n", types);
-      printf("TYPES: %s\n", translation);
 
+  int fields = delimFields(line);
+  int ass = fields - 2;
 
-      types = (char*) (realloc(0, 50*sizeof(char)));
-    }
+  average(file, ass, lines);
+
   }
