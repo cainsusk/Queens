@@ -1,0 +1,338 @@
+STAT263
+=================
+INTRO TO STATS
+=================
+
+the course is about probabilities and patterns.
+
+statsistics is just a way of reinventing everyday thinking,
+looking at mundane things and finding someting interesting within them.
+
+statistics never answers questions, it gets you the data to answer them someway else.
+
+statistical methods are just a refinement of everyday thinking.
+
+
+what is a pattern?
+---------------------
+patterns dont exist without probability (P);
+statistics only shows you data which may have PATTERNS that can help extrapolate a conclusion;
+
+RAW_DATA = SIGNAL + RNDM_NOISE;
+for exaple, our weight changes very sparratically and creates alot of noise in our weight data.
+we can smooth out the noise to find the SIGNAL / interesting data in the raw data;
+
+
+varibility
+-----------
+nearly everything has variability.
+measuring variability can be important or imparative;
+
+for eample, skin colour, nose shape, etc;
+twins have less variability between eachother than siblings, which have less than cousins, etc;
+
+'if you have something to hide, just give them the data'
+an acception to variability is of course: the mortality rate is 100%;
+
+
+lurking variables
+---------------------
+is a variable which has an important effect on the study which is not included among the variables studied;
+
+we assume alot of stuff without actually checking if its right;
+
+
+outliers
+---------
+
+
+operational definition
+---------------------------
+'what is average intelegence'
+is an example of a question whos answer is an operational definition of average intelegence;
+when collecting data it is very important to define all terms you use to describe the data
+
+
+descriptive stats
+--------------------
+centered around the visualization of data;
+
+showing data in order to see new information about it
+
+
+inferential stats
+---------------------
+making estmates/decisions about a POPULATION (the set of data containing all possible or hypothetical observations of a given phenomenon)
+based on the study of a sample of that population.
+
+ie. finding the average man by measuring a sample of men in a country etc.
+
+
+categorical data
+--------------------
+data that gives a # to individuals or mutually exclusive categories
+Single=1
+Married=2
+etc...
+
+
+nominal data
+----------------
+data that gives a name or # to individuals or mutually exclusive categories
+this is essentially numeric data when you use #'s;
+but not arithmatic operators are valid in nominal data;
+
+
+mutually exclusive
+-----------------------
+venn diagrams
+	not exclusive - (A()B) 
+	mutually exclusive - (A)(B)
+
+for example, if your pulling cards from a deck, pulling a spade and pulling a heart are mutually exclusive because you cannot do both at the same time
+
+
+numerical data
+-------------------
+NOMINAL data
+	see above	
+
+ORDINAL data
+	mutually exclusive
+	fixed order (ie. letter grades A B C..)
+	
+INTERVAL data
+	mutually exlusive
+	fixed order
+	equal spacing between categories (ie. 1m + 1m = 2m; B + B != C)
+
+RATIO data
+	mutually exclusive
+	fixed order
+	equal spacing
+	an absolute 0 point (height, weight, area, etc.)
+
+DICHOTOMOUS data
+	data with 2 settings:
+	on, off
+	0, 1
+	m, f
+	just we can dichotomize data doesnt mean we should
+
+
+DATA PROPERTIES
+==================
+in stats we care about 3 properties of data:
+	location
+	shape (bell-shaped, skewed, bimodal, etc.)
+	variability (spreadout)
+
+raw data gives you nothing, you must apply yourself to it
+
+plotting data can help you find the location and shape of the data:
+
+	             o      }-general shape
+	      o     oo    }/
+	o    o   oooo o o      o                   o  <--- outlier (variability)
+	------------------------------------------
+	1	2	3	4
+	    ^^^^^^^^^^^
+	  general location
+
+##
+L4
+##
+
+stem and leaf diagram
+=====================
+a 'new' way to show data.
+it takes each # in a dataset and removes the last digit while perserving the first portion. all numbers with the same first portion are grouped together, represented by their individual last digit
+for example:
+
+N = 80 (number of data values (not actually 80))
+leaf unit: 1.0 
+STEM	LEAF
+7	6
+8	7
+9	7
+10	5 1
+11	5 8 0
+12	5 0 3
+13	4 1 3 5 3 5
+14	2 9 5 8 3 1 6 9
+15	4 7 1 3 4 0 8 8 6 8 6 8 0 8
+16	9 6 7 3 1
+17	3 4 9 2
+18	2 3 	= 182 183
+19	2 2 	= 192 192
+20	0
+
+where the stem is the first portion of the number and the leaf is the last digit
+
+they can also have frequency distrubution column, though you already see the frequency in the display
+computers may also order the leafs on each stem to further see patterns;
+can also have multiple stems for the same first portion which contains leafs < 5 and > 5
+
+MALE	stem	FEMALE
+7 6 	1	9 7 4
+3 4 4	2	6 9 1 2 4 4 5 6
+1 2 2	3	1 2 4 3 
+2 1	4	5 6 
+1	5	9
+
+
+frequency distrubutions
+=====================
+we first must decide how many 'bins' or classes we will categorize our data with
+
+choose the classes (usually 5-15)
+	largest_class_val - smallest_class_val = range
+	range is used to find the approximate the # of classes
+
+	range / approx_#_of_classes = approx_class_interval
+	the class interval is the difference between 2 classes, the width of the class
+
+	one must examine the data to get definitive class intervals / class boundaries (the location of the class boundry rather than the width of the class)
+	do this by sorthing or talling the data and counting the # of elem. in each class
+
+	A RULE:
+		for datasets < 200, sqrt(n) = #_of_classes
+
+EXAMPLE
+--------------
+max		 = 245
+min 		= 76
+range 		= 245 - 76 = 169
+n 		= 80	
+classes		= sqrt(n) = 8.944 ~= 9
+class interval 	= 169 / 9 = 18.777
+
+using class interval of 20
+
+70   <= x  < 90
+90   <= x  < 110
+110 <= x  < 130
+
+start the first class at 70 (would use 9 bins w/ given interval and dataset)
+many other schemes would be fine too
+
+cumulative frequency
+---------------------------
+is the freqency up to a class, so if the first class has a freq. of 1 and the second class had freq. of 2, the cum. freq. of class 2 would be 3
+
+
+relative frequency
+-----------------------
+relative frequency is the frequency of a class divided by the number of data points n
+the display for frequency and relative frequency are the same
+
+cumulative relative frequency
+-------------------------------------
+same as cum. freq. but it is also relative (divided by n)
+
+
+histogram
+---------------
+is a bar graph that shows data relative to time.
+can also represent data relative to other things but isnt called a histogram.
+ie. FREQUENCY DISTRUBUTION DATA
+
+		+
+	 	+
+	+	+
+	+	+
+	+	+	+
+	------------------
+	1	2	3
+
+
+frequency polygon
+---------------------------
+the shape created by drawing a point from each top of the bar of a historam to the next to create a line
+
+	   /--------\
+	  /	+    \
+	 /	+     \
+	+	+      \
+	+	+       \-
+	--------------------
+	1	2	3
+
+
+pareto diagrams
+------------------------
+are bar charts with categories listed in the same order as their frequencies
+ordered bar diagram
+
+	+
+	+	
+	+	+
+	+	+
+	+	+	+
+	-----------------------------------
+	1	2	3
+
+
+the pareto diagram can have a pareto relationship. the above diagram does not show it.
+
+	+
+	+
+	+
+	+
+	+
+	+	
+	+	
+	+	+
+	+	+	+
+	------------------
+	1	2	3
+
+this pareto diagram DOES show the pareto relationship
+that is, there is a bar (1) that dominates the graph
+
+pareto relationship
+--------------------
+a relationship where one or a small # of classes have the majority of the data / signal
+
+for example, 1.2% of watches are sold from switzerland, but 60% of the money made from selling watches is made in switzerland
+this is a pareto relationship
+
+
+two way frequency distrubution
+-------------------------------
+for example, count the number of undergraduate and graduate students, male and female.
+thus a datapoint will be in 2 distingct classes (undergrad, male, etc.)
+ie.
+
+relative frequency of m/f, grad/undergrad students
+note: rel. freq. is equivalent to probability (P)
+		grad	und.grad	total
+	f	0.32	0.16	0.48
+	m	0.12	0.40	0.52
+	total	0.44	0.56	1.00
+
+##
+L5
+##
+
+bias
+-----
+biased estamator tend on the low or high side
+they can fuck up your data but if you know the bias, you can account for it
+
+most people consier themselves above average, which is a contradiction to above average
+people are just biased towards themselves
+
+search engines can also be biased, same with AI etc.
+
+
+data summary and display
+------------------------
+n	 = sample size
+N	 = population size
+                                                                                                                        _
+if the observations in sample size n are x1, x2, ..., the sample mean (x) of the sample is:
+_
+x = (SUM(xn) / n)
+
+the convetion is to represent all datasets where n > 30 with 2 decimal places, and everything else with 1 decimal place
