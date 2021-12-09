@@ -128,7 +128,7 @@ raw data gives you nothing, you must apply yourself to it
 plotting data can help you find the location and shape of the data:
 below is a dot plot
 
-	             o      }-general shape
+	             o    }-general shape
 	      o     oo    }/
 	o    o   oooo o o      o                   o  <--- outlier (variability)
 	------------------------------------------
@@ -937,7 +937,235 @@ relative frequency is equivalent to probability
 
 law of large numbers
 --------------------
-the proportion of success will tend to approach the probability that any one outcome will be a success
-essentially meaning, if you run an experiment long enough, you could prove anything and thus, nothing
+the proportion of success will tend to approach the probability that any one outcome will be a success in INDEPENDENT trials
+essentially meaning, if you run an experiment long enough, you could prove anything and thus, nothing	
 
-	
+
+gamblers fallacy
+----------------
+basically, previous outcomes dont affect future outcomes in independent events
+ie. rolling 100 1's in a row doesnot change the probability of then rolling any given number
+
+
+experiment
+----------
+a process ehich can have one of several possible outcomes
+
+
+sample space
+------------
+a list of all possible outcomes in an experiment
+
+
+event
+-----
+is a subset of the sample space
+a collection of one or more points in the sample space and the null set denoted by PHI
+coin toss {h}{t}
+die roll {1,2,3}{6}{6,6}
+
+
+compliment
+----------
+the compliment of an even is all samplespace outside of the event
+event 		= A
+complement	= A' / NOT A
+
+
+venn diagram
+------------
+sample space is represented by a square with circles within it that represent events,
+within the events there are points in the sample space
+
+	INTERSECTION
+		C = A I B
+		C is only points in both A and B
+
+	UNION
+		C = A U B
+		C is points all points in A and B 
+
+
+mutually exclusive (MX)
+-----------------------
+A and B are mutually exclsive if, on a venn diagram, they have no overlap or [A cap B = PHI]
+
+
+postulates of probability
+=========================
+
+probabilities are positive real #s for any event A P(A)>=0
+
+every sample space has a probability P(S)=1
+
+P(PHI) = 0
+
+P(A) + P(A') = 1
+
+
+MX addition rule
+----------------
+
+if A and B are MX then P(A U B) = P(A) + P(B)
+	if k events are mutually exclusive then the the probability that 1 of them will occur is the sum of their individual P
+	P(A1 U A2 U ... U An) = P(A1) + P(A2) + ... + P(An)
+
+
+odds
+----
+if the probility of an event is P the odd for its occurence are A to B, where A and B are positive ints such that
+
+	a/b = p/(1-p)
+
+where p	= probability event will occur
+    1-p	= probability event will not occur
+
+
+GENERAL addition rule
+---------------------
+assuming A & B are not MX
+	P(A U B) = P(A) + P(B) - P(A I B)
+
+EXAMPLE
+
+pick one card that is red or a face card
+
+P(R) = 26/52
+P(F) = 12/52
+P(R I F) = 6/52 
+P(R U F)= P(R) + P(F) - P(R I F)
+        = 26/52+ 12/52- 6/52
+	= 0.615
+
+professor charles worked with henry II, goat major
+
+
+conditional probability
+-----------------------
+the probability of A, given B has already happened
+
+	P(A|B)
+
+the probability that A happens when we know that B has already happened
+
+can also be thought of as the the sample space is now B, and any part of A in B is an event within B: P(A|B)
+
+if P(B) /= 0 then:
+
+	P(A|B) = P(A I B) / P(B)
+
+EXAMPLE
+
+we pick one card, what is the P that the card is a queen, given if the card selected is known to be a face card
+
+P(F) 	= 12/52
+P(Q) 	= 4/52					      _
+P(Q|F) 	= P(Q I F)/P(F) = (4/52)/(12/52) = 4/12 = 0.333
+
+P(Q I F) is 4/52 because the only time a card can be a face and queen is if its a queen thus P(Q I F) = P(Q)
+
+
+independence
+------------
+if:
+	P(Q) = P(Q|R)
+
+then Q and R are independent
+thus meaning the occurence or non occurence of Q does not change the P that R will occur and visa versa.
+
+
+INDEPENDENT multiplication rule
+-------------------------------
+if events A and B are independent then:
+	P(A I B) = P(A)*P(B)
+
+
+GENERAL multiplication rule
+---------------------------
+P(A I B) = P(B)P(A|B) or P(A)P(B|A)
+
+
+Bayes' Theorum
+==============
+
+P(A|B) = [P(B|A)P(A)] / [(P(B|A)P(A)) + (P(B|A')P(A'))]
+
+when using Bayes' Law, if the question is P(A|B), one must be given P(B|A)
+
+
+Bayes' Law w/ tree diagram
+--------------------------
+			1000
+		            
+		   /	        \
+		  /		 \
+		0.995		0.005
+		|		  |
+
+		A'		  A
+
+	    /	 |		  |	\
+	   /     |                |      \
+	0.926	0.074		0.023	0.977
+	 /	   \		 /	   \
+       T'	    T		T'  	    T
+
+
+assuming A is having aids and T is testing positive for Aids
+
+5  (0.005) people tested positive who HAVE aids
+
+74 (0.074) people tested poditive who DONT have aids
+
+79 people test positive total
+
+thus:
+	the probability that someone has aids then tests positive for it 
+	[P(T|A)] is 5/79 = 6% of people who test positive actually have Aids
+
+
+success
+-------
+success refers to the occurence of an event which we are counting
+it is easier to count the success of the less likely thing when measuring 'success'
+
+EXAMPLE
+
+if we choose 3 people, what is the probability that AT LEAST ONE of them is left handed [P(L)=0.1, P(R)=0.9]
+would equal the compliment of the probability of choosing 3 right handed people:
+
+	P(x) probability that x people are left handed
+	P(0) 	= 0.9^3 	= 0.729
+	P(>=1) 	= 1 - 0.729 	= 0.271	= 27.1% chance of choosing at least 1 person whos left handed
+
+EXAMPLE
+
+if a person engages in unsafe seual activity with 100 people, what is the P that the person contracts a diseas atleast once
+
+	P(atleast 1 infection) = 1 - P(0 infections)
+	= 1 - 0.99^100
+	= 0.634
+	= 63.4%
+
+
+expectation
+-----------
+like from CISC203:
+
+	E(xn) = SUM(wn*xn)
+
+where xis probabilities with their respective w's
+
+
+relative risk
+-------------
+given P_control and P_treatment, which represent the probability of something happening without and with inducing it respectively
+
+relative_risk = P_treatment / P_control
+
+absolute risk
+-------------
+idk i guess its just absolute risk, no funny business
+
+
+WATCH FROM OCT.1 36:30
