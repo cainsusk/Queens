@@ -42,10 +42,6 @@ is a variable which has an important effect on the study which is not included a
 we assume alot of stuff without actually checking if its right;
 
 
-outliers
----------
-
-
 operational definition
 ---------------------------
 'what is average intelegence'
@@ -130,6 +126,7 @@ in stats we care about 3 properties of data:
 raw data gives you nothing, you must apply yourself to it
 
 plotting data can help you find the location and shape of the data:
+below is a dot plot
 
 	             o      }-general shape
 	      o     oo    }/
@@ -269,7 +266,7 @@ ordered bar diagram
 	+	+
 	+	+
 	+	+	+
-	-----------------------------------
+	------------------
 	1	2	3
 
 
@@ -294,7 +291,7 @@ pareto relationship
 --------------------
 a relationship where one or a small # of classes have the majority of the data / signal
 
-for example, 1.2% of watches are sold from switzerland, but 60% of the money made from selling watches is made in switzerland
+for example, 1.7% of watches are sold from switzerland, but 58% of the money made from selling watches is made in switzerland
 this is a pareto relationship
 
 
@@ -304,16 +301,30 @@ for example, count the number of undergraduate and graduate students, male and f
 thus a datapoint will be in 2 distingct classes (undergrad, male, etc.)
 ie.
 
+this is known as an R x C table (r by c)
+
 relative frequency of m/f, grad/undergrad students
 note: rel. freq. is equivalent to probability (P)
 		grad	und.grad	total
-	f	0.32	0.16	0.48
-	m	0.12	0.40	0.52
-	total	0.44	0.56	1.00
+	f	0.32	0.16		0.48
+	m	0.12	0.40		0.52
+
+	total	0.44	0.56		1.00
+
+everything in the total row and column are known as marginal probabilities
+everything else is known as joint probabilities
+
+
+pie charts
+----------
+bad:
+use bar charts
+
 
 ##
 L5
 ##
+
 
 bias
 -----
@@ -327,12 +338,606 @@ search engines can also be biased, same with AI etc.
 
 
 data summary and display
-------------------------
+========================
 n	 = sample size
 N	 = population size
-                                                                                                                        _
-if the observations in sample size n are x1, x2, ..., the sample mean (x) of the sample is:
-_
-x = (SUM(xn) / n)
+                             
+sample mean
+-----------                                          	  _                                                       _
+if the observations in sample size n are x1, x2, ..., xn the sample mean (x, x bar) of the sample is:
+	_
+	x = (SUM(xn) / n)
 
-the convetion is to represent all datasets where n > 30 with 2 decimal places, and everything else with 1 decimal place
+the convetion is to represent all datasets where n > 30 with 2 decimal places, 
+and everything else with 1 decimal place
+people will snigger if you dont do this
+
+		sample mean 
+		  |
+	          |   o      
+	      o   | oo    
+	o    o   oooo o o      o                 o  
+	------------------------------------------
+	1	2	3	4	5	6
+
+the sample mean can be seen as the balance point or centre of gravity of the data values
+
+
+finding the mean of population containing N elements
+----------------------------------------------------
+
+MU = SUM(xN) / N
+	    _
+both MU and x are arithmatic means, meaning they are averages (SUM(elem) / NUM_ELEM)
+
+
+important jargon
+-----------------
+
+STATISTIC
+	a characteristic of a sample is called a statistic (x bar is a stat)
+	what we know
+
+PARAMETER
+	a parameter is a charachteristic of a population (MU is a parameter)
+	what we want to know
+
+MEAN
+	refers to arithmatic mean (sample and popultion mean, etc.)
+
+POPULATION
+	the complete set of all datapoints, real and hypothetical
+
+SAMPLE
+	a portion of a populaton
+
+MEAN
+----
+is very reliable but outliers can cause the mean to do some not very average things.
+they can cause the mean to be unrepresentative of the overall data
+
+you can rectify this by presenting the mean w/ or w/out the outliers
+
+although most of the time, the mean or 'average' of smething doesnt actually exist in the wild
+
+CALCULATOR - enter_data
+	mode;
+	3;
+	1;
+	enter in datapoints to x column;
+	AC;
+
+CALCULATOR - find_mean
+	shift;
+	1;
+	4;
+	2; - options for formulas to do with data from {enter_data}
+	=;
+
+CALCULATOR - look_data
+	shift;
+	1;
+	2;
+	if wanna_clear:
+		shift;
+		1; - options for what to do with data
+		3;
+		2;
+
+
+weighted mean
+-------------
+the mean calculated with ech elem (x) having a weight (w)
+	_
+	x_w = SUM(w*x) / SUM(w) 
+
+we can do this with a freq, distrubution by using the bins as (x) and the number of elem in the bins (w)
+
+CALCULATOR - enter_weighted_data
+	if freq_column_off:
+		shift;
+		setup;
+		d-pad down;
+		4; - STAT
+		ON;
+	{enter_data}
+
+
+grand mean of combined data
+---------------------------
+to find the grand mean of combined data we just find the weighted mean of all the data with the weights being the sample size and (x) being the means from each of the samples
+		_		 _
+	s	x	n	nx
+	1	2.32	13	30.55
+	2	2.15	21	52.71
+	3	2.29	16	36.64
+	total		50	119.9
+
+
+	=
+	x (x bar bar) = 119.9 / 50 = 2.398
+
+this can be dont with {find_mean} and {enter_weighted_data}
+
+
+MEDIAN
+------
+to find the median you mist first order the data from smalles to largest
+
+the median is the value of the middle number 	when n is odd, 
+and the mean of the 2 middle numbers 		when n is even
+
+the index of the median is:
+	i_median = (n+1)/2
+
+sorted vals	1 3 5 23 77
+i_median	1 2 3 4  5
+
+the most common symbol for the sample median is:
+	~
+	x (x tilde)
+
+
+the median is better at estimating the representative average of SKEWED data, which mean is bad at it.
+
+the median is much more stable
+
+
+fractile
+--------
+dividing data into n-tile parts.
+the median is a fractile, it splits data in half (2 parts)
+
+just like the median there is no formula for the fractile, 
+but if the data is ordered, there is a formula for finding the index value of the fractile
+
+	covert the fractile youre consudering into the equiv. percentile
+	to find the index of the Pth percetile use the formula:
+
+		i_pthPercentile = (p*(n + 1) / 100)
+
+	for reference, if we were trying to find the median, p=50
+
+	once we have the index (i),
+	if the i is an integer		then the fractile is at index i
+	if the i is a x+float		then the fractile = (data[x] + (float*(data[x+1] - data[x]))
+
+EXAMPLE - finding Q1
+
+	i_25percentile = (25*(n + 1) / 100) = i + float
+
+	25percentile   = data[x] + float(data[x+1] - data[x]) 
+	
+		       = 30.5
+
+
+EXAMPLE - finding IQR
+
+	IQR = Q3 - Q1
+
+	(measure of variability)
+
+	Q3 = i_75percentile = x+float
+
+	75percentile = data[x] + float*(data[x+1] - data[x]) 
+
+	IQR = Q3 - Q1
+
+
+5 number summary
+----------------
+	min
+	Q1
+	median
+	Q3
+	max
+
+
+box & whiskers diagram
+---------------------
+the box plot is used to display the 5 num summary
+
+	      median
+		|
+	min Q1  |  Q3   max   outlier
+	|   |   |  |     |      |
+	----[===|==]------      x
+	=========================
+	1	2	3	4
+            ^^^^^^^^
+	       IQR
+        ^^^^^^^^^^^^^^^
+	     range
+
+anything greater than 1.5*IQR is defined in a boxplot as an outlier.
+the smallest value not an oulier is the min and vice versa for max
+
+very useful for comparing the location, variability, and shape of datasets
+
+to create a boxplot:
+	calculate 5 num summary
+	construct uniform scale
+	construct box from Q1-Q3 and indicate median
+	chaeck for presence of outliers using IQR
+	locate ouliers, if present, and draw whiskers to the ost extreme dta values which are not outliers
+
+
+MODE
+----
+the mode or modal value of a dataset is the most frequently occuring value in said dataset
+
+not all datasets have a mode, and some have more than one
+
+the mode is esspecially useful with categorical data
+
+	[
+	[		[
+	[		[
+	[		[
+	[	[	[
+	[	[	[
+	-----------------
+	A	B	O
+
+this plot is bimodal
+
+
+shapes of distrubution
+----------------------
+symmetrial
+	self explanatory
+normal
+	symmetric and mound shaped
+bimodal
+	distrubution in 2 modes
+skewed 
+	asymmetric distrubution pulled to one direction
+	negative skew - right skew
+	positive skew - left  skew
+
+we can use a boxplot to infer the shape of distrubution 
+
+
+kurtosis
+--------
+the measure of how normal a 'mound shape' / curve is
+
+
+grouped data
+============
+classe are the same in grouped data as they are in freq. distrubutions,
+accept they are defined as a range rather than starting digits
+
+class limits
+------------
+class limits are the endpoints of our classes:
+
+	bins		freq.
+	00 - 24		x
+	25 - 49		y
+	50 - 74		z
+	75 - 99		w
+
+
+class boundaries 
+----------------
+given the limits above, the boundaries would be:
+
+	00.5 - 24.5
+	25.5 - 49.5
+	50.5 - 74.5
+	75.5 - 99.5
+
+because class boundries ALWAYS end with the digit 5 and always have 1 more place to the decimal than the data
+in our example, the class limits and data are to 0 places of the decimal 
+
+
+class mark
+----------
+the midpoint of each class
+
+	if C is a class and lM and lm were the max and min of C, then midpoint M = lM - lm
+
+
+finding approx. median of grouped data
+--------------------------------------
+	class		class mark	freq	cum.freq
+
+	00.0 - 24.9	12.45		5	5
+	25.0 - 49.9	37.45		13	18
+	50.0 - 74.9	62.45		16	34
+	75.0 - 99.9	87.45		8	42
+	100.0-124.9	112.45		6	48
+
+total					48
+
+	i_median = (48+1)/2 = 24.5
+
+using i_median we can determine that the median is in 50.0-74.9 because,
+
+	18 < i_median < 34 
+
+thus it is in bin 3 if counting from 1
+
+thus the formula is:
+	_	
+	x ~= L + (j/f)*c
+
+
+	L: lower BOUNDARY of the class i_median falls into 
+	f: frequency of said class
+	c: class interval of said class (the difference between the lower bound of said bin minus the lower bound of the bin prior)
+	j: i_median minus cum.freq of bin prior to said bin
+
+
+so to find the 80th percentile of the data:
+	i_80percentile 	= 39.2
+	L 		= 74.9
+	f		= 8
+	j		= 39.2-34 = 5.2
+	c		= 25.0
+		       _
+	80percentile / x ~= 74.9 + (5.2/8)*25 = 91.2
+
+
+range
+-----
+the range of a dataset is the (max - min)
+
+
+deviation
+---------     	 _
+deviation = xi - x
+
+for deviation and vaiance, use 3 significant digits
+
+
+sample variance
+---------------	     _
+	s^2 = SUM(xi-x)^2 / (n-1)
+is the sample variance
+
+STANDARD DEVIATION is +sqrt(s^2) = s
+
+the sum of all std deviations of a sataset always = 0
+
+for deviation and vaiance, use 3 significant digits
+
+CALCULATOR - find_std_devition
+	shift;
+	mode;
+	3;
+	1;
+	enter data into x column;
+	if freq_column_on:
+		fill the column w/ 1s;
+	AC;
+
+	shift;
+	1;
+	4;
+	4;
+	=;
+
+	if want_standard_variance
+		ans^2;
+		=;
+
+
+population variance
+-------------------
+the population vairance of a population of size N is:
+	
+	SIGMA^2 = SUM(xi - MU)^2 / N
+
+reminder: MU = population mean
+
+sqrt(SIGMA^2) = SIGMA = population deviation
+	
+
+chebyshevs theorum
+------------------
+for any dataset and any constant k < 1, the proportion of the data that must lie within k standard deviations AT least.
+
+	1 - (1/k^2)
+	
+sya we are given data where mean=20, std.dev=2, what can we say about the data that falls between 16 and 20
+
+	    6        6
+	<-------||------->
+	==================
+	14	20	26
+
+6 = 3 * std.deviation, therefore k = 3
+
+and thus, the proportion of data that falls between 16 & 20 is:
+
+	1 - (1/3^2) = 1-(1/9) = 9/8
+
+therefore at lest 8/9 / 88.9% of the data falls between 14 and 26
+
+
+empirical rule
+--------------
+for any MOUND-SHAPE data set
+
+	approx. 68.0% of data falls within 1 std. deviation of the mean
+
+	approx. 95.0% of data falls within 2 std. deviatons of the mean
+
+	approx. 99.7% of data falls within 3 std. deviatons of the mean
+
+to use the rule, find what std.dev is and then 1=68, 2=95, 3=99.7 is the percentage of values which are within [1,2,3] std.deviation
+
+
+Z-score
+-------
+the distance that a value deviates from the mean in terms of units of standard deviation
+
+sample		 _
+	z = (x - x) / s
+
+population
+	x = (x - MU) / SIGMA
+
+the distrubution of Z scores is the same as that of the raw data
+the also have the same shape as the raw data
+Z-scores allow you to compare scores from different distrubutions
+
+EXAMPLE
+what is the Z-score of an IQ of 125
+uses population because we are dealing w all IQ ever, mean of IQ = 100, std.dev = 15)
+
+	Z = (x - MU) / SIGMA = (125-100)/15 = 1.67
+
+
+OUTLIER
+=======
+a value with a |Z-score| > 3 is considered to be an outlier
+
+
+coefficient of variation
+------------------------
+sample            _
+	CV = (s / x)*(100%)
+
+population
+	CV = (SIGMA / MU)*(100%)
+
+EXAMPLE - c.std.dev = 1.22, i.std.dev = 23.88
+
+	c.CV = (1.22/12.2)*(100%) 	= 10%
+	i.CV = (23.88/408.44)*(100%)	= 5.8%
+
+therefore, despite what the std.dev showed, c has more variation than i
+
+
+finding variance, std.dev of grouped data
+------------------------------------------------
+CALCULATOR - find _std_dev_grouped
+	{find_std_deviation}
+
+
+pearson coefficient of skewness
+===============================
+in general SK will fall between -3 and +3
+
+	SK = 3(mean - median) / std.dev
+
+if the data is symmetric, SK = 0
+
+remember: kurtosis tells us what kind of mound shaped curve we have 
+the pearson skewness coefficient tells us which way the curve is skewed if its NOT mound shaped
+
+EAXMPLE
+
+	x	f	cum.f
+
+	5	3	3
+	7	2	5
+	9	2	7
+	14	1	8
+	SUM	8
+
+
+i_median = 0.5(n+1) = 0.5(9) = 4.5
+_
+x   = 7.625	-mean
+
+s   = 3.068	-std.deviation
+~
+x   = 7		-median because (cum.f) 3 < i_index < 5
+       _ ~
+SK = 3(x-x)/s = 3(7.625-7)/3.068 = 0.0611
+SK = 0.0611 is a positive skew (left skew)
+
+
+######################
+inferential statistics
+######################
+
+multiplication rule
+-------------------
+if we  have 2 choices (m,n options) in a row that affet eachother, then the number of ways they can be done is m*n ways
+
+you can choose a pen or pencil which is red, blue, or green, thus there are 2*3 = 6 ways to make these choices
+
+
+permutations
+------------
+the number of r objects being selected from a set of n distinct objects
+cares about the order in which they are chosen ie: 1,2 /= 2,1
+
+	n_P_r
+
+permuting r objects out of n objects
+
+EXAMPLE
+
+choose 4 students from 80 to be pres., vice.pres., sec., tresurer, , the order matters
+
+	80_P_4 = 37957920
+
+CALCULATOR - permutation
+	enter n;
+	shift;
+	times;
+	enter r;
+	=;
+
+combinations
+------------
+the number of r objects being selected from a set of distingct objects n
+combinations do NOT care about the order which they are chosen ie: 1,2 = 2,1
+'combination' of elements, implies that ordering doesnt matter
+
+	n_C_r
+
+	(n->r)
+
+CALCULATOR - combination
+	enter n;
+	shift;
+	divided;
+	enter r;
+	=;
+
+
+classical probability
+---------------------
+	P(S) = S/n 
+if n is the number of possibilities
+and S is a possibility
+
+EAMPLE
+
+there are 5 men and 8 women
+
+if a group of 4 is chosen out of this group,
+what is the P(2 are women, 2 are men)
+
+5_C_2	8_C_2
+=10	=28
+
+10*28 = 280 # of ways we can choose 2 men & 2 women
+
+thus the probability of this occuring is:
+
+	
+	P(280) = 280/(13_C_4) = 0.392
+
+this is whats known as a HYPERGEOMETRIC distrubution whith the 3 C functions:
+	P = (5_C_2)*(8_C_2)/(13_C_4)
+
+
+relative frequecy in terms of probability
+-----------------------------------------
+relative frequency is equivalent to probability
+
+
+law of large numbers
+--------------------
+the proportion of success will tend to approach the probability that any one outcome will be a success
+essentially meaning, if you run an experiment long enough, you could prove anything and thus, nothing
+
+	
