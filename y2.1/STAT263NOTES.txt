@@ -1165,7 +1165,349 @@ relative_risk = P_treatment / P_control
 
 absolute risk
 -------------
-idk i guess its just absolute risk, no funny business
+idk i guess its just risk, no funny business
 
 
-WATCH FROM OCT.1 36:30
+dicrete random variables
+------------------------
+variables that can only take on certain values
+
+a variable that is determined by the outcome of a random experiment
+
+a discrete random variable assumes a finite number of values or a countable infinity
+
+EXAMPLE
+	the number of people in a room (cannot be a float, must be int)
+
+	the nunber of 5's rolled after rolling a die 20 times (must be an int, can only be <=20)
+
+to remember:
+	when COUNTING, use a DISCRETE random variable
+
+continuious random variables
+----------------------------
+areise when we deal with quantities measured on a continuious scale
+
+EXAMPLE
+	height
+
+	amnt of alcohol in someones blood
+
+to remember:
+	when MEASURING, use CONTINUIOUS ramdom variable
+
+
+probability distrubutions
+-------------------------
+suppose we did a survey of 2000 families about car ownership
+
+	# cars	f	relative.f
+	x		P(x)
+	0	30	0.015
+	1	470	0.235
+	2	850	0.425
+	3	490	0.245
+	4	160	0.08
+
+	SUM	2000	1
+
+the relative frequency must sum to be 1 as they are probabilities
+
+
+random variables
+-----------------
+X is a random variable, it is used to to count or measure events that occur
+
+
+binomial distrubution
+=====================
+the probability of getting x successes in n independent trials is:
+
+	P(X=x)
+
+where we are given [n=samplesize], [x=target], [p=P(x)]
+
+the binomial distrubution is discrete
+
+discrete probability distrubutions are thought of as theoretical populations and should be treated as a population when finding std.dev etc.
+
+
+probaility density function
+---------------------------
+
+CALCULATOR - binomial_pd
+	{enter_weighted_data}
+	shift;
+	mode;
+	dpad down;
+	3;
+	4;
+	2;
+	=;
+
+
+cumulative distrubution function
+--------------------------------
+	P(X <= x)
+
+but this also works for any (X<x, X>x, X>=x)
+
+CALCULATOR - binomial_cd
+	{enter_weighted_data}
+	shift;
+	mode;
+	dpad down;
+	3;
+	dpad down;
+	1;
+	2;
+	=;
+
+EXAMPLES
+
+	x	P(X <= x)
+	0	0.0000
+	1	0.0009
+	2	0.0071
+	3	0.0356
+	4	0.1205
+	5	0.2939
+	6	0.5400	
+	7	0.7794
+	8	0.9323
+	9	0.9902
+	10	1.0000
+
+P(X>6):
+
+we can now use the cum.dist function to find the P that x > 6
+	P(X>6) = 1 - P(X <= ?)		the 1 is the probability that x <= 10, which is certain
+
+using a katie-mcdoanald diagram:
+		    ->
+	1 2 3 4 5 6 | 7 8 9 10
+		    ->
+we can see that we want X to equal the values 7,8,9,10
+
+thus, if 1 is the total P and P(X<=6) is the probability of choosing a number 6 or less,
+therefore:
+	
+	P(X > 6) = 1 - P(X <= 6)
+
+and thus we have used P(X<=x) to solve P(X>x)
+
+P(X>=4):
+
+using the kaie-mcdoanald diagran
+	      ->
+	1 2 3 | 4 5 6 7 8 9 10
+	      ->
+we can see that we must subtract P(X >= 3) from 1, 
+thus,
+	P(X>=4) = 1 - P(X >= 3)
+	        = 1 - 0.0356
+
+P(4<X<8):
+
+diagram:	->     <-
+	1 2 3 4 | 5 6 7 | 8 9 10
+		->     <-
+because were dealing with 2 bounds instaed of 1 we subtract the upper bound from the lower bound rather than 1 (upperbound) minus lower bound.
+thus,
+	P(4 < X < 8) = P(X<=7) - P(X<=4)
+		     = 0.7794  - 0.1205
+
+P(2<=X<6):
+
+diagram:  ->       <-
+	1 | 2 3 4 5 | 6 7 8 9 10
+	  ->       <-
+
+thus:
+	P(2 <= X < 6) = P(X<=5) - P(X<=1)
+
+
+hypergeometric distrubutuion
+============================
+if n objects are to be selected WITHOUT REPLACEMENT from a set of a objects of one kind (SUCCESS), and b objects of another kind (FAILURE).
+the probability of observing x successes is:
+
+	P(X=x) = f(x) = ((a_C_x)(b_C_[n-x]))/[a+b]_C_n
+
+there are many situations which are hypergeometric but we can (and will) treat as binomial 
+	if and only if n < (a+b)*0.05
+
+for example, if we were ot take the propability of choosing 10 queens students at random that 5 would be men and 5 be women 
+	a=2766	b=1891	a+b=4657	n=10	x=5
+here we can see that n, the sample is < 5% of a+b, meaning that we can do a binomial distrubution rather than hypergeometric
+	hypergeometric solution - 0.206
+	binomial       solution - 0.206
+
+EXAMPLE
+
+if 5 people are chosen out of 10 women and 18 men, what is the probability that the group consists of 2 women and 3 men
+
+we will consider [women = SUCCESS] and [men = FAILURE] as there are less women to count if true then men
+
+n=5	a=10	b=18	a+b=28	x=2	n-x=3
+
+	P(X=x) = f(x)	= (10_C_2)(18_C_3)/(28_C_5)
+			= 0.374
+
+
+poisson distrubution
+====================
+where LAMBDA is the expected or mean number of occurences in a given interval, and x is the number of successes observed
+is DISCRETE like binomial distrubution
+
+	P(X=x) = (e^[-LAMDBA] * LAMBDA^x) / x!
+
+in a binomian situation with n large and p small, the shape of the distrubution approaches the equivakent poisson distrubution.
+thus, if:
+	n >= 100 and np < 10
+	
+	P(X=x) ~= f(x) = (e^[-np] * np^x) / x!
+
+where np = n*p from the binomial distrubution
+
+CALCULATOR - poisson_distribution
+	shift;
+	mode;
+	dpad down;
+	3;
+	dpad down;
+	if poission_pd [P(X=x)]:
+		2;
+	if poission_cd [P(X<=x)]:
+		3;
+
+EXAMPLE
+
+if one is expecting 3 calls in an hour, what is the probability of observing exactly 4 calls in an hour
+
+	LAMBDA = 3 (per hour)
+	x      = 4 (in an hour)
+
+	P(X=4) = (e^-3 * 3^4) / 4!
+	P(X=4) = 0.168
+
+
+expected value of probability distrubution
+------------------------------------------
+we use MU because we consider the probability distrubution to be a population from which we are sampling when we observe a random variable:
+	MU = E(x) = SUM(x * f(x))
+where f(x) is the probility of x
+
+EXAMPLE
+
+let X be the number of bits recieved in error whin the next 4 bits transmitted
+thus the possible values of X are [0,1,2,3,4]. suppose the P(X) are:
+	0:	0.6561
+	1:	0.2916
+	2:	0.0486
+	3:	0.0036
+	4:	0.0001
+find the expected number of bits recieved in error
+	MU = E(X) = SUM(x*f(x))
+	     E(X) = 0*f(0)+...+4*f(4)
+	     E(X) = 0.400
+
+
+variance and standard deviation of discrete probability distribution
+--------------------------------------------------------------------
+variance
+	SIGMA^2 = SUM((x - MU) * f(x))
+
+std.dev
+	SIGMA   = sqrt(SIGMA^2)
+
+
+mean and variance of binomial distrubution
+------------------------------------------
+mean
+	MU = n*p
+variance
+	SIGMA^2 = n*p(1-p)
+
+
+
+normal distrubution
+===================
+a syymetrical mound shaped 'normal' distrubution
+
+a normal distrubution has 2 PARAMETERS (cause is pseudo population)
+	MU 	= mean
+	SIMA	= std.dev	(variance = SIGMA^2)
+
+furthermore:
+	X ~ N(MU, SIGMA^2)
+means that X is a normal distrubution with MU and SIGMA as mean & std.dev
+
+thus if we have X~N(0, 1), and we added 1 to the mean [0+1=1, N(1, 1)] it would transpose the distrubution 1 unit to the right
+similarly, changing the variance will change the height and width proportionally 
+
+a joke:
+	when i moved from BC to Ontario i raised the avg. IQ of both provinces
+
+
+CALCULATOR - normal_cd
+	shift;
+	mode;
+	dpad down;
+	3;
+	2;
+	enter CD lower bound;	- if no lower bound specified for CD, = lower bound of dataset  
+	enter CD upper bound;
+	enter SIGMA;
+	enter MU;
+
+the normal density function
+---------------------------
+
+	f(x) = (1 / (SIGMA*sqrt(2*pi))) * e^[(-1/2)*((x-MU)/SIGMA)^2]
+
+
+the normal distrbution function
+-------------------------------
+
+	P(x1<=x2) = 1 / sqrt(2*pi*SIGMA) * INTEGRAL^[x2]_[-infty](e^[-(x2-MU)^2 / 2*SIMA^2] * dx1)
+
+
+standardization formula
+-----------------------
+after calculating:
+	z = (x - MU) / SIGMA
+
+if X is normally distrubuted then:
+	f(z) = (1 / sqrt(2*pi)) * e^[-(z^2 / 2)]
+is always true
+
+the Z-curve is created using the above equation as a function
+
+
+iverse normal
+-------------
+Z_a is the value of Z minus the area past a
+		[
+	    [	[   [
+	[   [	[   [	[
+	-----------------
+	0.5	1	0.5
+
+if [a=0.25] then Z_0.25 is:
+
+		[
+	    [	[   [ |
+	[   [	[   [ |
+	--------------|
+	0.5	1     |
+
+CALCULATOR - inverse_normal
+	shift;
+	mode;
+	dpad down;
+	3;
+	3;
+	enter area;	- equals [1-a]
+	enter SIGMA;
+	enter MU;
