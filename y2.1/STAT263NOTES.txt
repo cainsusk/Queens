@@ -408,7 +408,7 @@ CALCULATOR - enter_data
 	AC;
 
 CALCULATOR - find_mean
-	shift;
+	mode;
 	1;
 	4;
 	2; - options for formulas to do with data from {enter_data}
@@ -1485,8 +1485,8 @@ is always true
 the Z-curve is created using the above equation as a function
 
 
-iverse normal
--------------
+inverse normal
+--------------
 Z_a is the value of Z minus the area past a
 		[
 	    [	[   [
@@ -1511,3 +1511,634 @@ CALCULATOR - inverse_normal
 	enter area;	- equals [1-a]
 	enter SIGMA;
 	enter MU;
+
+
+normal approximation of binomial
+================================
+given a binomial (always discrete):
+	n=50	p=0.10	MU=np=5	SIGMA=sqrt(np(1-p))=2.12
+
+we can approximate the normal curve using these MU and SIGMA like
+	X~N(MU, SIGMA^2)
+
+if we were to just say:
+	P(X_d < 2) ~= P(X_c < 2)
+it would be close but not quite:
+
+
+corrction for continuity
+------------------------
+correct for continuity we basically add or subtract 0.5 to x to make [X_c<=x] closer to [X_d<=x] 
+thus,
+	P(X_d < 2) ~= P(X_c < 2.5)
+
+
+###################################
+sampling and sampling distrubutions
+###################################
+
+
+samples from groups
+-------------------
+there is some group we are interested in:
+	families in canada
+	ducks in norway
+	santa-clause impersonators in russia
+	Soap from the ganonoque soap factory
+
+we are interested in a random variable regarding this population:
+	INCOME OF FAMILIES IN CANADA
+	INCOME OF DUCKS IN NORWAY
+	WEIGHT OF SANTA CLAUSES IN RUSSIA
+	HEIGHT OF SOAP FROM GANONOQUE
+
+all the information regarding a quantity in a group is contained in its distrubution function
+although real world distribution functions are particularly complicated
+in real life we know nothing of the distribution functions of the variables we are interested in
+
+because of this we tend to focus on certain aspects of the dist.func:
+	MEAN income
+	MEAN income
+	RATE of obesity
+	PERCENT of soap in canada
+
+
+estimation of means
+-------------------
+	    _
+when we use x as an estimator of MU, the probability is (1-a)*100% that the estimate will be off by AT MOST:
+	E = z_[a/2] * (SIGMA / sqrt(n))
+
+we use this if the poulation os normally distributed or if we have a sample >= 30 
+	in which case, s estimates SIGMA
+							     _
+using the value E, we can say with 99% confidence that [MU = x +- E]
+	    _	       _   
+	OR [x-E < MU < x+E]
+which thus gives us our confidence interval for that value of MU
+
+
+CONFIDENCE INTERVAL small sample
+================================
+that is, when [n < 30]
+
+
+the t distribution
+------------------
+if we have reason to believe that the population were sampling is normally distrubuted (or at least mound shaped),
+we can approximate it with the t.dist
+the x axis is values of a/2
+the y axis is values of degrees of freedom	- degrees of freedom (d.f) = [n-1] 
+
+the table will be on the exam
+
+the last row of the table are the z values for 
+
+EXAMPLE
+
+given sample:
+	14.26, 16.78, 13.65, 11.53, 11.56, 12.64, 13.37, 15.60, 14.94
+
+we know that:
+	n = 8
+	a = 1-0.95 = 0.05
+we can calculate:
+	_
+	x = 14.096	-mean
+	s = 1.675	-std.dev
+	df= 7		-degrees of freedom
+
+thus, t_[x,y] is:
+	t_[a\2, df]
+	t_[7, 0.025] = 2.365	(from table)
+
+
+CHI^2 distribution
+------------------
+pretty much th same as t.dist accept w/ different table
+
+the confidence interval for CHI^2 is:
+
+	((n-1)s^2)/(CHI^2_[a/2]) < SIGMA^2 < ((n-1)s^2)/(CHI^2_[1-(a/2)])
+
+EXAMPLE
+
+from earlier:
+	14.26, 16.78, 13.65, 11.53, 11.56, 12.64, 13.37, 15.60, 14.94
+	n=8
+	s=1.675
+
+we can then calculate:
+	df	= 7
+	a 	= 0.05
+	a/2	= 0.025
+	1 - a/2	= 0.975
+
+thus we must find on the table:
+	CHI_[df, a/2]	=16.013	(1)
+	CHI_[df, 1-a/2]	=1.690	(2)
+
+now, to find the confidence interval using the above formula:
+	((7)(1.675)^2)/(16.013) < SIGMA^2 < ((7)(1.675)^2)/(1.690)
+
+	1.226 < SIGMA^2 < 11.621
+	with ((1-0.05)*100)% confidence
+	with 95%	     confidence
+
+	1.107 < SIGMA < 3.409 
+
+
+CONFIDENCE INTERVAL large sample
+================================
+that is, when [n >= 30]
+
+the formula for SIGMA in a large sample is:
+	SIGMA = 1 +- (s / (1 + Z_[a/2]))	note Z_[x] = t_[x, bottom]
+
+with ((1-a)*100)% confidence
+
+note, we are assuming the underlying population is normally distributed
+
+EXAMPLE
+
+
+estimation of proportions
+=========================
+p = POPULATION proportion
+
+^
+p = SAMPLE proportion
+
+	^
+	p = x / n	(p cap)
+
+where x is the number of successes in n independent trials
+
+furthermore, as long as [np, n(1-p) >= 5]
+
+	    ^			  ^      ^
+	p = p +- (Z_[a/2] * sqrt((p*(1 - p)) / n))
+
+with ((1-a)*100)% confidence
+
+
+finding sample size
+-------------------
+when in estimation of proportion situations one may want to find the samle size of the data were dealing with
+
+	    ^   ^
+	p = p(1-p) * (Z_[a/2] / E)^2
+
+EXAMPLE
+
+given:
+136 successes proportional to 400 trials
+	^
+	p 	= 136/400 = 0.34
+	Z_[a/2]	= 1.96
+	E 	= 0.02
+
+
+what is p?
+	p = 0.34(1-0.34) * (1.96 / 0.02)^2
+	p = 2155.13
+
+
+#####################################
+hypothesis tests: INDEPENDENT SAMPLES
+#####################################
+
+
+summary tables
+--------------
+if we have a situation where one tells another that a coin flipped heads or tails, one must guess if they are lying or not.
+we can represent this as a summary table
+
+	 |	choose T	choose F
+	-|------------------------------
+	T|	correct		ERROR
+	F|	ERROR		correct
+
+
+hypothesis testing
+==================
+is an assertion or conjecture about a parameter(s) of a populaton(s)
+
+
+the null hypothesis
+-------------------
+the null hypothesis is what we assume to be true BEFORE we do analysis
+	H_0
+the nul.hyp is the hypothesis of no difference or change
+
+never use the phrase 'accept null hypothesis,' instead use 'fail to reject null hypothesis'
+
+
+the alternative hypothesis
+--------------------------
+often reffered to as the research hypothesis
+the alt.hyp is formulated with the nul.hyp
+the alt.hyp is accepted when the nul.hyp is rejected
+we write the alt.hyp in 1 of 3 ways:
+	H_A: MU /= MU_0
+	H_A: MU >  MU_0
+	H_A: MU <  MU_0
+
+
+examples
+--------
+H_0:	defendant is innocent
+H_A:	defendant is guilty
+the defendant is presumed inocent until proved guilty
+
+
+test for mean SMALL SAMPLE - TEST
+--------------------------
+if [n < 30]
+given H_0: MU = MU
+use:	      _
+	SIGMA_x = SIGMA / sqrt(n)
+
+EXAMLES
+
+H_0:	MU  = 0.38
+H_A:	MU /= 0.38	_
+n=40	SIGMA=0.08	x crit values: 0.36, 0.40
+	      _
+	SIGMA_x = SIGMA / sqrt(n)
+		= 0.08  /sqrt(40)
+	       ~= 0.01265
+
+
+H_0:	MU  = 0.38
+H_A:	MU /= 0.38	_
+n=40	SIGMA=0.08	x crit values: 0.36, 0.40
+
+
+test for means LARGE SAMPLE - TEST
+---------------------------
+as long as [n >= 30]
+given H_0: MU = MU
+use:	     _
+	z = (x - MU) / (s/sqrt(n))
+
+
+hypothesis testing summary table
+================================
+
+		accept H_0		reject H_0	
+	------------------------------------------
+	H_0:T	correct			type 1 error, P=a
+	H_0:F	type 2 error, P=b	correct
+
+
+		accept H_0		reject H_0	
+	------------------------------------------
+	H_0:T	T negative		F positive
+	H_0:F	F negative		T positive
+
+
+type 1 error
+------------
+when we reject the nul.hyp but it is true
+
+
+type 2 error
+------------
+when we accept the nul.hyp but it is false
+
+
+power / sesitivity
+------------------
+is the P of correctly accepting the nul.hyp
+	the SENSITIVITY of a hypothesis test is (1-b)
+
+
+specificity
+-----------
+is the P of correctly accepting the alt.hyp
+	the SPECIFICITY of a hypothesis test is (1-a)
+
+
+diagram
+-------
+use a diagram to see what were talking about
+
+	    /----------------\
+	---/		      \---		(normal dist)
+      /				  \		
+ ----/				   \----
+/---------------------------------------\
+1	2	3	4	5	6
+
+
+	    /----------------\
+	---/		      \-|-		(H_A: MU > MU_0)
+      /				| \		
+ ----/				|  \----
+/-------------------------------|-------\
+1	2	3	4	Z_a	6
+
+
+	    /----------------\
+	|--/		      \---		(H_A: MU < MU_0)
+      /	|			  \		
+ ----/	|			   \----
+/-------|-------------------------------\
+1	-Z_a	3	4	5	6
+
+
+	    /----------------\
+	|--/		      \-|-		(H_A: MU /= MU_0)
+      /	|			| \		
+ ----/	|			|  \----
+/-------|-----------------------|-------\
+1	-Z_a	3	4	Z_a	6
+
+the tails enclosed by the lines are the area in which we reject the nul.hyp
+
+
+level of significance
+---------------------
+is the P of making a type 1 error which is acceptable by the experimenter
+the P which is acceptable must be determined BEFORE examining the data
+
+the academic default is 5% but is not suitable for real world applications
+
+we compare this value to the p value to see if the value is significant
+
+EXAMPLE
+																	     _
+the mean of a pop. is thought to be 45.6 but we believe the mean may be larger. taking a rand. sample of [n=42] we observe a sample mean of [x=46.2] w a sample standard deviation [s=4.15]
+is there evidence within 5% significance that we are correct?
+
+because [n>30] we can use the t table to find the Z values
+	t_[0.05, bottom] = 1.645
+
+H_0: MU = 45.6
+H_A: MU > 45.6
+
+using the equation for z-test from |test for mean LARGE SAMPLE|:
+	     _
+	z = (x - MU) / (s/sqrt(n))
+	z = (46.2 - 45.6) / (4.15/sqrt(42))
+	z = 0.86
+
+thus we do not have evidence at 5% level of significance that MU > 45.6 because 
+
+
+p-value
+=======
+the p-value of a hypothesis test  corresponds to the lowest level of significance for which the null hypothsis would have been rejected
+
+the p-val is the exact level of significance at which your decision would change
+
+the p-val can be found once we have the z value (like from the example before)
+
+EXAMPLE  _
+[n=42]	[x=46.2]  [s=4.15]  [z=0.86]  [a=0.05]
+
+the p-val is the area of the tail enclosed by z:
+
+		    /----------------\
+	       /---/		      \-|\		
+	      /				| \		
+	 ----/				|  \----
+	/-------------------------------|-------\
+	1	2	3	4	Z_0.86	6
+
+thus the area is:
+	P(Z > 0.86) = 0.1949
+
+
+low p-val
+---------
+'when the p is low, reject the H_0'
+
+
+finding b
+=========
+draw the Z curve for the hyp test and indicate the 0 and crit.values 
+	_
+add the x scale below the Z scale and locate the hypothsized value of MU below the 0 on the Z scale
+
+find the Z value that corresponds to the NEW value of MU 
+
+locate the new z on the Z scale and draw the NEW curve w/ the mean at the edge of the original graph: N(1, z)
+
+a or a/2 if 2 tailed test is an are of in the original Z curve. b is the are that starts at the same point but is shaded in the other direction (into the new Z)
+
+EXAMPLE
+
+H_0: MU = 45.6
+H_A: MU > 45.6
+[n=42]  [s=4.51]  [a=0.05]
+
+find the P of a type 2 error if the T value of [MU=47.0]
+
+first we must calculate z, like for finding p-val
+
+	z = (47-45.6) / (4.51/sqrt(42))
+	z = 2.012
+
+now that we have z we can calculate P(Z_2nd < 1.645)
+given Z_2nd~N(1, 2.012=z)
+	P(Z_2nd < 1.645)
+	use {normal_cd} with [lower=-4 (MU - 4*SIGMA)]  [upper=1.654 (crit.val)]  [SIGMA=1]  [MU=2.102 (z)]
+
+
+difference between means SMALL SAMPLE - TEST
+-------------------------------------
+if [n<30] and H_0: MU = MU1:
+	     _
+	t = (x - MU_0) / (s/sqrt(n))
+
+EXAMPLE
+
+H_0: MU  = 1.5
+H_A: MU /= 1.5
+	_
+[n=6]  [x=1.533]  [s=0.472]  [a=0.05]
+
+df = 5
+t_[df, a/2] = t_[5, 0.025]
+
+thus +-t is the points where we reject the null hypothesis
+
+now, to test if H_A is true to 5% level of significance we must finally calculate t
+
+t = (1.533 - 1.5) / (0.472/sqrt(6))
+t = 0.171
+
+0.171 > 0.05 thus there is not enough evidence to show H_A
+
+
+estimating p-val using t-test
+-----------------------------
+say we calculated the t-test value for a problem, we can then approximate the p-val for the same problem
+
+[H_A: MU > MU_0]  [t=1.88]  [n=15]
+
+we must approximate the p-val using the t-table 
+	locate the row [n - 1]
+	locate the col [lvl.significance (default=0.05)]
+
+if the t value isnt on the t-table, find the approximate rows it is contained in
+thus,
+	t_[?, n-1]
+	we can see on the table that 1.88 falls between row 0.05 and 0.025
+
+therefore, all we can say is that 2.5% < p-val < 5%
+note this was a 1 tailed test
+
+
+diiference between means LARGE SAMPLE - TEST
+-------------------------------------
+if [n>30 && n1>30]
+given H_0: MU = MU1
+	     _   _
+	z = (x - x1) / sqrt((SIGMA^2 / n) + SIGMA1^2 / n1)
+
+OR
+
+given H_0: MU - MU1 = DELTA
+	     _   _
+	z = (x - x1 - DELTA) / sqrt((SIGMA^2 / n) + SIGMA1^2 / n1)
+
+to find the p-val from an equation like this,
+	p-val = 2*P(Z < z)
+
+
+difference between means SMALL SAMPLE - TEST
+-------------------------------------
+if [n<30 && n1<30 && SIGMA^2 == SIGMA1^2 && Z=N && Z1=N]
+note N=normal
+				  _   _
+then the sampling distrubution of x - x1 is a t distrubution with [n+n1-2=df] degrees of freedom
+
+MU - MU1 = DELTA
+	     _   _
+	t = (x - x1 - DELTA) / s_p * ((1/n) + (1/n1))
+
+where sp:
+	sp = sqrt(((n-1)*s^2 + (n1-1)*s1^2) / (n+n1-2))
+
+one can use this test (pooled variance t-test) whenever the variances are equal OR, as a rule of thumb, [std.dev < 2*std.dev1] if std.dev is larger than std.dev1
+
+EXAMPLE
+
+the following are random samples from 2 coal mines that represent the heat producint capacity of the coal from each mine
+1:	8380	8180	8500	7840	7990
+2:	7660	7510	7910	8070	7790
+
+use 5% significance to test if there is a difference between the mean heat producing capacity of these 2 mines
+
+H_0: MU = MU1
+H_A: MU/= MU1
+	_
+[n=5]  [x=8.178]  [s=271.1]
+	_
+[n1=5] [x1=7.778] [s1=216.8]
+
+       [a=0.05]
+
+	s_p = sqrt(((4)*271.1^2 + (4)*216.8^2) / (8))
+	s_p = 245.5
+
+	t = (8.178 - 7.778 - DELTA) / s_p * ((1/n) + (1/n1))
+	t = 2.51
+
+now, w/ t we can lookup the p-val on the t-table
+
+	t_[?, n+n1-2]
+	t_[?, 8]
+
+on the table, we can see that 2.51 falls between column 0.025 and 0.010 on row 8
+thus,
+	(2 * 0.010) < p-val < (2 * 0.025)
+
+note: 2* because it is a 2 tailed test so the percentages (bounds) we get from the columns of the t-table
+
+
+welches t-test
+--------------
+WE DONT HAVE TO KNOW HOW TO DO THIS, JUST HAVE TO KNOW WHAT IT IS
+
+if the variances of 2 small independent samples are UNEQUAL,
+then one must use welches (approximate) t-test
+
+
+paired data
+===========
+paired data has 3 rows/columns as there needs to be an extra row to keep track of the pairings
+
+EXAMPLE - difference betwen means
+because [n < 30] we are using t-test, if [n > 30], can use z-test 
+
+listed below are the work hours lost from accidents at 10 industrial plants bfore and after a safety program
+
+
+	plant	before	after	difference
+
+	1	45	36	9
+	2	73	60	13
+	3	46	44	2
+	4	124	119	5
+	5	33	35	-2
+	6	57	51	6	
+	7	83	77	6
+	8	34	29	5
+	9	26	24	2
+	10	17	11	6
+
+a normal probability plot of the differences suggests that the 2 underlyng populations can be reasonably assumed to be mound shaped
+
+we wish to test if the program was effetive:
+
+H_0: MU_d = 0
+H_A: MU_d > 0
+	 _
+[n=10]  [x=5.2]  [s=4.08]  [a=0.05]
+
+next we must calculate t to find p-val
+	t = (x - MU_0) / (s/sqrt(n))
+	t = 4.03
+
+therefore, from the t-table, the p-val falls in:
+	p < 0.5%
+
+which means that there is enough evidence to conclude that the work safety program worked
+
+we must be careful however, when dealing w/ paired data if its not random enough
+ie. if we were to test the time it takes 10 different people to each park 2 cars, the car which they drove first would have to be chosen randomly or else our research is tainted by lurking variables
+
+
+effect size
+-----------
+the effect size is a quantatative measure of the magnitude of a phenomenon
+
+when the effect size is small, the difference is of no real world consequence
+
+
+####################################
+hypothesis tests: STANDARD DEVIATION
+####################################
+
+
+1 std.dev SMALL SAMPLE - TEST
+----------------------
+given:
+H_0: SIGMA = SIGMA1
+
+	CHI^2 = ((n-1)s^2) / SIGMA^2
+
+the CHI^2 distribution has one parameter: degres of freedom (df)
+
+CHI^2 parameters:
+	mean   = df
+	mode   = df - 2
+	median = df - 0.7
+
+
+LOOK AT / WRITE DOWN THE GRAPHS FOR EACH TEST
+
