@@ -1,16 +1,57 @@
 summary:
 
-the efficient movement of people throughout a city is 
-one of the more difficult challenges faced by a metropolitan
-government. there are many options for commuters 
-(car, rail, bus, etc.), but we want to be able to model
-the most efficient form of transport (with regards time and 
-fuel consumption). Therefore, we will be modeling a public 
-transit system and the shortest way to get from point A to 
-point B within said system
-
+Within transit systems around the world wayfinding
 
 propositions:
+ 
+L(l)		is true if [l] is a transit line
+	for example, this is the a train in newyork city 
+	{L(a)}
+
+V(l, n) 		is true if line [l] has [1-n] stops
+	using the a train again, it has 62 stops from Manhattan to Queens 
+	{V(a, 62)}
+	
+S(s, l, n)		is true if [s] is stop [n] on line [l]
+	if you take the a train to Queens, you might get off at 50th street 
+	{S(a50, a, 20)}
+
+I(s, l, n)		is true if stop [n] on line [l] is in the same location as stop [n] such that one can interchange lines
+	perhaps Queens wasnt you style so you hopped on the Queens Boulevard Line (e train)
+	{V(L(e), 25), S(e50, e, 25), I(e50, a50)}
+
+F(l, m)		is true if line [l] has speed [m]
+	the reason we got on the e line was because it was a bit faster 
+	{F(e, 10), F(a, 5)}
+
+P(a, b, ..)		is true if there is a path from stop [a] to stop [b] and so on. there is a path between 2 stops if and 	only if there is they are 2 stations on the same line or 2 stations that are in the same location (Interchanges)
+	but the purpose of this model is to be able to determine if it is possible and how to get from stop a to b
+
+X(a,b,..,x)	is true if the path from [a] to [b] and so on is the fastest route from [a] to [x]. 
+	for example {F(e, 10), F(a, 5)} the e line is faster than the a train   
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////|
+
+T(a)	is true if there is a path from stop [a] to stop [a] with one or more stops inbetween, also known as a tour
+
+E(a)	is true if there is a tour from [a] to [a] that is also Eulerian
+
+
+
+Constrainst
+
+~[S(s, l1, 3), I(s, l1, 3)]  cannot have an interchange with the same station
+
+~I(ls1, ls2) if ls1 and ls2 are each all the stops for 2 different lines (l1, l2), I() cannot be true as this would mean l1 = l2 
+
+
+
+Limitations
+
+
+this model does not account for individuals iwthin the system (commuters, C) because of this the model cannot represent more complex situations that involve kepping track of how many commuters are on the system, furthermore this brigns to light the lack for representation of the actual transit vehicles that would dictate the capacity for commuters on each line, for example C(l, c) could represents the capacity of a line, but the complexity required the model to model a large and robust system with commuters would be beyond the socpe of this project. Other considerations that could be made are accesability as commuters arent necciesarily jon doe and could be anyone, and thus a more comprehensive model should account for that.
+
+
 
 * C(x, y, z) 
   means x is a commuter starting from stop y, ending at stop z

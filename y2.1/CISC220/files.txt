@@ -1,0 +1,13 @@
+drwxrwxrwx 1 cain cain 4096 Oct 13 13:45 A1
+drwxrwxrwx 1 cain cain 4096 Oct 22 17:00 A2
+drwxrwxrwx 1 cain cain 4096 Oct 29 17:02 A3
+drwxrwxrwx 1 cain cain 4096 Nov 11 23:26 A4
+drwxrwxrwx 1 cain cain 4096 Nov 26 15:25 A5
+drwxrwxrwx 1 cain cain 4096 Dec  6 22:46 A6
+-rwxrwxrwx 1 cain cain  225 Dec 19 12:18 EXAM.SH
+drwxrwxrwx 1 cain cain 4096 Oct 21 14:03 MIDTERM
+drwxrwxrwx 1 cain cain 4096 Dec  6 22:46 NOTES
+-rwxrwxrwx 1 cain cain    0 Dec 19 12:15 ans.txt
+-rwxrwxrwx 1 cain cain    0 Dec 19 12:18 files.txt
+-rwxrwxrwx 1 cain cain  172 Oct  3 19:27 set_path.sh
+-r-xr-xr-x 1 cain cain    0 Dec 19 12:06 test.txt
