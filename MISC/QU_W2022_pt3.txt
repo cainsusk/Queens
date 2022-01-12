@@ -1,0 +1,133 @@
+QUEENS UNIVERSITY W2022 
+(see supplementary pages from tyepwriter, they are physical)
+
+
+CISC221 computer architecture
+--------------------------------------
+when e-mailing use 'CISC221_' in the subject
+
+Assignments (there are 5)			40%
+Quizzes (best 3 of 4)				60%
+
+there is a 3 day grace period for each assignment, no acceptions after this
+there is a course schedule
+
+IN CALENDAR
+
+
+CISC223 software specifications
+---------------------------------------
+there is a sychronous review session
+	Friday	@  2:30pm EST (11:30am PST)
+
+Assignments (5 in W3,W5,W8,W10,W12)		30%
+Quizzes (2 on Feb 17, Mar 17)			30%
+EXAM (in person, can have cheat sheet)		40%
+
+seemingly NO grace period
+there is a course schedule
+
+IN CALENDAR
+
+
+CISC226 game design
+--------------------------
+messaged someone about a group, hopefully i get a response :)
+if i dont, i will post at the end of the day
+there is a course website with the Textbook and other resources: https://research.cs.queensu.ca/home/cisc226/
+
+there are weekly reading that can be found on Perusall. you are marked on the comments made on the readings. the comments should be cohesive, interesting, numerous, and courteous.
+
+Quizzes (there are 3)				25%
+Project proposal (jan 24)			10%
+Project demo				10%
+Project progress report (mar 16)			10%
+Final video (apr 8)				10%
+Game implementation	 (apr 8)			20%
+readings (weekly, on Perusal)			10%
+Studio participation (weekly on Fridays)		5%
+
+RECOREDED lecture - once a week, released on Monday
+UNITY   sessions - Tuesdays @ 2:30pm EST (11:30am PST)	does not contribute to mark but will help with project
+STUDIO sessions - Fridays    @ 3:30pm EST (12:30am PST)	5% of final mark
+
+the links for unity and studio sessions can be found in the Calendar on OnQ
+
+course schedule in syllabus
+
+IN CALENDAR
+
+
+CISC235 data structures
+-----------------------------
+when e-mailing use '[CISC235 W22]' in the subject
+lectures are uploaded to this youtube playlist: https://youtube.com/playlist?list=PLM0c3GbXdVsDEuRQcOAo-zBFMYAykiacz
+has a discourse forum (signed in)
+
+there is 1 live lecture:
+	Monday	@  1:30pm EST (11:30am PST)
+
+Quizzes are held during class time on:
+	Friday	@  11:30am EST (8:30am PST)
+
+Assignments (there are 4: best_3*8+worst*4)	28%
+Quizzes (there are also 4: best_3*20+worst*12)	72%
+
+course schedule in syllabus
+
+IN CALENDAR
+
+
+CISC271 linear data analysis
+----------------------------------
+regrading must be requested within 72 hours of recieving feedback
+there is NO grace period
+
+there is 1 lecture a week with Prof. Ellis
+	Monday	@  8:30am EST (5:30am PST)
+
+the QUIZZES occur during scheduled class time on Thursdays in weeks: W3,W7,W9,W12
+	Thursday	@  9:30am EST (!! 6:30am PST !!)
+
+if you fail one of the quizzes, it will be dropped
+the Quizzes are forward only :(
+
+Quizzes (there are 4) 				36%
+Assignments (also 4)				64%
+
+there is a course schedule in the syllabus BUT there are dicrepancies between it and the Quiz List on OnQ (Discord says OnQ dates are correct)
+
+IN CALENDAR
+
+
+HIST299 history of China since 1800
+--------------------------------------------
+72 hour grace period for essays, extensions are normally granted if requested before the due date
+
+there are 2 lectures a week 
+	Monday	@  11:30am PST (8:30am PST)
+	Thursday	@  1:00pm  PST (11:00amPST)
+
+Quizzes		are T/F. content will be based on the readings and lectures. they are biweekly starting W2
+5%
+
+Seminar Meetings	debates held by a TA covering a large, overarching topic from the class also must be aware of which seminar group im in (check the respective week page on [OnQ > Content]
+15%		seminars happen during class on 4 thursdays:
+			Jan 27:	Interpereting the Opium Wars
+			Feb 17:	Revolutionary ideas & goals in modern China
+			Mar 17:	How did Mao build on Marxism and Leninism to create Maoism
+			Apr 7:	Deng Xiaoping's program of reform. Recent events and review	
+
+Short Essays	600 words. 3 are each due a week after the first 3 seminar meetings (by 12 noon on the following thursday)
+35% = (10+10+15)
+
+MIDTERM	2 hour test avaiable (i assume on OnQ) from March 4-8
+15%
+
+Book Review Essay	600-800 words. due April 1
+10%
+
+FINAL EXAM	is a take home assignment, due on April 22
+20%
+
+IN CALENDAR

@@ -1,0 +1,176 @@
+CISC271 linear data analysis NOTES
+==================================
+
+Mon C1
+======
+make sure to check the Materials Widget on OnQ homepage
+
+there is also a website that has all the course material:
+https://research.cs.queensu.ca/home/cisc271/lectures.html
+
+Assignments should be given back the following monday
+
+Quizzes are based on Matlab and you will be using or modifying your existing code from the-
+preceeding Assignment in real-time
+
+make sure to look at the 'report guide for students' in week 1 on OnQ
+also, dont submit a .zip file for the Assignments
+
+
+Tue C2
+======
+this is a MATLAB TUTORIAL [see Documents/MATLAB/inClass_scripts/tue_C2 for the code]
+
+the workspace contains the working variables
+the command window is self explanatory
+the editor contains the script editor where the main code is
+use 'clc' to clear the Command Window and use 'clear' to clear the Workspace
+
+matlab uses 1 based indexing (everything starts couting from 1 by default)
+
+#INTRODUCE SCALAR VALUE
+if you intorduce the scalar variable 'a' in the Editor and run the script a will show up in the Workspace
+you can also declare scalar variables using operations (ie. sum = 5 + 5;)
+
+if you then type 'a' into the Command Window it will print the value assigned to a in the script
+additionally, if you dont put a semicolon ';' at the end of the 'a' declaration, it will print out when you run the script
+	semicolons are only needed if you dont wanna print a variable or operation (like when the result is HUGE)
+furthermore, disp(a) displays 'a' in a nicer, more readable way
+
+#INTRODUCE VECTOR VALUE
+you can declare a vector (row or column):
+	row = [1,2,3,4];
+	col = [1;2;3;4];
+semicolons seperate rows in a matrix, commas seperate columns
+
+#VECTOR OPERATIONS
+you can add vectors like so:
+	new_vec = [1,2,3,4] + [1,2,1,1];
+to add properly the vecotrs MUST have the same dimensions
+
+#TRANSPOSE VECTOR
+either use VECTOR' or transpose(VECTOR)
+
+#MATRICIES
+make a matrix by seperating columns by spaces and rows by semicolons ';'
+	mat = [1 2 3; 4 5 6; 7 8 9]
+
+to access a matrix it is similar to slicing in Python
+	mat(2,2) == [5]     (row 2, col 2)
+	mat(1,:) == [1,2,3] (':' means the whole row)
+	mat(:,2) == [2;5;8] (':' means the whole col)
+	mat(1,1:3)= [1,2,3] (row 1, column 1 to 3)
+      mat(2,1:end)= [4,5,6] (row 2, column 1 to end)
+      mat(1,[1,3])= [1,3]   (row 1, column 1 & 3)
+
+how to multiply a Matrix by a vector
+	mat_mul      == mat  * [2;3;2];	retunrs a vector, normal matrix multiplication
+	mat_elem_mul == mat .* 3;	returns a matrix where each element has been multiplied by a scalar value (3) 
+
+#IF STATEMENTS
+thyere basically just like from python accept without the ':'s
+
+var = 1;
+if var == 1
+	disp("hello")
+elseif var == 3
+	disp("hola")
+else	
+	disp("bye")
+end
+
+#SWITCH STATEMENT
+similar to the switch statement in C (although im sure its in other languages too)
+
+m = "feb";
+switch m
+	case "feb"
+		disp("happy febuary")
+	case "jan"
+		disp("happy january")
+end
+
+#FOR LOOPS
+similar to Python again but without brackets (mom just have me an icy square :) )
+this loop has a start of 1, a stop of 10, and a step of 2
+
+for idx = 1:10:2
+	disp(idx)
+end
+
+the following loop iterates through a list
+
+list = [1 2 3 4]
+for list_val = list
+	disp(list_val)
+end 
+
+#WHILE LOOPS
+very basic loops
+
+found = false;
+target = 5;
+i = 1;
+while found == false
+	if list(i) == target
+		found = true
+		disp("Found")
+	end
+	i = i + 1
+
+	if i == 5 %the len of list is 5
+		disp("not Found")
+		break %stops loop
+	end
+end
+
+note that the 'list' referenced in this and previous examples is actually a 'row vector' in matlab
+
+#PLOTTING FIGURES & GRAPHS
+the function 'linspace(a,b,n)' will generate 'n' values from 'a' to 'b' numerically
+
+now we can plot values generated from linspace using plot & figure declarations:
+
+x = linspace(1,20,21);
+y = linspace(1,40,21);
+figure;
+	plot(x,y,"r*")
+	xlabel("x-axis")
+	ylabel("y-axis")
+	title("Plot :)")
+	legend()
+
+you can save plots by going into the file menu in the plot and save as
+
+#FUNCTIONS
+you can create and use functions just like most other programming languages
+they are in the format of
+	function "return variable" = "function name"(values)
+thus:
+
+function [addition, temp] = sum(a, b)
+	addition = a+b;
+	temp = 1;
+end
+%we can call it like so
+[add, tmp] = sum(2,3)
+disp(add)
+
+
+intro-1a
+========
+using vectors and matricies, hence linear
+using data, real and fake
+thus, we're analyzing this linear data
+
+we will be using matlab for parts of this course
+
+some basic lin.alg examples:
+Eigen Vector
+	is the matrix such that:
+	Av = {LAMBDA}v
+
+Hilbert Matrix
+	is a matrix where each element is:
+	a = 1/[i+j-1]
+	where i and j are a's indexes

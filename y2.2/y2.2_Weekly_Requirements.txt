@@ -1,0 +1,41 @@
+weekly requirements
+===================
+
+CISC226 - game.desn
+-------
+tue@2:30pmEST	Unity Zoom Meeting	(link found in course calendar on OnQ)
+fri@3:30pmEST	Studio Zoom Meeting	(link found in course calendar on OnQ)
+		Recorded Lecture	(can be found under content/vidoes)
+		Perusall Readings	(link can be found in welcome announcement on homepage)
+
+
+CISC223 - soft.spec
+-------
+mon		Recorded Lectures x ? 	(can be found under content/videos)
+		Readings		(can be found under content/weekly readings)
+		
+
+CISC221 - comp.arch
+-------
+mon,wed,thu	Recorded Lectures x 3	(can be found under content/videos)
+
+
+CISC271 - linr.anyl
+-------
+mon,tue,thu	Recorded Lectures x 3	(can be found in teams or under Material which is a widget on class homepage)
+mon@8:30 amEST	Tutorial w/ Prof. Ellis	(live but also recorded. found on teams)
+tue@10:30amEST	Tutorial w/ head TA	(live & recorded. found on teams)
+		Homework Assignment	(not graded)
+
+
+CISC235 - data.strc
+-------
+mon		Recorded Lectures x ?	(can be found at youtube link in welcome announcement on homepage)
+		Exercises		(can be found in respective week within weekly schedule)
+
+
+HIST299 - chna.1800
+-------
+mon@11:30amEST	Lecture Zoom Meeting	(zoom link can be found in welcome announcment on homepage)
+thu@1:00pmEST	Lecture Zoom Meeting	(zoom link can be found in welcome announcment on homepage)
+		Readings		(can be found under content/respective week)
