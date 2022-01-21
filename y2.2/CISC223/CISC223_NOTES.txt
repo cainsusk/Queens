@@ -1,0 +1,207 @@
+CISC223 software specifications NOTES
+=====================================
+
+######
+WEEK 1
+######
+
+1-intro
+=======
+
+|topics:
+        there are 3 main secions to this course
+
+        Formal language models
+                - Specification
+                - realization
+                - classificatior
+
+        Specification and validation of software
+                - solvability 
+                        * with infinite resources
+                        * with finite   resources
+
+        introduction to Compatibility
+
+|unsolvability:
+        a problem that cannot be solved because it would take more time that the univere has and will ever exits
+
+        consider:
+                the Test Termination Program
+
+                is a program that sould theoretically be able to take in code and figure out if it will run forever or not
+                        the problem is, in order to be sure that something runs forever, one must run it forever.
+                        
+                this can be said as, unsolvable problems are:
+                        - un-implamentable
+                        - un-computable
+
+2-strings
+=========
+
+|definition:
+        Alphabets       are finite sets of symbols
+        Strings         are a finite sequence of Alphabet Symbols
+        Languanges      are a set of strings
+
+                A={a,b,c,d,...}
+                S='hello'
+                L={'Hello',...}         (Languages are not precisely defined)
+
+                (can now use set notation with these definitions)
+
+                A={a,b}
+                S=forAll s in S, s in A
+                L={a^i b^j | 0<i<j}     
+
+|string properties:
+        Empty String            [E]     str with no alphabet symbols
+        Length of String                the number of symbol occurences in S    
+        Set of All strings      [Z*]    the set of all strings over alphabet [A]       
+
+|concatenation:
+        the concatenation of 2 strings [a,b] is when the symbols of one are appended onto the other
+
+        consider:
+                x='aa' y='ab'
+
+3-Operations
+                x.y     ='aaab'
+                y.x     ='abaa'
+
+        concatenation is NOT communative
+        concatenation IS associative
+                - (x.y)z = x(y.z)
+                - the empty String [E] is the Identity String 
+
+        taking the power of some string concat's it to its self proporional to the power.
+        it is defined as:
+                
+                x^10    = E
+                x^[i+1] = x^[i] . x
+
+|string relations:
+        consider:
+                        s='xyz'
+
+                'x' is a prefix of [s]
+                'y' is a substring
+                'z' is a suffix
+
+        all these relations are substirngs as well
+
+                substring == {prefix, suffix}
+                suffix    /= {substr, prefix}
+                prefix    /= {substr, suffix}
+
+
+3-operations
+============
+
+|defining languages using operations:
+        there are 3 operations that we can use.
+
+        they are known as REGULAR OPERATIONS:
+                
+                + Union                 R+S = {w IN Z* : w IN R || w IN S} if theres a common letter among 2 strings, they have a union
+                . Concatenation         R+S = {r.s : r IN R, s IN S}
+                * Closure               R*  = {w1, w2, ..., wn : wi IN R, i = 1,2,...,m, m >= 0} which is the same as
+                                        R^2 = {01,1}.{01,1} = {01,1}^2 = {0101,011,101,11} assuming R={01,1}
+                                        R^0 = \0 = {}
+                                        \0* = {E}
+
+        NOTE: the set [Z*] is the set of all strings over the alphabet [A] 
+                + Union        
+                . Concatenation
+                * Closure      
+        the empty set [ø] is not the same as the Empty set [ε] because the set of ε is {ε}, [ø = {}]
+                R.ø = ø
+                R.{ε}= R
+        
+4-Language Definition:
+======================
+
+|Regular Languages:
+        A language L is REGULAR if it can be represented using operations:
+
+                . Concatenation 
+                * Closure       
+                + Union        
+                                
+        from elements of [Z] the set of strings and [\0] the empty set.
+        
+        the representation of L is this form is called a REGULAR EXPRESSION for L
+        
+        examples:
+        using A={a,b}
+
+                set of all str with prefix ababb
+                        REGEX: ababb(a+b)*
+
+                set of all str that have substr ababb
+                        REGEX: (a+b)ababb(a+b)*
+
+                set of all str of even length
+                        REGEX: (aa+ab+ba+bb)*           (given that the Alphabet is finite)
+                              Σ ((a+b)·(a+b))*           (simpler form)
+
+|Operation Precedence:
+        they are, from highest to lowest:
+
+                · Concatenation                
+                * Closure                      
+                + Union        
+
+        consider:
+                a+b*   = {a, E, b, bb, bbb, ...}
+                (a+b)* = set of all strings over the characters {a,b}
+
+                
+5-REGEXs
+========
+                + Union        
+
+        consider:
+                a+b*   = {a, E, b, bb, bbb, ...}
+                (a+b)* = set of all strings over the characters {a,b}
+
+                
+                + Union        
+
+        consider:
+                a+b*   = {a, E, b, bb, bbb, ...}
+                (a+b)* = set of all strings over the characters {a,b}
+
+                
+5-REGEXs
+========
+
+|REGEX over [Σ] Alphabet:
+        - a IN A for all Alphabet symbols
+        - ø is a REGEX 
+        - if α and β are REGEXs then so are:
+                α + β
+                α · β   (αβ)
+                α*
+
+        NOTE: ø* = {ε}
+
+        examples:
+        given Σ = {a,b} find REGEXs for,
+
+                all str that have prefix 'aba' and suffix 'aba'
+                        aba·(a+b)*·aba + ababa + aba
+
+                all str that have given length and begin with 'b'
+                        b·(aa+ab+ba+bb)*·(a+b)
+
+                all str that do NOT have 'ab' as a suffix 
+                        (a+b)*·(aa+bb+ba)+a+b+ε
+
+                all str that do not have 'aa' as a substring
+                        (b+ab)*·a+(b+ab)*
+                        (b+ab)*·(a+ε)
+                        
+
+
+

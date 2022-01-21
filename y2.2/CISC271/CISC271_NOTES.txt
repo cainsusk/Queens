@@ -1,6 +1,6 @@
+
 CISC271 linear data analysis NOTES
-==================================
-FONT must be MONOSPACE
+================================== FONT must be MONOSPACE
 look into doing this: [https://castel.dev/post/lecture-notes-1/]
 
 
@@ -9,7 +9,7 @@ WEEK 1
 ######
 
 
-W1 mon
+W1-mon
 ======
 make sure to check the Materials Widget on OnQ homepage
 
@@ -25,9 +25,11 @@ make sure to look at the 'report guide for students' in week 1 on OnQ
 also, dont submit a .zip file for the Assignments
 
 
-W1 tue
+W1-tue
 ======
 this is a MATLAB TUTORIAL [see Documents/MATLAB/inClass_scripts/tue_C2 for the code]
+
+matlab indexing is:     Matrix(row, col)
 
 the workspace contains the working variables
 the command window is self explanatory
@@ -193,31 +195,31 @@ see {mon W1}
 ===========================
 alsways use: What Would Einstein Do? (WWED)
 
-also, VECTORS are denoted by V, for example: [Vx] is the VECTOR x
+also, VECTORS are denoted by V (and ∠), for example: [∠x] is the VECTOR x
 
 consider: 2x2 matrix:
 
-	A[in]R^[2x2]
+	A ∈ R^[2×2]
 
 and a vector with 2 entries:
 
-	Vc[in]R^2, Vw[in]R^2
+	∠c ∈ R², ∠w ∈ R²
 thus:
-	Vc = A*Vw
+	∠c = A*∠w
   [c1;c2] = [a11, a12; a21, a22] * [w1; w2]
 	  = [a11*w1 + a12*w2; a21*w1 + a22*w2]
 	  = w1*[a11; a21] + w2*[a12; a22]
-	  = w1*Va1 + w2*Va2	where a1 and a2 are column vectors of A
+	  = w1*∠a1 + w2*∠a2	where a1 and a2 are column vectors of A
 
 for matrix multipication the columns of the first multiple (X*y) must equal the number of rows in the second multiple (x*Y)
 
 consider that any 2 vectors with a 'weight' or multiple can equal any vector on the plane:
-	Vc = w1*Va1 + w2*Va2
+	∠c = w1*∠a1 + w2*∠a2
 thus any vector c can be made from the sum of the weighted vectors a1 and a2
 
 this can also be extended to 3-space such that:
 
-	Vc = w1*Va1 + w2*Va2 + w3*Va3
+	∠c = w1*∠a1 + w2*∠a2 + w3*∠a3
 this can be extended to n-dimensions
 
 
@@ -226,13 +228,13 @@ this can be extended to n-dimensions
 something thats true and should always be assumed as such (within the scope of this course)
 
 consider:
-	the vector v [Vv]
+	the vector v [∠v]
 	the matrix A [A]
 such that:
-	A*Vv = Vu
+	A*∠v = ∠u
 
 if vector u is linear dependent to vector v it is an EigenVector: 	(linear dependence is when a set of vectors are multiples of eachother)
-	A*Vv = lmda*Vv							(lmda = lambda, lmda*V is an EigenVector)
+	A*∠v = lmda*∠v							(lmda = lambda, lmda*V is an EigenVector)
 
 Properties of EigenValues:
 for any square matrix [A] 			(A[in]R^[nxn])
@@ -279,11 +281,11 @@ definitions:
 	degree		the degree of a vertex is the number of edges incadent (connected) to is
 
 	subgraph (sG)	a graph [G] is a subgraph if and only if it is contained within another graph [H] such that:
-				[vT_G[IN]vT_H] [AND] [E_G[IN]E_H]
+				[vT_G ∈ vT_H] [AND] [E_G ∈ E_H]
 
 	bipartite	a graph [G(vT, E)] is bipartite if [vT] can be partitioned into 2 sets [vT_L, vT_R] such that:
 			each edge can be written as [e = (v_i, v_j)] where
-				[v_i[IN]vT_L] [AND] [v_j[IN]vT_R]
+				[ v_i ∈ vT_L ] ∧ [ v_j ∈ vT_R ]
 
 			if you were to pick the graph up from one of its vertecies, it would make / be a tree. 
 			[G#] is an example of a bipartite graph
@@ -329,11 +331,11 @@ let [G(vT,E)] have n Vertecies, m Edges
 Adjacecy Matrix:
 	[A(G)] is defined as a matrix with [m x m] dimensions such that:
 
-		/ 1 if (v_i,v_j)  [IN] E 
+		/ 1 if (v_i,v_j)  ∈ E 
 	 a_ij ==
-		\ 0 if (v_i,v_j) ~[IN] E						('~' means NOT)
+		\ 0 if (v_i,v_j) ¬∈ E						('¬' means NOT)
 
-	thus [A] is binary and, because [(v1v2)=(v2v1)], A is also symmetric.
+	thus [A] is binary and, because [(v1 v2)=(v2 v1)], A is also symmetric.
 	[A] is always real and always has a 0-diagonal.
 	[A] always has only real EigenValues
 
@@ -363,14 +365,14 @@ consider:
 
 ones vector:
 	is defined as a vector where each entry is 1
-		V1 = {1;1;...;1}
+		∠1 = {1;1;...;1}
 	it can count the number of 1's in a binary matrix
 
 degree vector:
 if you multiply an Adjacency marix [A(G)] by the ones vector, the product will be the degree vector of [G]
 
-	A(G1)*V1 = [2;2;2;1;1]
-	A(G#)*V1 = 
+	A(G1)*∠1 = [2;2;2;1;1]
+	A(G#)*∠1 = 
 		   /0 1 0 0 0 0\   /1\
 		   |1 0 1 1 0 0|   |1|
 		   |0 1 0 0 0 0| * |1|
@@ -429,18 +431,19 @@ we should now be able to:
 
 3a-degree matrix
 ================
-recall the degree of a vertex is the number of edges the vertex is connected to
-the degree vector is the product of [A(G)*V1 = dV]
+recall:
+        the degree of a vertex is the number of edges the vertex is connected to
+        the degree vector is the product of [A(G)*∠1 = d∠]
 
-we can use [dV] to construct the degree matrix:
-	D(G) = diag(dV) =
+we can use [d∠] to construct the degree matrix:
+	D(G) = diag(d∠) =
 
 		/d1 0   0 ...  0\
 		|0  d2  0 ...  0|
 		|...............|
 		\0  0   0 ... dn/
 
-the diagonal is made up of the entries from the degree vector [dV]
+the diagonal is made up of the entries from the degree vector [d∠]
 by construction this matrix is positive, semidefinite, and symmetric
 
 
@@ -453,9 +456,9 @@ laplacian matrix:
 	by construction, L is symmetric
 
 steps of algorithim for solving (by hand):
-{1}	write [A(G)]
+{1}	write [A(G)] without entries on the diagonal (theyre all zeros by definition anyways)
 {2}	negate (multiply by -1) all non-zero entries
-{3}	replace diagonal entries [a_ii] with [d_i [IN]dV]
+{3}	replace diagonal entries [a_ii] with [d_i ∈ d∠]
 
 consider:
 	G# = (1)--(2)--(4)--(6)
@@ -503,7 +506,7 @@ consider:
 	A(G#) = 
 		/0 0 0 1 1 1\
 		|0 0 0 0 0 1|    / 0        A_b \
-		|0 0 0 0 0 1| == |              |	(where a matrix [A^T] is transposed version of [A])
+		|0 0 0 0 0 1| == |              |	(where the block [A_b^T] is a transposed version of [A_b])
 		|1 0 0 0 0 0|    \ [A_b]^T    0 /
 		|1 0 0 0 0 0|    
 		\1 1 1 0 0 0/
@@ -521,9 +524,9 @@ in summary:
 		where every EigenValue is non-negativem [EigenValues >= 0] 
 
 	observe:
-		L*V1 = (D-A)*V1 = dV-dV = V0
+		L*∠1 = (D-A)*∠1 = d∠-d∠ = ∠0
 	thus:
-		V1 is an EigenVector &
+		∠1 is an EigenVector &
 		0 is its EigenValue
 
 
@@ -557,10 +560,10 @@ from these Eigen Values we can derive:
 			 Ev4,5		= 2	(2 eigenvalues are 3)
 
 observing EigenVectors:
-	positive and negative values in an EigenVector derived from [L(G)] correspont to visual clusters in [G]
+	positive and negative values in an EigenVector derived from [L(G)] correspond to visual clusters in [G]
 
-	the positive entries are those that are in the same cluster as the vertex that we derived-
-	the EigenVector we are using
+	the entries in the EigenVector derived from [L(G)] that have the same sign [+,-] correspond to
+        respective clusters of nodes in [G]
 
 	
 3d-Laplacian matrix: Feilder vector
@@ -575,12 +578,12 @@ steps for algorithim to find Feilder vector:
 
 Laplacian matrix properties:
 
-	Feilder vector is a binary clustering of verticies, derived from the EigenVectors of L
-	symmetric, postitive semidefinite
-	ones vector [V1] is the EigenVector of 0-EigenValue
-	dimensions of nullspace is equal to the number of graph components
-	for [k] components:
-		it is similar to a matrix with k diagonal blocks (see {3c} for example)
+	- Feilder vector is a binary clustering of verticies, derived from the EigenVectors of L
+	- symmetric, postitive semidefinite
+	- ones vector [∠1] is the EigenVector of 0-EigenValue
+	- dimensions of nullspace is equal to the number of graph components
+	- for [k] components:
+		> it is similar to a matrix with k diagonal blocks (see {3c} for example)
 
 3-learning summary
 ------------------
@@ -596,4 +599,513 @@ we should now be able to:
 
 ######
 WEEK 2
+######
+
+
+W2-mon
+======
+
+|MatLab control flow:
+        - logical expressions
+                > logic operators
+                > relation operators
+                > operation precedence (binding order)
+        - if/else
+        - loops
+                > while
+                > for
+
+        matlab is dynamically typed !
+
+        logical expressions:
+                these have 2 types "logical 0" & "logical 1"
+                                   "True"        "False"
+                the Logical operators are:
+                        &       and
+                        |       or
+                        ~       not
+                operation precedence:
+                        1)      ~
+                        2)      &
+                        3)      |
+                MatLab automatically converts from "real" to "logical"
+
+                Relational Operators are:
+                        equality        ==    
+                                        ~=
+                        inequality       >
+                                        >=
+                                         <
+                                        <=
+
+                the Logical operators can combine the results of the realtional operations
+                        a ~= b  ≡  (a<b)|(a>b)
+
+
+        if/else:
+                in matlab there is no then expression thus the syntax is:
+                
+                if statement:
+                        
+                        if 'logical expression'
+                                statement(s):
+                        end 
+
+                if/else:
+                        
+                        if 'logical expression'
+                                statement(s)
+                        else
+                                statement(s)
+                        end
+
+        loops:
+                while loop:
+                        
+                        while 'logical expression'
+                                statement(s)
+                        end
+                
+                        break will stop the loop and continue on after 'end'
+
+                        while 'logical expression'
+                                statement(s)
+                                break;
+                                statement(s)
+                        end
+
+                for loops:
+                        Warning!!MatLab Pre-Defines 'i' and 'j'
+                                                    √-1     √-1
+
+                        use something other than i and j for index values, can use [h,k] instead
+                        
+                        for 'index' = 'values'
+                                statement(s)
+                        end
+
+                        for 'index' = 1:n
+                                statement(s)
+                        end
+
+                        for 'index' = 1:array
+                                statement(s)
+                        end
+
+|4×4 Matricies:
+
+        random number generator:
+                rng('default')          [sets the rng to default mode]
+
+        declare matrix:
+                A = randi(10, 4)        [makes a 4×4 matrix from random ints]
+                
+        get EigenValues from A:
+                [Evecs, Evals] = eig(A, 'vector')
+                
+        to print each value from Evals one can use:
+
+                for k = 1:4
+                        disp(Evals(k))
+                end
+
+        to print the EigenVectors from the matrix Evecs:
+
+                for k = 1:4
+                        disp(:,k)
+                end
+                
+W2-tue
+======
+the assignment consists of 2 parts:
+        the matlab code                 definitely check the templeates for these on OnQ
+        the PDF report
+
+the assignmnet this week is on grouping a given graph into clusters using the binary Association Matrix
+
+in order to load data into a matrix you can use:
+        load(data)
+
+4a-Vector Space
+===============
+
+|what is a vector space:
+        suppose we are given 3 vecotrs:
+                ∠a₁ ∠a₂ ∠a₃ 
+        what space do they reside in ?
+
+        we will use ∥V ∥W ∥U to represent spaces
+        they can be defined constructuvely or by restriction
+                what is in it or what isnt in it
+
+        real numbers is written as |R
+        vector with m entries is size m
+        written as:
+                Vv IN |R^m
+
+        the plane is |R² 
+
+4b-Space Definitions
+====================
+
+|Partition:
+        the partition of set |S
+        non-empty sets |P_n
+        the union of |P_n is IN |S
+        n ‡ j then |P_n ∩ |P_j = {}
+
+        example:
+                Mat IN |R^[4×4]
+                partition Mat = [a, b; c, d]
+                consider the partition of Mat into columns,
+                each column is a vector block partition
+
+                suppose A has m rows and n columns
+                        A IN |R^[m×n]
+                        A = [∠a₁ ∠a₂ ... ∠a_n] with ∠a_i IN R^m
+                        
+                        ∠a_i IN |R*m, w_i IN |R, ∠c = R^m
+
+                        w₁∠a₁+w₂∠a₂+...+w_n*∠a_n = ∠c
+
+                        A*∠w = [∠a₁ ... ∠a_n][w₁;w₂;...;w_n]
+
+
+4c-Vector space Properties
+==========================
+
+abstract:
+        1) a field |F, usually |R                               (can be complex |C or rational |Q as well)
+        2) a set of vectors |V. 2 operators, with closure       (c IN |F AND ∠u IN |V) → c*∠u IN |V
+
+interperetation:
+in the sense of logic
+        For any u and v that are in the set |V and any a and b that are in |R then a times u plus b times v is in |V
+                ∠u, ∠v In |V → a*∠u + b*∠v IN |V
+
+        this is both communative and distrubutive
+
+        NOTE: always have ø IN |V
+
+
+4d-Vector subspace
+=================
+this is usually what people mean when they say vector space.
+
+subspace is a linear subset meaning it is a multiple of the space and it is in the space 
+
+Dimension of vector space:
+        the minimal number [k] of vectors needed to construct space |V
+
+
+4e-Null Space
+=============
+the nullspace is the vector that when multiplied by the matrix it is the null space of, the product is the zero vector
+        A * null(A) = ∠0
+
+recall:
+        the row echelon form 
+        - each pivot is the first non-0 entry in row
+        - below each pivot is 0
+
+        reduced row echelon form (RREF)
+        - each pivot has been modified by row operations to be 1
+        - above each pivot is 0
+
+consider:
+            / 3  3  9  6\              /1 0 2 0\
+        A = | 1 -1  1  1|  -RREF-> R = |0 1 1 0|
+            \ 2  2  6  2/              \0 0 0 1/
+
+        null(A) = [-2 -1 1 0]
+
+FACT: we can always use the product of the RREF [R] multiplied by a perutation matrix [P] (which has only 1s and 0s and det=1)
+        to get the Identity [I], some factor [F], and 1 or more rows of 0s
+                R*P = [I, F; 0, 0;]
+        thus the null space of any matrix is:              
+                null(A) = P * [-F; I]
+
+if null(A) is trivial   (has only ∠0 is it) then:
+        A*∠w = ∠b has 1 solution
+
+if null(A) is NOT trivial then:        
+        subspace of |W of vectors ∠w IN R^n
+        such that A*∠w = ∠0
+
+consider:
+        |V = all ∠u = [x; 2x] IN |R²
+
+        all ∠u IN |V are ∠u*∠c=0 where ∠c = [2; -1]
+
+        ∠u * ∠c = ∠c * ∠u = ∠c^T * ∠u
+
+        thus:
+        A = ∠c^T = [2, -1]
+        rref(A) = [1, -1/2]
+        null(A) = [1/2; 1] or [1; 2]x
+        
+
+5a-intro to basis vectors
+=========================
+
+|spanning set:
+        a spanning set or span of |V is a set of vectors that can be linearly combined to form
+        every possible vector in a vector space |V
+
+        there is NO restriction to the number of vectors in a span (accept at least 1)
+
+        properties:
+                Closed:
+                for any real numbers w₁ w₂ ... we have w₁∠a₁+w₂∠a₂+... IN |V
+
+                Complete:
+                for any vector c in vector space |V there exists real numbers w₁ w₂ ... such that 
+                ∠c = w₁∠a₁+w₂∠a₂+...
+
+|linear independence:
+        2 vectors are linearly dependent if there are numbers that each could multiply the 2 vectors in
+        question such that their sum would equal 0:
+                w₁∠a₁+w₂∠a₂+... = ∠0 
+
+        in other words, we can represent the vectors that are linearly independent, with eachother (theyre
+        multiples of eachother)
+
+
+5b-basis vector definitions
+===========================
+consider:
+        given vector a [∠a] that spans |V
+        a basis of |V is a linearly independent spanning set:
+                {[1;0] [0;2]}           basis
+                {[1;0] [1;0.0001]}      basis
+                {[1;1] [-2;-2]}         NOT
+                {[1;1] [0;0]}           NOT
+                {[1;0] [0;2] [a;b]}     NOT
+
+Method:
+        gather ∠a into A
+        For R = rref(A):
+                each pivot of R indicates a linearly independent vector of A in vector space |V
+                (this is whats known as the comlumn space)
+
+examples:
+        A = [1,2,6;1,-2,2]
+        R = [1,0,4;0, 1,1]
+
+        thus:
+                {[1;1] [2;-2]}          basis
+
+5c-basis of Matrix
+==================
+let A I> R^[m×n]                        NOTE [IN == I>] 
+
+Facts:
+        the rank of A is:
+                the number of linearly independent rows
+        full rank:
+                rank(A) = min(m,n)
+        if all vectors ∠a_i are linearly independent then:
+                rank(A) = n
+
+        if n > m then:
+                ∠a_i are linearly dependent
+
+        if null(A) is trivial then:
+                ∠a_i are linearly independent
+        if null(A) is non-trivial then:
+                ∠a_i are linearly dependent
+        
+        A is invertable 
+        
+        columns [∠a] are a BASIS for R^m
+
+consider:                                               
+
+        a set of [n] vectors:
+                ∠v_i I> R^m they are linearly independent
+        gather as A = [∠v₁ ∠v₂ ... ∠v_n]
+        for any non-zero ∠c I> |V
+        there is a unique linear combination:
+                ∠c = w₁∠v₁+w₂∠v₂+...+w_n * ∠v_n
+        there is a unique solution to:
+                ∠c = A*∠w
+        
+        thus, given an arbitrary vector non-zero [∠c I> |V] there is a unique set of weights [∠w] such that 
+        the product of [A] and [∠w] is the vector [∠c]
+
+
+5d-orthoganol spaces
+====================
+given ∠u and ∠v
+if they are orthogonal then:
+        ∠u·∠v   = 0
+        ∠u^T*∠v = 0
+
+consider:
+        the basis vectors ∠u_i
+
+        Orthogonal basis:
+                (i ‡ j) → (∠u_i · ∠v_j =0)
+
+        OrthoNormal basis:
+                both Orthogonal and 
+                ∠u_i·∠u_i = 1
+
+        {[1;0;0] [0;0;1]}       OrthoNormal
+        {[1;0;-1] [1;0;1]}      Orthogonal 
+        {[1/√2;0;-1/√2] 
+         [1/√2;0; 1/√2]}        OrhtoNormal
+
+|basis vectors for multiple spcaes:
+        considering the vector spaces |U and |V
+        suppose (∠u ≠ ∠0) ۸ (∠u I> |U)
+                is true if and only if [∠u ~I> |V]
+
+        if this holds, then |U and |V are Orthogonal Compliments
+
+|dot product [·] Rule:                          NOTE [Vv == ∠V]
+         for [∠u ≠ ∠0] and [∠v ≠ ∠0]
+                (∠u ∈ ∥U) ∧ (∠v ∈ ∥V) → (∠u·∠v = 0)
+
+        example:
+                in R³ ∥U is the z-axis, thus [∠u ∝ [0;0;1]] u is proportional to the vector
+        
+                a basis for ∥V is:      /1\     /0\
+                                        |0|     |1|
+                                        \0/     \0/
+
+                thus if there is a multiple [w] that satisfies:
+                        (w₁∠v₁ + w₂∠v₂)·∠u = 0
+                then ∥U and ∥V are orthangonal Compliments 
+
+6a-Similar Matricies
+====================
+
+|equivalence:
+        2 matricies are equivalent if there are a pair of inveratble matricies [P₁ P₂] such that:
+                P₁*A*P₂ = C
+
+|similarity:                                                                    NOTE [E` == E^-1]
+        2 matricies are similar if there is a matrix [P] such that:
+                P*A*P` = C
+
+        there is a special case if C is a diagonal matrix
+
+
+6b-diagonizability
+==================
+consider:
+
+        A ∈ R^[n×n]
+        every column in [A] has a linearly independent EigenVector ([A] has [n] independent EigenVectors)
+        
+        for EigenVector [#_j]:
+                A*∠v_j = λ_j*∠v_j
+                
+        E       = [∠v₁ ∠v₂ ... ∠v_n]            (the matrix of EigenVectors)
+
+        A*E     = [λ₁∠v₁ λ₂∠v₂ ... λ_n*∠v_n]
+
+                which can be restructured to be:
+                = [∠v₁ ∠v₂ ... ∠v_n]  * /λ₁ 0  0  ⋯
+                                        |0  λ₂ 0  ⋯
+                                        |0  0  λ₂ ⋯
+                                         ⋮  ⋮  ⋮
+                which thus gives us the matrix of EigenVectors [E] and the matrix of EigenValues [Λ]
+                = E*Λ 
+        AE = EΛ 
+
+so we can take this result [AE=EΛ]:
+
+        AEE` = EΛE` ≡ A = EΛE`
+which shows that [A] is a diagonizable matrix, as [E] is diagonal and [E] and [A] are similar
+        E`AE = E`EΛ
+             = Λ
+which shows us how to get the diagonalization of [A], which is [Λ]
+
+thus we have shown a sufficent condition that A is diagonizable:
+        each eigenvalue in [E] must be unique
+        that is to say, the eigen vectors are the basis vecotrs for the column space of [A]
+        matrix A has an EigenVector basis 
+
+the converse is not true:
+        a matrix [A] without linearly independent eigenvalues does not show sufficient condition
+        matrix A does not have EigenVector basis 
+
+
+6c-diagonizable examples
+========================
+consider:
+        A₁ =    / 1  4 \
+               |        |
+                \ 1 -2 /
+
+        λ₁ = -3  λ₂ = +2
+
+        to find [∠v_i] we could:
+                - use RREF to find null(A - λ_i * I)
+                - eig function in MatLab which returns the EigenValues and EigenVectors 
+
+        ∠v₁ = [-1/√2; 1/√2]
+
+        ∠v₁ ∝ [-1; 1]   
+        ∠v₂ ∝ [ 4; 1]
+        
+        thus [A₁] is 
+
+consider:
+        A₂ =    / 1  4 \
+               |        |
+                \ 0 -2 /
+
+        λ₁ = -2  λ₂ = +1
+
+        ∠v₁ ∝ [-4; 3]
+        ∠v₂ ∝ [ 1; 0]
+
+consider:
+        A₃ =    / 4  0  3 \  
+               | -1  5 -3  |
+                \ 2  0  11/
+
+        λ₁ = λ₂ = 5     λ₃ = 10
+
+       ∠v₁ ∝ [ 0; 1; 0]
+       ∠v₂ ∝ [-3; 0; 1]
+       ∠v₃ ∝ [ 1; 1;-2]
+
+
+6d-Square root of a Matrix
+==========================
+
+|whole powers of a matrix:
+        assuming [k] is a whole number
+                A⁰      = I
+                A^[k+1] = AA^k
+
+        supose that [A] is diagonizable:
+                A² = AA = EΛE`EΛE`
+                        = EΛΛE`
+                        = EΛ²E`
+                A³ = AA²= EΛE`EΛ²E`
+                        = EΛ³E` 
+
+|square root of a Matrix:
+        recall:
+                [√a] is [a ∈ |R+ : a=c²] so [√a = c]
+        extend:
+                [A^½ = C] where [A = C²]
+
+        for the diagonizable matrix [A], we can find the quare root by:
+
+                A = EΛE` = C² = EDE     NOTE: [Λ == D²]
+                                              [D == Λ^½]
+                we find that:                              
+                        [d_ii = √λ_i] is true if [λ_i ∈ |R+] or [λ_i ≥ 0]
+                
+                A^½ = EΛ^½E`
+
+
+######
+WEEK 3
 ######

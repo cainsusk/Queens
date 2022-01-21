@@ -1,0 +1,366 @@
+CISC235 data structures NOTES
+=============================
+this course is fundamtental for Computer science as its very universal
+questions is programming interviews pertain to this course content (linkedlists, trees, etc.)
+
+is about writing code to inplement these data structures and how to use them most effectively
+additionally we will design our own data structures
+
+quizzes will be in person if we go back in-person
+
+there is a CUMULATIVE grace period of 48 HOURS for all assignments
+	meaning if you submit A1 2 hours late, you only have 46 grace hours left for the rest of the assignments
+
+maybe read textbook if i really like this course
+attend the live review (during class timeslot on friday)
+reach out and be active in the class if i want a letter of reccomendation from the prof (she sounds pretty cool tbh)
+
+the programming is done in PYTHON3 ! :)
+we should test code alot ! 
+
+NOTE:
+ideal notepad settings (for MSI laptop)
+
+	- font		courier
+	- page zoom	140%
+
+
+######
+WEEK 1
+######
+
+
+1-1 what is a data structure & complexity
+=========================================
+|data structure:
+	data structure (DS)
+	known as an abstract data type, a data structure is a means for managing large ammounts of data-
+	efficiently
+	more generally, they allow for the varied representation and manipulation of data
+
+	a data structure (array, tree, ...) must have accompianing algorithims to-
+	manipulate it (search, append, ...)
+		a data structure can be designed to be efficiently manipulated
+	
+|complexity:
+	the way a structure is organized dictates the complexity of operations performed on the structure
+		random, alphabetical, etc.
+
+		binary search on an ordered list has [Log_2(N)] complexity
+		linear search on a random list has a worst complexity of [N/2]
+
+		big difference ! esspecially when N gets big
+
+	to reduce the complexity of an operation we could partition our list into categories which are-
+	individually sorted. making for a smaller [N]
+		for example, in a library we could have a computer science category of aplhabetically-
+		sorted books
+
+
+1-2 what is an abstract data type
+=================================
+also known as ADT
+a data strucutre is the implementation of an ADT:
+
+	ADT		DS
+        ------------------
+	|list		|linked-list, dynamic array
+	|queue		|linked-list, array, or stack based queues
+	|map		|tree map, hash map, hash table
+
+|Abstract Data Type:
+	a type together with operations to manipulate it
+	it is abstract because the implementation is not defined
+
+	examples:
+		INTEGER stores #s ie. {-2,-1,0,1,2}
+		integer has the basic operations:
+			+ sum
+			- differnce
+			* product
+			/ quotient
+		
+		BAG stores a group of unordered data items (file, int, candy, ...)
+		bag has the operations:
+			+ add(item)
+			- remove(item)
+			@ contains(item)
+			# numitems()	
+			} grab()	return random item from bag
+			& _str_()	return string representation of bag
+			
+	the concept of an ADT can help us focus on key issues and manage the complexity of a project
+
+|exercise:
+	make bag ADT in python
+	
+	class bag:
+		def __init__(self):
+		def add(self, item):
+		def count(self, item):
+		def size(self):
+		def blind_grab(self):
+		def __str__(self);
+
+
+1-3 complexity analysis
+=======================
+we measure the complexity of algorithims
+
+|algorithm:
+	algorithm (algore)
+	describes a specific process for completing a task
+
+	the complexity of an algorithm can be dictated by the data structure used 
+		
+|algorithm analysis:
+	analysis of an algoritm has come to mean the resources the algorithm requires
+	however, this is only 1 way of measuring complexity:
+		- TIME  complexity	time required for an alorithm to complete its process (runtime)
+		- SPACE complexity	memory needed to solve the problem
+
+	from herein:
+		COMPLEXITY == TIME COMPLEXITY
+
+|time complexity:
+	we can measure time in multiple ways:
+
+	- Experimental method
+		record the runtime of an algore with varied inputs multiple times and average them
+		you can use libraries like 'timeit'
+
+		not reliable, affected by many outside factors. also if algore is v/ complex, it will take a long-
+		time to measure times
+
+	- Analytical method
+		THIS IS THE MAIN ANALYSIS WE WILL PERFORM
+		theoretically analyze runtime based on the input size.
+		we must consider ALL inputs
+
+		more precise as it does not depend on outside factors like hardware etc.
+
+|analytical time complexity analysis:
+	to compare the complexity of algorithms:
+		(this is the main idea behind Big-O notation)
+
+		1) we compare the number of operations (ops) each algorithm must do for for N size input
+		2) we can then predict the performance of those algores when N is changed
+
+	the following operations (ops) take CONSTANT time:
+		+ arithmetic {+,-,*,/}
+		< comparisons
+		= assignments
+		o accessing memory
+
+|counting operations:
+	we need only count the number of ops performed in an algore to approximate it's compexity
+	(most ops symbols used below correspond to the above list)
+	
+	consider A1:
+		total=0				1 ops 		(=)
+		for i in range(n):		n ops
+			total += i		 *2 ops 	(+,=)
+
+		thus:
+
+		T(A1) = 2n+1
+
+	consider A2:
+		n = read()			2 ops 		(=,read)
+		for i=1 to n:			n ops
+			A[i] = read()		 *2 ops 	(=, read)
+		for i=1 to n:			n ops
+			for j=1 to n:		 *n ops
+				print A[i]*A[j]	   *4 ops	(o,*,print)
+
+		thus:
+
+		T(A2) = 2+2n + 4n^2
+
+	consider A3:
+		n=read()			1 ops 		(=)
+		e=read()			1 ops 		(=)
+		for i=1 to n:			n ops
+			A[i] = read()		 *2 ops		(=, read)
+		for i=1 to n:			x ops		[is X ops because the # depends on the position of e]
+			if A[i] == e:		 1 ops 		(>)
+				return True
+			return False
+		
+		the if statement introduces specifications that can be made to the complexity
+		there are 3:
+			- best case	
+			- average case
+			- worst case
+
+|Big O notation:
+	measures an UPPER bound (worst case) on the Order of Growth of an algore
+	
+	consider:
+		algore A requires 5n^[2]+3n+20 steps to process N items
+		
+	A in Big O Notation:
+		- focus on Dominant term	(term that is largest as [N -> ininity])
+		- in other words, Ignore the coefficients [n->nx], constants [+c] and lower order terms 
+		
+		thus, A would have an order of growth of:
+			O(n^2)
+
+	consider:
+		n^2 + 2n + 2		= O(n^2)
+		n^2 + 1000000n + 3^1000 = O(n^2)
+		log(n) + n + 4		= O(n)		n grows faster than log(n)
+		0.0001 * n*log(n) +300n = O(n*log(n))	n*log(n) grows faster than n (remeber that x*y or xy is 1 term !!!)
+										     (however, not n*x where n is constant)
+		
+|Big O dominance chart:
+							time:
+	worst case	n^n		grows fast	=====================================================================
+			n^3				==========================
+			n^2				===================
+			n*log(n)			==============
+			n				=========
+			sqrt(n)				=====
+			log(n)				==
+	best  case 	1		grows slow	=
+		
+		 
+1-4 Big: O,omega,theta notation
+===============================
+|Big O:
+	the expression defining the upper bound of [f(n)]
+	
+	note, Big O is not the same as 'worst case analysis', which is performed when making the polynomial to then-
+	derive Big O from
+
+	[f(n)]	represents the true running time of the algorithm. 
+	[g(n)]	is an expression that represents the dominating term from [f(x)]
+
+	[g(n)]  is a non-negative function
+	[f(n)] 	is in the set [O(g(n))] if there are 2 constants [c,n_0] such that:
+
+	[g(n)]	represents the dominating term from [f(n)] if and only if
+
+			f(n) <= c*g(n) for all n > n0		      
+		
+      [c*g(n)]	must be greater than [f(n)]. it may be less than [f(n)] but only for a reasonalby finite ammount of time
+	[n>n0] 	== values_of_n > lowest_value_of_n == BIG values of n
+
+	   [c]	must be as small as possible while still satisfying [c*g(n)>f(n)]\
+	  [n0]	must be the smalles value of [n] to make the upper bound TIGHT as possible
+
+
+	examples:
+		prove [f(n)] is in [O(?)]:
+			first, we can define what [?] is by looking at [f(n)]:		f(n) = c_s * n/2
+				
+			ignoring the coefficients and constants of f(n), [O(?)] is:	O(n)
+				
+now, we are able to start proving that [f(n)] is in [O(n)] we must find 2 variables [c,n0] in order to prove f(n) is in O(n)
+				for all values where [n > 1]: [c_s*n/2] <= [c_s*n] is true
+			
+			thus:
+			by definition of Big O, with [n0=1] and [c=c_s], [f(n)] is in [O(n)]
+
+		prove [f(n)] is in [O(g(n))]:
+			given:
+				[f(n)]		= 4n^2 + 2n + 2	
+			thus:
+				[g(n)]		= n^2 
+				[O(g(n))]	= O(n^2)
+				
+			consider:
+				[c*g(n)] 	must be >= [f(n)]
+                                [c*n^2]		must be >= [4n^2+2n+2]
+                                thus:
+				[c] 		must be >= 8, as we made all terms from [f(n)]to be in the form [n^2]
+						and combined like terms:	[4n^2+2n^2+2n^2] = [2(4n^2)] = [8n^2]
+			hence:									     
+				by definition of Big O
+				while [c=8] and [n0=1], [f(n)] is in [O(n^2)]
+
+			given that [f(n)] is in [O(n^2)], by extension we can say that [f(n)] is in [O(n^{3,4,5,...})]  
+			
+
+|Big Omega:
+	the expression defining the LOWER bound of [f(n)]
+	[g(n)]	is the lower bound of [f(n)]
+	
+	similarly to Big O, 
+	if:
+		f(n) is in Omega(n^k)
+	then:
+		f(n) is in Omega(n^i)	[i < k]		(k value is whats known as breaking point)
+
+	if you prove a funcion is within Omega, then it is also in lower powers of Omega
+
+	additionally: [g(n)] is [O(f(n))]
+
+
+|Big Theta:
+	the expression defining the closest approximation to [f(n)]
+	[g(n)]	is an asymptotically tight bound of [f(n)]
+	
+	to find Big Theta, one must find Big Omega and Big O first
+
+2-1 linear ADTs
+===============
+|linear data structres:
+        these are data where elements are visited linearly and only a single item can be reached at a time:
+        this includes:
+                - List
+                - Stack
+                - Queue
+
+|list:
+        a list without implementation is an Abstract data type 
+        muat be a countable number of oedered elements 
+        same values can appear more than once
+
+        basic operations:
+                o read
+                > traverse
+                ? search
+                ! modify (insert, remove, position)
+                # size 
+
+        example:
+
+        python array-list operation complexity:
+                the ops that are NON MUTATIVE:
+
+                        len             O(1)
+                        data[i]         O(1)
+                        data.count      O(n)
+
+                        there are other operations with variable complexity:
+                        because they depend on the elements of the list, assume [k] is the target for the ops
+
+                        data.index(v)   O(k+1)
+                        value in Data   O(k+1)
+                        data [j:k]      O(k-j)
+                        data1+data2   O(n1+n2)
+
+                there are other ops that are mutative, this means they alter the list in some way
+                        python is slowww
+
+        linked list:
+                is based on a node connected to another by a pointer:
+
+                        HEAD -> 0 -> 1 -> 2 -> NULL
+                while this format is conceptually easier it requires different operations
+                
+                op              array                   linked
+                insert at HEAD  O(n)                    O(1)            (this is becasue all that os needed is to connect the new)
+                                                                        (value to the current Head. compared to changing the index of each existing value)
+
+                linked lists can be more complex as either:
+                        Circularly linked list
+                                1 -> 2 -> 1 -> ...
+                        Doubly linked lists
+                                HEAD <-> 1 <-> 2 <-> 3 <->  NULL
+
+
+######
+WEEK 2
+######

@@ -1,0 +1,218 @@
+CISC221 Computer Architecture NOTES
+===================================
+
+######
+WEEK 1
+######
+
+
+01-intro
+========
+
+|course theme:
+        abstraction is good, but they have limits,
+        dont forget reality
+
+        
+|ints are not inegers and floats are not reals:
+
+                is x² ≥ 0 true?
+
+                        floats: yes !
+                        ints:   we may get an overflow with a very large x² then the int may overflow and,
+                                we cannot solve
+                        
+                is (x+y)+z = x+(y+z)?
+                        
+                        floats: (1e20 + -1e20) + 3.14 → 3.14
+                                1e20 + (-1e20 + 3.14) → ??      (because it depends on the machine its copmputed on)
+                        ints:   yes!
+
+|Computer arithmatic:
+        - does not generate random values
+        - cannot assume all 'usual' mathematical properties
+
+|Assembly:
+        assembly, the language, is something we NEED to learn to understand and model machine level executions
+        we wont be writing in Assembly
+
+        we will be using x86 assembly 
+
+|memory matters:
+        memory is not unbounded in real life and thus is needs to be taken into accound to properly model
+        the system of a computer.
+                - memory performance is not uniform (proximity to operation)
+
+        examples:
+                
+                memory refrencing bug:
+
+                typedef struct {
+                        int a[a];
+                        double d;
+                        struct_t;
+                }
+                double fun(int i) {
+                        volatile struct_t s;
+                        s.d = 3.14;
+                        s.a[i] = 1073741824; /* possibly out of bounds */
+                        return s.d
+                }
+
+                the outcome of this program depends on your system / its architecture !
+                but iy mostly jst prints a list of numbers (which depend on your architecture)
+
+                luckily, these errors can be avoided by not using C, C++
+                or solved with tools like Valgrind
+                or just knowing how to do it works too lol 
+
+                memory & system performace:
+
+                the speed at which a program can search through a matrix depends on how it accesses it.
+                the same ammount of operations are done but it takes longer if the outer loop is the y and inner is x
+                than if  it were to be the normal way. x outer, y inner
+
+
+|there is more to compexity than Big O:
+        constant factors matter too!
+
+        must optimize at muktioke levels: algorithm, data representations, procedures, loops
+        must understand system to optimize system
+                - how porgrams are compiled and executed
+                - how to improve performance without destroying modularity & generality of code
+
+|computers dont just run programs:
+        they have to do I/O operations:
+                - communicate with other computers
+                - communicate with a printer
+                - copy and pasting
+
+|course focus:
+        programmer centric, the purpose is to show how the system works and then how to optimize them
+        "we bring out the hidden hacker in everyone" - not a course dedicated to hackers
+
+
+02-C
+====
+
+|from source to binary code:
+        
+        [Source Code] → [PreProcessor] → [Compiler] → [Assembler] → [Linker] = executable object program
+                                       ^modif.code  ^asmbly.txt   ^ obj.program.binary
+
+03-buts and bytes
+=================
+
+|bits:
+        either 1 or 0
+        by interpereting bits computers can do their operations
+
+        bits are an abstraction on reality and can be applied to any system/condition with only 2 states
+
+|base:
+        the base of a number system
+
+        decimal = 10
+        binary  = 2
+        octal   = 8
+        hex.dec = 16
+
+        15213₁₀ as 11101101101101₂
+
+|byte:
+        a byte is 8 bits
+
+        the can store:
+                000000000₂ to 11111111₂
+                1₁₀ to 255₁₀
+                00₁₆ to FF₁₆
+
+|byte organization:
+        memory in a computer is organized by bytes, from 00,...,FF (byte adress denoted in hex)
+
+|machine words
+        any given computer has a 'word size' which is the nominal size of int-values data and the size
+        of the virtual memory adress space
+
+        its common in 2022 for computers to have a 64-bit word size , before there were 32 & 64 bit as well
+
+        ordering bytes in multi-byte words is based on their significance
+
+|examining representations of data:
+        code to print byte representation of data:
+
+                typedef unsigned char *pointer;
+                void show_bytes(pointer start, size_t len){
+                        size_t i;
+                        for (i=0; i<len; i++){
+                                printf("%p\t0x%.2x\n", start+i, start[i]);
+                        }
+                        printf("\n");
+                }
+        NOTE: %p = print pointer, %x = print hexadecimal
+
+|boolean logic:
+
+        {0,1}, {~, &, |, Χ}     (Χ is Exclusive or, | is just plain or. ~ is not)
+        claude shannon shoed that any electromagnetic machine can be represented in boolean and thus, binary
+
+        in C you can do operations on bit vecotrs:
+                
+                  01101001
+                & 01010101
+                ----------
+                  01000001
+
+|representing and manipulating binary as sets:
+        a width w vector represents a subset of {0,1,...,w-1}
+        
+                01101001 〉 {0,2,5,6}
+                 65 3  0
+
+                01010101 〉 {0,2,4,6}
+                 6 4 2 0
+
+        operations:
+
+                &       union                   01000001        {0,6}
+                |       intersection            01111101        {0,2,3,4,5,6}
+                ^       symmetric difference    00111100        {2,3,4,5}
+                ~       complement              10101010        {1,3,5,7}
+
+        examples:
+                ~0x41                   → 0xBE
+                0x69 & 0x55             → 0x41
+                01101001 | 01010101     → 01111101
+                ~00000000               → 11111111
+
+                we can also use these operators in C to swap 2 variables without temp variable:
+
+                        void inplace_swap(int *x, int *y){
+                                *y = *x ^ *y;
+                                *x = *x ^ *y;
+                                *y = *x ^ *y;
+                        }
+                        inplace_swap(&a, &b)
+
+        NOTE: these are different from the logic operators {&&, ||, !} in C
+
+|shift operations:
+        there are 2 operations to shift a bit vector:
+
+                L.shift:
+                x << y
+                shift vector x Left y positions and throw away bits that were shifted out of vector, replace on right with 0s
+
+                R.shift:
+                x >> y
+                shift vector x right y positions and get rid of bits off to the right and:
+                Arithmatic      replace from left with 0s OR
+                Logical         replace from left with most significant (closest to the left) digit
+
+                example:
+                        x       = 01100010
+                        x << 3  = 00010000 
+
+######
+WEEK 2
+######
