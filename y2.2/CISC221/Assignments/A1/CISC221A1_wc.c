@@ -5,12 +5,12 @@
 int count (char input[], char target){
         int count = 0;
         int len = strlen(input);
-        for (int i = 0; i < len; i++){
+        for (int i = 0; i < len; i++){  // iterate over input and count each target
                 char c = input[i];
                 if (c == target){
                         count++;
                 }
-                if (c == '\0'){
+                if (c == '\0'){  // end of input
                         break;
                 }
         }
@@ -18,12 +18,12 @@ int count (char input[], char target){
 }
 
 
-int count_char (char input[]){
+int count_chars (char input[]){
         int count = 0;
         int len = strlen(input);
-        for (int i = 0; i < len; i++){
+        for (int i = 0; i < len; i++){ //  count each char by iterating over input
                 char c = input[i];
-                if (c == '\0'){
+                if (c == '\0'){ // end of input
                         break;
                 }else{
                         count++;
@@ -33,80 +33,38 @@ int count_char (char input[]){
 }
 
 
-int count_words (char input[], char targets[]){
+int count_words (char input[], const char targets[]){
         int count = 0;
+        _Bool tar_before = 0;  // checks if there was a delimiter before the current char to ignore it
         int len = strlen(input);
-        for (int i = 0; i < len; i++){
+        for (int i = 0; i < len; i++){  // iterate through input to look for delimiters (targets)
                 char c = input[i];
-                if (strchr(targets, c) != NULL){
-                        count++;
-                        printf("%c", c);
+                if (strchr(targets, c) != NULL){  // incrament count for each word
+                        if (tar_before != 1){        
+                                count++;
+                        }
+                        tar_before = 1;
                 }
-                if (c == '\0'){
+                else if (c == '\0'){  // end of file
                         break;
+                }else{
+                        tar_before = 0;
                 }
         }
         return count;
 }
 
 
-int main (void){ /*int argc, char *argv[]*/
+int main (void){ 
 
-        /* for some reason input is in targets and i must figure out why this is happening
-         * also, gotta add a count_lines function 
-         */
+        char input[128];
+        scanf("%[^\x04]%*c", input);  // take input until ctrl-d
 
-        const char targets[5] = {'.', '\t', ';', ' ', ':'};
+        const char *targets = ".\t; :\n"; // define delimiters
+ 
+        int w = count_words(input, targets);  // count words, chars, and lines
+        int c = count_chars(input);
+        int n = count(input, '\n');
 
-        char input[300];
-        scanf("%[^\x04]%*c", input);
-        
-
-        printf("%s\n", targets);
- /*
-        int targets_count[5]; 
-        for (int i=0; i<5; i++){
-                targets_count[i] = count(input, targets[i]);
-        }
-
-        for (int i=0; i<5; i++){
-                printf("'%c': %d\n\n", targets[i], targets_count[i]);
-        }
-
-        int w = count_words(input, targets);
-        printf("words: %d\n", w);
-
-
-        
-        int spaces = count(input, ' ');
-        int lines = count(input, '\n');
-        int tab = count(input, '\t');
-        int period = count(input, '.');
-        int semico = count(input, ';');
-        int colon = count(input, ':');
-
-        printf("%d\n", spaces);
-
-        int len = strlen(input);
-        for (int i = 0; i < len; i++){
-                char c = input[i];
-                if (c == ' '){
-                        printf("SPACE ");
-                }
-                if (c == '\0'){
-                        break;
-                }
-        }
-
-
-        while (1 == sscanf(input, "%c", &c)){
-                if (c == ' '){
-                        printf("SPACE");
-                }
-        }
-  */              
-
-
-
-        
+        printf("\t%d\t%d\t%d\n", n, w, c); // output
 }
