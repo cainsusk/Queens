@@ -197,7 +197,7 @@ choose the classes (usually 5-15)
 
 EXAMPLE
 --------------
-max		 = 245
+max		= 245
 min 		= 76
 range 		= 245 - 76 = 169
 n 		= 80	
