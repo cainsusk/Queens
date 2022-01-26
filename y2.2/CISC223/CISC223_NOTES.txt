@@ -27,7 +27,7 @@ WEEK 1
         a problem that cannot be solved because it would take more time that the univere has and will ever exits
 
         consider:
-                the Test Termination Program
+                the test termination program
 
                 is a program that sould theoretically be able to take in code and figure out if it will run forever or not
                         the problem is, in order to be sure that something runs forever, one must run it forever.
@@ -40,24 +40,24 @@ WEEK 1
 =========
 
 |definition:
-        Alphabets       are finite sets of symbols
-        Strings         are a finite sequence of Alphabet Symbols
-        Languanges      are a set of strings
+        alphabets       are finite sets of symbols
+        strings         are a finite sequence of alphabet symbols
+        languanges      are a set of strings
 
-                A={a,b,c,d,...}
-                S='hello'
-                L={'Hello',...}         (Languages are not precisely defined)
+                a=[a,b,c,d,...]
+                s='hello'
+                l=['hello',...]         (languages are not precisely defined)
 
                 (can now use set notation with these definitions)
 
-                A={a,b}
-                S=forAll s in S, s in A
-                L={a^i b^j | 0<i<j}     
+                a=[a,b]
+                s=forall s in s, s in a
+                l=[a^i b^j | 0<i<j]     
 
 |string properties:
-        Empty String            [E]     str with no alphabet symbols
-        Length of String                the number of symbol occurences in S    
-        Set of All strings      [Z*]    the set of all strings over alphabet [A]       
+        empty string            [e]     str with no alphabet symbols
+        length of string                the number of symbol occurences in s    
+        set of all strings      [z*]    the set of all strings over alphabet [a]       
 
 |concatenation:
         the concatenation of 2 strings [a,b] is when the symbols of one are appended onto the other
@@ -65,19 +65,19 @@ WEEK 1
         consider:
                 x='aa' y='ab'
 
-3-Operations
+3-operations
                 x.y     ='aaab'
                 y.x     ='abaa'
 
-        concatenation is NOT communative
-        concatenation IS associative
+        concatenation is not communative
+        concatenation is associative
                 - (x.y)z = x(y.z)
-                - the empty String [E] is the Identity String 
+                - the empty string [e] is the identity string 
 
         taking the power of some string concat's it to its self proporional to the power.
         it is defined as:
                 
-                x^10    = E
+                x^10    = e
                 x^[i+1] = x^[i] . x
 
 |string relations:
@@ -90,9 +90,9 @@ WEEK 1
 
         all these relations are substirngs as well
 
-                substring == {prefix, suffix}
-                suffix    /= {substr, prefix}
-                prefix    /= {substr, suffix}
+                substring == [prefix, suffix]
+                suffix    /= [substr, prefix]
+                prefix    /= [substr, suffix]
 
 
 3-operations
@@ -101,101 +101,85 @@ WEEK 1
 |defining languages using operations:
         there are 3 operations that we can use.
 
-        they are known as REGULAR OPERATIONS:
+        they are known as regular operations:
                 
-                + Union                 R+S = {w IN Z* : w IN R || w IN S} if theres a common letter among 2 strings, they have a union
-                . Concatenation         R+S = {r.s : r IN R, s IN S}
-                * Closure               R*  = {w1, w2, ..., wn : wi IN R, i = 1,2,...,m, m >= 0} which is the same as
-                                        R^2 = {01,1}.{01,1} = {01,1}^2 = {0101,011,101,11} assuming R={01,1}
-                                        R^0 = \0 = {}
-                                        \0* = {E}
+                + union                 r+s = [w in z* : w in r || w in s] if theres a common letter among 2 strings, they have a union
+                . concatenation         r+s = [r.s : r in r, s in s]
+                * closure               r*  = [w1, w2, ..., wn : wi in r, i = 1,2,...,m, m >= 0] which is the same as
+                                        r^2 = [01,1]·[01,1] = [01,1]^2 = [0101,011,101,11] assuming r=[01,1]
+                                        r^0 = \0 = []
+                                        \0* = [e]
 
-        NOTE: the set [Z*] is the set of all strings over the alphabet [A] 
-                + Union        
-                . Concatenation
-                * Closure      
-        the empty set [ø] is not the same as the Empty set [ε] because the set of ε is {ε}, [ø = {}]
-                R.ø = ø
-                R.{ε}= R
+        note: the set [z*] is the set of all strings over the alphabet [a] 
+                + union        
+                . concatenation
+                * closure      
+        the empty set [ø] is not the same as the empty set [ε] because the set of ε is [ε], [ø = []]
+                r.ø = ø
+                r.[ε]= r
         
-4-Language Definition:
+4-language definition:
 ======================
 
-|Regular Languages:
-        A language L is REGULAR if it can be represented using operations:
+|regular languages:
+        a language l is regular if it can be represented using operations:
 
-                . Concatenation 
-                * Closure       
-                + Union        
+                . concatenation 
+                * closure       
+                + union        
                                 
-        from elements of [Z] the set of strings and [\0] the empty set.
+        from elements of [z] the set of strings and [\0] the empty set.
         
-        the representation of L is this form is called a REGULAR EXPRESSION for L
+        the representation of l is this form is called a regular expression for l
         
         examples:
-        using A={a,b}
+        using ∑=[a,b]
 
                 set of all str with prefix ababb
-                        REGEX: ababb(a+b)*
+                        regex: ababb(a+b)*
 
                 set of all str that have substr ababb
-                        REGEX: (a+b)ababb(a+b)*
+                        regex: (a+b)ababb(a+b)*
 
                 set of all str of even length
-                        REGEX: (aa+ab+ba+bb)*           (given that the Alphabet is finite)
-                              Σ ((a+b)·(a+b))*           (simpler form)
+                        regex: (aa+ab+ba+bb)*           (given that the alphabet is finite)
+                               ((a+b)·(a+b))*           (simpler form)
 
-|Operation Precedence:
+|operation precedence:
         they are, from highest to lowest:
 
-                · Concatenation                
-                * Closure                      
-                + Union        
+                · concatenation                
+                * closure                      
+                + union        
 
         consider:
-                a+b*   = {a, E, b, bb, bbb, ...}
-                (a+b)* = set of all strings over the characters {a,b}
+                a+b*   = [a, e, b, bb, bbb, ...]
+                (a+b)* = set of all strings over the characters [a,b]
 
                 
-5-REGEXs
-========
-                + Union        
-
-        consider:
-                a+b*   = {a, E, b, bb, bbb, ...}
-                (a+b)* = set of all strings over the characters {a,b}
-
-                
-                + Union        
-
-        consider:
-                a+b*   = {a, E, b, bb, bbb, ...}
-                (a+b)* = set of all strings over the characters {a,b}
-
-                
-5-REGEXs
+5-regexs
 ========
 
-|REGEX over [Σ] Alphabet:
-        - a IN A for all Alphabet symbols
-        - ø is a REGEX 
-        - if α and β are REGEXs then so are:
+|regex over [σ] alphabet:
+        - a in σ for all alphabet symbols
+        - ø is a regex 
+        - if α and β are regexs then so are:
                 α + β
                 α · β   (αβ)
                 α*
 
-        NOTE: ø* = {ε}
+        note: ø* = [ε]
 
         examples:
-        given Σ = {a,b} find REGEXs for,
+        given σ = [a,b] find regexs for,
 
                 all str that have prefix 'aba' and suffix 'aba'
                         aba·(a+b)*·aba + ababa + aba
 
-                all str that have given length and begin with 'b'
+                all str that have even length and begin with 'b'
                         b·(aa+ab+ba+bb)*·(a+b)
 
-                all str that do NOT have 'ab' as a suffix 
+                all str that do not have 'ab' as a suffix 
                         (a+b)*·(aa+bb+ba)+a+b+ε
 
                 all str that do not have 'aa' as a substring
@@ -203,5 +187,257 @@ WEEK 1
                         (b+ab)*·(a+ε)
                         
 
+######
+WEEK 2
+######
 
 
+6-Deterministic State Diagrams (DFA)
+====================================
+we shall first use an example of a state diagram before then defining it.
+
+|Example: Specify set of valid identifiers
+
+        first character is a letter (λ)
+        remaining chars are letters, digits (δ) and underscores (υ)
+        an underscore cannot be the last char and cannot be directly followed by another underscore
+
+                          
+        -> (ε) -λ→ (WIP) ←λ,δ-<//>-υ→ (String)
+                    ↓ ↑ 
+                    λ,δ
+
+|Example: all str that have substr 010
+
+        REGEX: (0+1)[*]·010·(0+1)[*]                                    NOTE: x[*] == x* (which is to say closure on x)
+
+        State Diagram:
+                                       
+        → (A) -0→ (B) -1→ (C) -0→ ((D)) ←0,1)                           NOTE: ←) is a self loop. as is ↓x↑ or ↓ ↑
+          ↓1↑     ↓0↑      1↓                                                                                 x,y  
+                         (A) 
+                          
+        we can read this as, 
+
+A)      any string              adding 1 does nothing
+B)      string w/ suffix = 0    adding 0 does nothing
+C)      suffix = 01             adding 1 brings it back to (A)
+D)      suffix = 010            adding 0,1 does nothing as it is now the suffix and 010=substr 
+
+
+|Definition of Deterministic State Diagram (DFA):
+
+        The language accepted by a DFA consists of all strs that-
+        make up the start state to the final state(s)
+
+        a state diagram is a 5 tuple: (Q, ∑, δ, q₀, F)
+        where:
+                Q       : a finite set of states
+                ∑       : the input alphabet
+                δ       : partial transition function   Q×∑ → Q
+                q₀      : is the start state            q₀ ∈ Q
+                F       : is set of final states        F ⊆ Q       
+
+        NOTES
+        - always has a unique start state (q₀)
+        - can have more than one final state (f∈F:|F|>1)
+        - some transitions (t∈δ) can be undefined. undefined transitions go to a 'dead state'
+
+
+7-Non Deterministic Transition
+==============================
+this is a very similar concept to a transition accept there can be many-
+states to go to using this transition 
+ie:
+             _a→ (D)
+        (B)〈             
+             ‾a→ (C)
+
+observe that both transitions use char 'a'
+in an NFA, for a string to be accepted it has to end in an accepted state
+
+|Example: NFA of substr 010 (from {6})
+        DFA:
+                → (A) -0→ (B) -1→ (C) -0→ ((D)) ←0,1)
+                  ↓0↑     ↓0↑      1↓
+                                  (A) 
+
+        NFA:
+                → (A) -0→ (B) -1→ (C) -0→ ((D)) ←0,1)
+                  ↓ ↑     
+                  0,1      
+
+        observe that the only non-deterministic part of this graph is (A) as-
+        it has 2 transitions using '0'
+
+|Transition Table:
+        a transition table is a way to represent a Deterministic State diagram (DFA)
+        we can use the second example from {6} to demonstrate this,
+        given:
+                → (A) -0→ (B) -1→ (C) -0→ ((D)) ←0,1)
+                  ↓1↑     ↓0↑      1↓
+                                  (A) 
+
+        the transition table would be,
+        Table:
+                input|  0       1
+               +=====+===========
+          state  A   ‖  B       A
+                 B   ‖  B       C
+                 C   ‖  D       A
+                 D   ‖  D       D
+
+        
+8-NON Deterministic State Diagram (NFA)
+=======================================
+an NFA is an extension of a DFA where a NFA contains non-determinittic transitions (NDT) whereas-
+NFA does not contain any NDTs
+
+the reason to use a NFA:
+        - much easier to define a language in an NFA than a DFA
+        - it can also be much smaller than it's respective DFA
+        - also there is an algorithm to convert NFA to DFA
+
+|Definition of NON-Deterministic State Diagram:
+        a NFA is a 5 tuple: (Q, ∑, δ, q₀, F)
+        where:
+                Q       : the same as in DFA    set of states
+                ∑       : the same as in DFA    alphabet
+                δ       : is the MULTI-VALUED transition function:      Q×∑ → Q²        (aka. 2^Q)
+                q₀      : the same as in DFA    starting state
+                F       : the same as in DFA    ending state(s)
+
+        NOTE
+        - in an NFA, for [q∈Q] and [b∈∑], [δ(q,b)⊂Q]
+          in an NFA, the transitions at state 'b' are a subset of all states [Q]
+                
+
+9-Subset Construction
+=====================
+subset construction is the algorithm used to convert an NFA to a DFA
+we shall use an example before defining the algorithm
+NFA:
+        → (A) -0→ (B) -1→ ((C)) ←0,1)
+          ↓ ↑
+          0,1
+
+we can then make the Transition table for the new DFA from this NFA
+Table:
+                input|  0       1
+                -----+=============          
+          state   A  ‖  AB      A
+                 AB  ‖  AB      AC
+                 AC  ‖  ABC     AC
+                ABC  ‖  ABC     AC 
+
+thus we can now translate this table into a DFA
+DFA:
+        → (A) -0→ (AB) -1→ ((AC)) ←0<//>1→ ((ABC)) ←0)
+          ↓1↑     ↓0↑      ↓1↑
+
+NOTES
+        - the results may not be the smallest DFA
+        - ie. states AC and ABC could be combined
+
+|Subset Construction Algorithm:
+        1)      construct Transition Table out of NFA, starting with [q₀] and-
+                continuing on, making sure that each state defined in the input columns-
+                is defined as its own row (see above for example)
+        2)      create a DFA using the Table
+
+|example:
+        NFA:
+        → (A) -1→ (B) -0,1→ ((C))
+          ↓ ↑
+          0,1
+
+        DFA:
+        → (A) -1→ (AB) ←1<//>0→ (AC) -1→ (ABC)
+                                  1↓ 
+                                 (A)
+
+
+9.5-Subset Construction BIG
+===========================
+given:  L_k = [w ∈ [0,1]* : w has '1' at the k'th position from the right]
+
+the NFA for this language would have [k+1] states
+        → ( ) -1→ ( ) -0,1→ () -0,1→ ... -0,1→ (( ))
+
+the DFA for this language would need [2^k] states !
+
+|example: for L₃
+        NFA:
+        → (A) -1→ (B) -0,1→ (C) -0,1→ ((D))
+          ↓ ↑
+          0,1 
+
+        DFA:
+                                /-0→ ((AD)) -0→ (A)
+                               /            
+                       /-0→(AC) ←0<//>1→ ((ABD)) -1→ (ABC)
+        → (A) -1→ (AB)〈                 |1↑
+                       \-1→(ABC) -0→ ((ACD)) -0→ ((AD))
+                                \        |0↑ 
+                                 \-1→ ((ABCD)) ←1)
+        observe: 8 states
+                 2³states
+
+
+10-NFA with ε-transitions
+=========================
+non-deterministic state diagrams with εpsilon transitions
+an ε-trans is a spontaneous transition from A to B
+
+        (A) -ε→ (B)
+NOTE
+        - an NFA with an ε-trans is called a ε-NFA
+        - an ε-trans is inherently non-deterministic and thus cannot be in a DFA
+
+|convert ε-NFA to NFA:
+        consider the ε-NFA [M]
+
+        1)      make a copy of [M] where all ε-trans are removed [M']. Remove all states where-
+                all of its incoming trans are ε, the start state [q₀] is not removed
+        2)      when [M] has a sequence of ε-trans's followed by a real-trans on [b∈∑]:
+                
+                        (p) -ε→ ( ) -ε→ ( ) -ε→ ( ) -ε→ ... -ε→ ( ) -b→ (q)
+
+                in [M'] add a trans:
+                
+                        (p) -b→ (q)
+
+                NOTE: p and q can be same state
+        3)      when a state (p) in [M] reaches a final state using ε-trans's:
+        
+                        (p) -ε→ ( ) -ε→ ( ) -ε→ ( ) -ε→ ... -ε→ (( ))
+
+                the state (p) is made to be a final state in [M']
+
+ε-NFA to NFA examples
+=====================
+M :     → (A) -ε→ ((B)) -b→ (C)
+
+1)      → (A)       (c)
+2)      → (A)   -b→ (c)
+3)      → ((A)) -b→ (c)
+
+|example: unsigned decimal #s
+        ∑:      digits 'd' and '.'
+
+        M:      → (A) ←ε<//>d→ (B) -.→ (C) ←ε<//>d→ (D) -ε→ ((E))
+                                ε↓
+                              ((E)) 
+          
+        1)      → (A) -d→ (B) -.→ (C) -d→ ((D))
+
+        2)      → (A) -d→ (B) -.→ (C) -d→ ((D))            
+                          ↓d↑              ↓d↑
+
+        3)      → (A) -d→ ((B)) -.→ (C) -d→ ((D))
+                           ↓d↑               ↓d↑
+
+
+######
+WEEK 3
+######
