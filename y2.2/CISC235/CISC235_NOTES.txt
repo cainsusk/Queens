@@ -364,3 +364,103 @@ now, we are able to start proving that [f(n)] is in [O(n)] we must find 2 variab
 ######
 WEEK 2
 ######
+
+
+3-1 Stacks
+==========
+stacks are based on the LIFO structure.
+that is to say:
+
+        L ast
+        I n
+        F irst
+        O ut
+
+|Stack Operations:
+        Push    add elem to top of Stack
+        Pop     remove elem from top of stack and retrun its value
+        Top     return value of top of stack
+        empty   return true i stack is empty, false otherwise
+        len     the number of elems in a stack 
+
+|stack applications:
+        there are many applications for the Stack ADT
+        - reversing a word
+        - going through and storing pages when web browsing
+
+|Stack implementation:
+        the stack can be implemented in python as a class that inplements the list data type to-
+        store data and then also uses specific applications of list.append and list.pop to-
+        implement the Stack operations. the decisions made about the usage of the list operations-
+        dictates the time complexity of the Stack data structure.
+                see {Queens/y2.2/CISC235/A1/q2} for an example of ADT implementation
+
+
+3-2 Stack Applications - Brace Matching
+=======================================
+we are processing braces left to right and the first opening symbol must be matched with the-
+last closing symbol.
+Closing symbols match with opening ones in reversed order.
+
+these 2 properties mimic the LIFO principle used in stacks.
+
+the algorithm is as follows:
+        
+{1}     push if the character is an opening parenthesis
+{2}     pop if the character is a closing parenthesis
+{3}     if the popped value does not match the character that is being read then return false
+{4}     if there is a character that tells to pop but the list is empty then return false
+{5}     if there is still any elems in the stack once all the characters have been read then return false
+        
+
+NOTE:   this algorithm and idea can be used to check any symmetrical characters like braces but also-
+        things like HTML tags and anything which has a character and a matching character to complete it-
+        somewhere else in the text.
+
+
+3-3 Stack Applications - Infix, Prefix & Postfix Expressions
+============================================================
+infix expressions are a way of showing mathematical operations. this is the standard way we represent math:
+        5 * 7
+notice how the '*' is INbetween the 5 and 7.
+
+using Prefix and Postfix are other ways of writing math oprations to remove the ambiguity from infix expressions-
+as when they get complicated the precedence of operations can be hard to determine.
+this is done by introducing postfix and prefox operators.
+
+        normal          prefix          postfix
+        ---------------------------------------
+        a+b             +ab             ab+
+        a+b*c           +a*bc           abc*+
+        a+b*c+d         ++a*bcd         abc*+d+
+        (a+b)*c         *+abc           ab+c*
+        (a+b)*(c+d)     *+ab+cd         ab+cd+*
+ 
+
+there are many ways we could go about replacing normal expressions with the pre or post fix expressions:
+        - we can convert the normal expressions into fully parenthesized expressions and then to pre/post
+        - we can use a general infix-to-postfix algorithm 
+
+
+4 Queue ADT
+===========
+the queue uses the FILO concept (its the opposite of LIFO)
+coneptually, a queue is the same as a physical queue as the element that has been waiting the longest-
+is the next element to be removed from the queue.
+this behaviour is achieved by HEAD and TAIL pointers that define the beginning and end of the queue as-
+the start and end of the queue don't necesarily need to be at the start and end of the list,
+        for example, the queue may have a set length and so the end of the queue is not necesarily the-
+        end of the list 
+|queue applications:
+        - flood fill in painting applications
+        - video stream buffering
+        - optimal route navigation
+        - holding data when computer cannot process all data from the internet at once
+
+there is also an implementtation of a queue that is circular which allows for a constant sozed list while-
+also allowing for a moving HEAD and tail. see {Queens/y2.2/CISC235/A1/q3}
+
+
+######
+WEEK 3
+######
