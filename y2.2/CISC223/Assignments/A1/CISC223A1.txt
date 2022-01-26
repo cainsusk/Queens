@@ -100,3 +100,53 @@ part (e)
 --------
         E = (00+01+10+11)∗(010)(1+0)
 
+
+Question 4
+==========
+(2 marks) Let Σ = {a, b} and consider the state-transition diagram given in Figure 1.
+Figure 1: State-transition diagram for Question 4.
+(a) Give examples of three strings that are accepted by the state diagram and examples
+of three strings that are not accepted by the state diagram.
+
+(b) Write out explicitly the transition table (or transition function) that defines the state
+transitions of the diagram.
+
+part (a)
+--------
+        accepted = {ab,abbab,abbba}
+       ¬accepted = {abb,abba,a}
+
+part (b)
+--------
+                
+        input|  a       b
+        -----+=============
+  state   A  ‖  A       B
+          B  ‖  B       C
+          C  ‖  A       B
+
+
+Question 5
+==========
+(3 marks) Let Σ = {a, b, c, d} and consider the nondeterministic state diagram with ε-
+transitions given in Figure 2.
+Using the systematic method described in the lectures (and in the text), convert the state
+diagram into an equivalent (non)deterministic state diagram without ε-transitions.
+You should not further modify/simplify the resulting state diagram.
+
+in order to transform this ε-NFA into an NFA we must first remove all ε-transitions as
+well as any states that only recieve ε-transitions.
+
+          (G)                                   NOTE: [↓x↑] is a self loop over x
+          |ε↑  
+        → (E) ←ε<//>a→ ((F)) ←b<//>c→ (G)
+          ↓b↑                         ↓d↑        
+
+
+                                                        
+        → (E) -a→ ((F)) ←b<//>c→ (G)
+          ↓b↑                    ↓d↑
+
+                            />---d--→\
+        → (E) ←b<//>a→ ((F)) ←b<//>c→ (G)
+          ↓b↑           ↓b↑           ↓d↑

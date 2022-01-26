@@ -414,7 +414,7 @@ NOTE
 
                 the state (p) is made to be a final state in [M']
 
-ε-NFA to NFA examples
+11-εNFA to NFA examples
 =====================
 M :     → (A) -ε→ ((B)) -b→ (C)
 
