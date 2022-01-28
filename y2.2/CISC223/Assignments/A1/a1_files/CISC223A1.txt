@@ -36,10 +36,8 @@ part (a)
         z₁ = 101
         z₂ = 11
 
-both of these are in R and S because the concatenation within allows us to [ignore 00] and then create 
-a string that will match [(10∗1 + 0∗10∗)∗, ignoring 0*10*].
-
-
+both of these are in R and S because the concatenation within allows us to 
+[ignore 00] and then create a string that will match [(10∗1 + 0∗10∗)∗, ignoring 0*10*].
 
 
 part (b)
@@ -50,6 +48,9 @@ part (b)
 these 2 strings are only in R as it is impossible to make a string solely from 0's
 in S as 1 is contained in both parts of the concatenation and none of the 1's have
 closure, meaning they cannot be removed.
+
+
+
 
 part (c)
 --------
@@ -137,16 +138,52 @@ You should not further modify/simplify the resulting state diagram.
 in order to transform this ε-NFA into an NFA we must first remove all ε-transitions as
 well as any states that only recieve ε-transitions.
 
-          (G)                                   NOTE: [↓x↑] is a self loop over x
-          |ε↑  
+copy                                               NOTE: [↓x↑] is a self loop over x
+diagram      />----------ε----------→\
         → (E) ←ε<//>a→ ((F)) ←b<//>c→ (G)
           ↓b↑                         ↓d↑        
+                                                   
+remove  → (E) -a→ ((F)) ←b<//>c→ (G)
+ε-trans   ↓b↑                    ↓d↑
 
+                            />---d--→\
+relink  → (E) ←b<//>a→ ((F)) ←b<//>c→ (G)
+e-trans   ↓b↑           ↓b↑           ↓d↑
+states
 
-                                                        
-        → (E) -a→ ((F)) ←b<//>c→ (G)
-          ↓b↑                    ↓d↑
+make final ε-trans final states final states in copy. there is nothing to change 
+for this step.
+
+thus the final NFA sans ε-transitions:
 
                             />---d--→\
         → (E) ←b<//>a→ ((F)) ←b<//>c→ (G)
           ↓b↑           ↓b↑           ↓d↑
+
+
+Question 6
+==========
+(5 marks) Let Σ = {a, b}. Using the systematic method described in the lectures (the
+subset construction), convert the nondeterministic state diagram given in Figure 3 into
+a deterministic state diagram. Your answer should indicate how the deterministic state
+diagram is obtained from the nondeterministic one: the states of the deterministic diagram
+should be labeled by sets of states of the nondeterministic diagram.
+
+to use the state subset algorithm we must first create a state transition diagram using
+subsets of the states.
+
+                input|  a       b
+                =====+-------------
+        state   A    |  BC      A
+                BC   |  A       BD  
+                BD   |  BA      BD
+                BA   |  BA      BA
+
+
+now that we have the transition table, we can make the a DFA for this NFA
+                                        
+                                          ↓b↑
+        → (A) ←a<//>b→ (BC) -b→ (BD) -a→ (BA)
+          ↓a↑                    ↓b↑      ↓a↑
+
+thus, this is the DFA derived from the given NFA using the subset algorithm
