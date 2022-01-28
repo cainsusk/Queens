@@ -234,7 +234,7 @@ such that:
 	A*∠v = ∠u
 
 if vector u is linear dependent to vector v it is an EigenVector: 	(linear dependence is when a set of vectors are multiples of eachother)
-	A*∠v = lmda*∠v							(lmda = lambda, lmda*V is an EigenVector)
+	A*∠v = λ*∠v							(lmda = lambda, lmda*V is an EigenVector)
 
 Properties of EigenValues:
 for any square matrix [A] 			(A[in]R^[nxn])
@@ -1108,4 +1108,355 @@ consider:
 
 ######
 WEEK 3
+######
+
+
+Q1-review
+=-=-=-=-=
+- Graph Matrices
+        > Graph [G(V,E)] with vertices [V] and edges [E]
+        > in MatLab, V = (i ∈ ∥Z⁺ : i > 0), E = ((x,y) ∈ ∥Z⁺ : (x,y) ∈ V)
+- Adjacency Matrix
+        > a graph isomorphism is a permutation of the Adjacency matrix [A(G)]
+        > degree of V in graph G(V,E) == [ D(G) == diag(A(G)*∠1) ]
+- Laplacian Matrix
+        > L(G) = D(G) - A(G)
+        > diagnonally dominant and symmetric 
+        > the # of components in G is equal to the nullspace of L(G)
+
+- EigenValues & EigenVectors 
+
+
+7-DOES NOT EXIST
+================
+
+
+8a-Normal Matricies
+===================
+consider:
+        C ∈ R^[m×m]
+
+for which:
+        CC⁺ = C⁺C                               NOTE: A⁺ = A^T = A transposed
+                                                      when A is a matrix  
+such a matrix [C] is a NORMAL matrix
+if [C] also satisfies these conditions it will also-
+have the properties:
+        
+        C⁺ = C⁻¹        orthogonal
+           = C          symmetric
+           = -C         skew-symmetric
+
+|EigenVector basis:
+        recall that eigenvectors [∠v_j] of a diagonalizable matrix
+        C ∈ ∥R^[m×m] are a basis for ∥R^m,
+        thus:
+                ∠c = α₁*∠v₁ + α₂*∠v₂ + ... + α_m*∠v_m
+
+        each [α_i] is a component of the vector in the basis 
+
+
+8b-Orthogonal Matrix
+====================
+given:
+        orthogonal Matrix [Q]
+
+        Q ∈ ∥R^[m×m]    the columns [∠q] are OrthoNormal
+
+consider:
+        A = Q⁺Q = [∠q⁺₁; ∠q⁺₂; ...; ∠q⁺_m][∠q₁,∠q₂,...,∠q_m]
+
+enter:
+        a_ij = [k=1→m]∑(q_ki*q_kj) = ∠q⁺_i * ∠q_j = ∠q_i * ∠q_j
+
+        / i=j → ∠q_i*∠q_i = 1
+        \ i≠j → ∠q_i*∠q_j = 0           because columns are OrthoNormal 
+
+        A = Q⁺Q = I
+
+which implies:
+        Q⁻¹ = Q⁺
+
+because only the inverse times the matrix equals the identity
+
+|Orthogonal:
+        2 vectors ∠u, ∠v
+        vector subspaces \V, \W, \U
+        matrix Q
+
+|OrthoNormal:
+        basis set of vectors
+
+|example:
+        Q ∈ ∥R^[2×2]
+
+        Q = [cos(θ), -sin(θ); sin(θ), cos(θ)]
+
+        EigenValues λ = cos(θ)±sin(θ)*√-1
+                these are real iff [θ = kπ] for the int [k]
+
+
+8c-real symmetric matrices
+==========================
+given:
+        Symmetric Matrix [B]
+
+        B ∈ ∥R^[m×m] : [b_ij = b_ji] ∨ [B = B⁺]
+
+show:
+        BB⁺ = B⁺B
+        (its much easier to show BB⁺ = B⁺B)
+
+        B = [1,2; 2,-2]
+        λ₁= -3  λ₂= +2
+        
+        ∠v₁ ∝ [1; -2]   ∠v₂ ∝ [2; 1]
+        
+        thus:
+
+        ∠v₁ ⊥ ∠v₂       [v1 is orthogonal to v2] 
+
+this shows us that if a matrix is symmetric and real [B∈∥R]:
+        - every EigenValue is real
+        - if [λ_i ≠ λ_j] then [∠v_i * ∠v_j = 0] 
+                > distingct EigenValues have orthogonal eigenvectors  
+
+to prove that every eigenvalue is real in a symmetric matrix we must-
+prove it with complex numbers
+consider:
+        [B∠v₁]·∠v₂ ≡ [λ₁∠v₁]·∠v₂ = λ₁(∠v₁·∠v₂)
+        [B∠v₁]⁺∠v₂ = ∠v⁺₁B⁺∠v₂ = ∠v⁺₁B∠v₂
+                   = ∠v⁺₁λ₂∠v₂
+                   = λ₂(∠v₁·∠v₂)
+
+        λ₁ ≠ λ₂ and λ₁(∠v₁·∠v₂) = λ₂(∠v₁·∠v₂)
+                then ∠v₁·∠v₂ = 0
+
+|Skew-Symmetric Martices:
+        given:
+                skew symmetric matrix [S]
+
+                S ∈ ∥R^[m×m] : [s_ij = -s_ij] ∨ [S⁺ = -S]
+
+        the EigenValues of [S] are either
+                - zero [0]
+                - purely imaginary [0+y√-1]
+
+        the EigenVectors of [S] are generally complex
+
+
+8d-Spectral Theorum
+===================
+an important fact in CISC271
+
+suppose:
+        normal matrix [ C ∈ ∥R^[m×m] ]
+
+then:
+        C = QΛQ⁺
+
+where:
+        - [Λ] is diagonal, [λ] is an eigenvalue of [C]
+        - [Q] is Orthogonal 
+
+|Symmetry Theorem:
+        if a matrix is the same as it's transpose [B=B⁺], then
+        - every eigenvalue is a real number
+        - every eigenvector is composed entirely of real numbers
+
+
+8-learning summary 
+------------------
+we should now be able to:
+        identify a normal matrix as one that commutes with its transpose
+        find the inverse of an orthogonal matrix by taking its transpose
+        state the eigen-decomposition of a normal matrix using the spectral theorem
+        characterize eigenvalues of skew symmetric matrix as being 0 or purely imaginary
+
+
+9a-positive definite matrices
+=============================
+
+|Quadratic form of a vector:
+        for any matrix [M], ∠u ≠ 0, the quadratic form of [M] is:
+
+                ∠u⁺M∠u        
+        also known as the 'energy' of a vector
+
+consider:
+        symmetric matrix [B]
+
+        Positive Definite:      λ > 0   or      ∠u⁺B∠u > 0      or      B >) 0
+        Positive Semi-Definite  λ ≥ 0   or      ∠u⁺B∠u ≥ 0      or      B ≥) 0
+
+        Negative Definite       λ < 0   or      ∠u⁺B∠u < 0      or      B <) 0
+        Negative Semi-Definite  λ ≤ 0   or      ∠u⁺M∠u ≤ 0      or      B ≤) 0
+
+        Indefinite              none of the above
+
+
+9b-Quadratic Form
+=================
+consider:
+        Symmetric Matrix [ B ∈ ∥R^[m×m], B=B⁺ ]
+        
+quadratic:
+        B = QΛQ⁺
+
+basis of [∥R^m] must be ∠q_j in the quadratic form [q∈Q]
+
+        Any  ∠u = α₁∠q₁+α₂∠q₂+...+α_n∠q_n
+            B∠u = λ₁α₁∠q₁ + λ₂α₂∠q₂ + ... + λ_nα_n∠q_n
+         ∠u⁺B∠u = λ₁α²₁∠q₁·∠q₁ + λ₂α²₂∠q₂·∠q₂ + ... + λ_nα²_n∠q_n·∠q_n  
+
+                 = λ₁α²₁ + λ₂α²₂ + ... + λ_nα²_n 
+
+each α²_j ≥ 0
+
+if ∠u⁺B∠u > 0 then, generally, each λ > 0
+if ∠u⁺B∠u ≥ 0 then, generally, each λ ≥ 0
+
+
+consider:
+        A ∈ ∥R^[m×n]
+        with columns linearly independent
+
+A must be full rank and either:                         NOTE: rank is the number of linearly independent columns
+        square          n=m
+        tall-thin       n>m
+
+what does a [∠u ≠ 0] map to ?
+
+        ∠y = A∠u
+
+        ∥∠y∥² = ∠y⁺∠y
+              = [A∠u]⁺A∠u
+              = ∠u⁺A⁺A∠u        must be > 0
+                      
+thus, 
+the symmetric (by construction) matrix [A⁺A] is Positive Definite
+
+        [A⁺A] >) 0
+
+|example:
+        
+        A   = [1,1; -1,1; 1,1]            [A] is full rank
+        
+        A⁺  = [1,-1,1; 1,1,1]             
+
+        A⁺A = [3,1; 1,3]                  [A⁺A] is symmetric by construction
+
+        λ₁  = 2          λ₂ = 4         
+
+        ∠v₁ ∝ [1; -1]   ∠v₂ ∝ [1; 1]    
+
+        observe that v₁ and v₂ (the eigenvectors of A) are-
+        a basis for  ∥R^m
+
+
+9c-Mean and Variance of data
+============================
+suppose we are given data [∠x ∥R^m]
+
+the mean of [∠x]                ‾x              = 1/m × [j=1→m]∑(x_j)
+
+difference vector [∠x]          ∠d              = [x₁ - ‾x₁; x₂ - ‾x₂; ...; x_m - ‾x_m] 
+                                                = ∠x - ‾x∠1
+                                                has [m-1] degrees of freedom
+
+variance of [∠x]                var(∠x)         = 1/(m-1) × [j=1→m]∑(x_j - ‾x)²
+                                                = 1/(m-1) × (∠d·∠d)
+
+|mean:
+        a = [1; 2; 3]   b = [4; 5; 6]
+
+        ‾x_a = 2         ‾x_b = 5
+
+        d_a = [-1; 0; 1]
+        d_b = [-1; 0; 1]
+
+|variance:
+        a = [1; -1; 3]  b = [1; 3; 2]
+        
+        ‾x_a = 1        ‾x_b = 2
+
+        d_a = [0; -2; 2]
+        d_b = [-1; 1; 0]
+
+        d_a·d_a = 8
+        d_b·d_b = 2
+
+        var(a) = 4
+        var(b) = 1
+
+
+9d-Covariance Matrix
+====================
+the covariance of 2 data vectors is 1 over the degrees of freedom times the dot product of the-
+difference vectors:
+        
+        cov(∠x₁, ∠x₂)   = 1/(m-1) * (∠d₁·∠d₂)
+                        = 1/(m-1) * (∠d⁺₁∠d₂)
+
+|example:
+        given:
+                a = [1; -1; 3]  
+                b = [1; 3; 2]
+
+                ‾x_a = 1        
+                ‾x_b = 2
+
+                d_a = [0; -2; 2]
+                d_b = [-1; 1; 0]
+
+        find the covariance of [a] and [b]
+
+        cov     = 1/(m-1) * (∠d⁺₁∠d₂)
+
+                = 1/2[0,-2,2][-1; 1; 0]
+
+                = 1/2(-2)
+
+                = -1
+
+from this covariance [-1] we can infer that in a deep sense that these data sets-
+have a negative correlation which can be seen in the second entry
+
+
+consider:
+        X = [∠x₁ ... ∠x_n]              NOTE: [X] is a design matrix where all its columns are predefined vectors
+
+then the covariance of [X] is:
+                        
+                        /∠d₁⁺∠d₁, ∠d₁⁺∠d₂, ..., ∠d₁⁺∠d_n\
+        cov(X)= 1/(m-1) |∠d₂⁺∠d₁                        |
+                        |  ...                          |
+                        \∠d_n⁺∠d₁                       /
+
+thus, the covariance of [X] can be simplified to
+
+        cov(X)= 1/(m-1) * D⁺D                   NOTE: [D] is the difference matrix made up of difference vectors [∠d]
+
+therefore, by construction the matrix [D⁺D] is symmetric and the- 
+covariance of any design matrix must be symmetric and its covariance is 
+positive semi-definite.
+
+furthermore, if the difference vectors in the difference matrix [D],
+then [D] is full rank and the covariance of [X] is positive definite.
+
+NOTE
+cov(X) is positive definite iff the vectors that make up [X] are statistically independent
+
+
+9-learning outcomes
+-------------------
+we should now be able to:
+        realate eigenvalues to quatratic form
+        find positive definite matrix from full rank matrix and from a non full rank, positive semi-definite
+        compute mean and variance of data vector
+        formulate the covariance matrix of data vectors and if the data is statistically independent, it will make a positive semi definite matrix 
+                
+                
+######
+WEEK 4
 ######
