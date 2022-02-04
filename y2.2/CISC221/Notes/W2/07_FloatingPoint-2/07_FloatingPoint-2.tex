@@ -1,0 +1,128 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+
+\newcommand{\classID}{Floating Points 2}
+\newcommand{\coursename}{Computer Architecture}
+
+\begin{document}
+\date{}
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\title{\coursename\\\classID}
+
+\author{\\ \\ Cain Susko\\\today \\ \\ \\ \\ \\
+        Queen's University \\School of Computing} 
+ 
+
+\maketitle
+\pagebreak
+
+\section*{Floating Point Operations}
+there are 2 operations with floating points:
+\begin{align*}
+        x+_f y &= round(x+y)\\
+        x \times_f y &= round\left( x+y \right) 
+.\end{align*} 
+
+We first compute the exact result and then make it fit into the precision of
+        a given $w$-bit numbers.
+When rounding we default to rounding to the closest \textbf{whole} number.
+If the number is equally distant from either whole number, round to the \textbf{even}
+        number.\\
+\[2.50 = 2\]
+When dealing with binary numbers, if the value to in the middle of 2 possible values
+        then round so that the least significant digit is even.
+\[2.\frac{2}{32}=10.00011_2 \rightarrow 10.00_2 = 2\]
+\[2.\frac{3}{16}=10.00110_2 \rightarrow 10.01 = 2.\frac{1}{4}\]
+note the decimal numbers are in the form int.frac where frac is a representation of
+        what the number past the decimal is.
+\subsection*{Addition}
+the exact result of adding 2 floating point numbers in the form of IEEE float is as follows:
+\[(-1)^{s_1} M_1 *2^{E_1} + (-1)^{s_2} M_2 *2^{E_2}= (-1)^sM*2^E\]
+such that $s$ and  $M$ are the results of signed align and add as well as
+        $E$ is equal to $E_1$.
+We must also fix some things about his sum:
+\begin{enumerate}
+        \item if $M \geq 2$, shift $M$ right, increment $E$
+        \item if $M<0$ shift  $M$ left  $k$ positions, decrement  $E$ by $k$.
+        \item overflow if $E$ is out of range
+        \item round  $M$ to fit  $frac$ precision.
+\end{enumerate}
+
+This operation is \textbf{Closed, Commutative, not Associative, almost Invertible, 
+        almost Monotonous}
+the almost is because of infinity and NaN.
+
+\pagebreak
+
+\subsection*{Multiplication}
+multiplying 2 IEEE floating point numbers is as follows:
+\[(-1)^{s_1} M_1 *2^{E_1} \times (-1)^{s_2} M_2 *2^{E_2}= (-1)^sM*2^E\]
+
+Such that the sign value $s=s_1 * s_2$, the significand $M=M_1\times M_2$, 
+        and  $E=E_1+E_2$.
+The conditions where we need to fix things with the product are as follows:
+\begin{enumerate}
+        \item if $M \geq 2$, shift $M$ right, increment $E$
+        \item if $E$ is out of range, overflow
+        \item round  $M$ to fit $frac$ precision.
+\end{enumerate}
+
+When implementing floating point multiplication the biggest job is multiplying 
+        significands.\\
+This operation is \textbf{Closed, Commutative, not Associative, Invertible,
+        not Distributive over addition, almost Monotonous}.
+The almost is because of infinities and NaN.
+
+\section*{Float in C}
+a float in C Guarantees 2 levels of precision:
+\begin{enumerate}
+        \item float-single precision
+        \item double-double presision
+\end{enumerate}
+the conversions between these types and the int type are as follows:\\
+\begin{itemize}
+        \item double$\vee$float $\rightarrow$ int\\truncated  
+                fractional part and rounds towards 0\\
+        \item int $\rightarrow$double\\is an exact conversion as long as int has  
+                word size.\\
+        \item int $\rightarrow$float\\will round according to rounding mode
+\end{itemize}
+
+\section*{Summary}
+casting signed to unsigned integers results in their bit patterns being maintained
+        but reinterpereted.
+This can have the unexpected effect of adding or subtracting $2^w$\\
+When \textbf{Expanding} the general rules are:
+\begin{itemize}
+        \item Unsigned: Zeros added
+        \item Signed: sign extension (add s bit)
+        \item Both yeild expected result
+\end{itemize}
+
+Similarly, when \textbf{Truncating} the general rules are:
+\begin{itemize}
+        \item Unsigned$\vee$Signed: bits are truncated. Result reinterpreted
+        \item  Unsigned: mod operation
+        \item Signed: similar to mod operation
+        \item for small numbers: yields expected behaviour  
+\end{itemize}
+
+Rules for \textbf{addition}
+\begin{itemize}
+        \item Unsigned/Signed: normal addition followed by truncate, 
+                same operation on bit level.
+        \item Unsigned: addition mod $2^w$
+        \item Signed: modified addition mod  $2^w$ such that the result is in the  
+                proper range
+\end{itemize}
+
+Rules for \textbf{multiplication} 
+\begin{itemize}
+        \item Unsigned/Signed: normal multiplication followed by truncate, same
+                operation at bit level.
+        \item Unsigned: multiplication mod $2^w$.
+        \item Signed: multiplication mod  $2^w$ within proper range.
+\end{itemize}
+\end{document}

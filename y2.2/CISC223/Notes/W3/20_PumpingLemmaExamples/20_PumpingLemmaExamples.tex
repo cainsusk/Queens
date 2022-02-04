@@ -1,0 +1,84 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{The Pumping Lemma-Examples}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+{\small
+\section*{Example 1}
+Given \[L = \{a^{2^m} | m \geq 1\}\]
+
+Show that  $L$ is not regular.
+Assume  $L$ is regular and let  $n$ be the constant specified by the Pumping Lemma.\\
+We will first consider $k$ such that 
+\[2^k>n\;\wedge\;x=a^{2^k}\in L\]
+
+By the Pumping Lemma we can write $x=p\cdot q\cdot r$ where each part satisfies the Pumping Lemma.
+
+Note that $1\leq |q|\leq n<2^k$. 
+Which expands to:
+\[2^k < | p\cdot q^2\cdot r | < 2^k+2^k=2^{k+1}\]
+
+Thus we have reached a contradiction as in order for a string to be in $L$ it must have a length equal to 
+        a power of 2. 
+From the equation above, it states that for a language of this form to be regular, it must have a length between $2^k$ and 
+        $2^{k+1}$.
+
+Therefore,  $L$ is not regular.
+}
+
+
+\section*{Example 2}
+Given
+\[L=\{a^ib^k | 0\leq k\leq i\}\]
+
+We shall prove that this language $L$ is not regular via the Pumping Lemma.
+Let $n$ be the constant given by the pumping lemma. 
+We shall use the following string $x\in L$ in this proof
+\[x=a^nb^n\in L\]
+By the Pumping Lemma we can write $x = p\cdot q\cdot r$ where $x$ is any string in  $L$ and the parts satisfy the conditions of the Pumping Lemma.\\
+We know that $|p\cdot q|\leq n\;\wedge\;q\neq\epsilon$. This implies that  $q=a^t\;\;\{t\geq 1\}$.\\
+Thus we can then derive the following Regex.
+\[pq^2r = a^{n+t}b^n\in L\]
+\[pq^3r = a^{n+2t}b^n\in L\]
+Thus we arrive at no contradiction. 
+
+However, consider the Regex below instead:
+\[pq^0r = p\cdot r = a^{n-t}b^n\]
+
+And Thus, we have reached a contradiction as the number of 'a' cannot be less than the number of 'b' in a string
+
+\section*{Notes}
+\begin{itemize}
+        \item We use the Pumping Lemma in order to show that a language is \textit{not} regular
+        \item Showing that a language satisfies the Pumping Lemma does \textit{not} imply that the language is regular 
+                as there exists non-regular languages that satisfy the Pumping Lemma
+        \item if one wants to show that a language is regular, one should produce a Regex or State Diagram for 
+                said language
+\end{itemize}
+\end{document}
+

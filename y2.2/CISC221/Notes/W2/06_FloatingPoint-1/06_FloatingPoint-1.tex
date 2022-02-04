@@ -1,0 +1,171 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+
+\newcommand{\classID}{Floating Points 1}
+\newcommand{\coursename}{Computer Architecture}
+
+\begin{document}
+\date{}
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\title{\coursename\\\classID}
+
+\author{\\ \\ Cain Susko\\\today \\ \\ \\ \\ \\
+        Queen's University \\School of Computing} 
+ 
+
+\maketitle
+\pagebreak
+
+  
+
+\section*{Fractional Binary Numbers}
+We know we must be able to represent numbers that are not just integers for things like physics or calculus
+        that heavily rely on computers to do useful computations.
+We can represent a decimal number like so:
+\[10110.1001\]
+Using a binary point '.'\\
+The number 1 place to the left of the point represents $2^0$ 
+	and numbers to the left incrament on $0$ and numbers to the right decrement on $0$.
+Because of this we can represent fractional numbers to the right of the point.
+\begin{align*}
+        &value  &representation\\
+        &5.\;{3}/{4}   &101.11\\
+        &2.\;{7}/{8}   &10.111\\
+        &1.\;{7}/{16}  &1.0111
+\end{align*}
+the limitations of this form are that 
+\begin{enumerate}
+        \item One can only enter numbers of the exact form $x/2^k$
+        \item If we use this binary point in a set number of bits $w$
+                then we will limit thenumbers we can represent as we are 
+                essentially cutting our range proportionally to the position
+                of the binary point
+\end{enumerate}
+
+\section*{IEEE Floating Point standard 754}
+This standard was established in 1999 to create a uniform representation
+        for floating point numbers and their arithmetic.
+Now adays most modern CPUs use this standard.
+It is driven by numerical concers and is thus very good at handling rounding, overflow, and underflow.\\
+Unfourtunately it is hard to make fast hardware using this standard, 
+        although the hardware can be very comprehensive.
+\pagebreak
+an IEEE float is represented as:
+\[(-1)^sM*2^E\]
+such that \\
+\textbf{s} determines whether the number is negative or positive\\
+\textbf{M} is normally a fractional value from $[1.0,2.0)$\\
+\textbf{E} weights the value $M$ by a power of 2\\
+\paragraph{}
+This form can then be represented in 3 different bit formats, or precisions. 
+These differ by the number of bits allocated to each part of the float representation \\
+\begin{align*}
+        &single\;precision       &s=1\;\;M=23\;\;E=8\\
+        &double\;precision       &s=1\;\;M=52\;\;E=11\\
+        &extended\;precision     &s=1\;\;M=63,64\;\;E=15
+\end{align*}
+
+Where all numbers are measured in \textbf{bits}
+\paragraph{}
+Furthermore there are 3 types of values that we can represent with the IEEE format.
+They are Normalized, De Normalized, and Special Values.
+
+\subsection*{Normalized}
+The value is normalized if the exp $\neq$ 000...0 and exp $\neq$ 111...1.         
+$2^{k-1}-1$ where $k$ is the number of exp bits\\
+A normalized value also has an $E$ such that $E=exp-bias$\\
+A normalized value also has a $M$ value such that $M$ has a leading one
+        for example. $M= 1.xxxxx...x_2$ note $M$ is binary
+
+For example, the float $F=25213.0$\\
+\begin{align*}
+        15213.0 &=11101101101101_2\\
+                &=1.1101101101101_2 \times 2^{13}
+\end{align*}
+
+\pagebreak
+
+The significand $M$ equals \\
+\[M=1.1101101101101_2\]
+\[frac=11011011011010000000000_2\]
+
+The exponent $E$ equals\\
+\begin{align*}
+        &E= &13\\
+        &bias=  &127\\
+        &exp=   &140 = &1000100_2
+\end{align*}
+
+Thus the result is:
+\[0\;1000100\;1101101101101000000000\]
+where $s$ is the fisrt portion, $exp$ is the second, and $frac$ is the third
+
+
+\subsection*{Denormalized}
+a float is this type of value if:
+\begin{align*}
+        \exp&= 000\ldots 00\\
+        E&=1-bias\\
+        M&=0.x x x \ldots\\
+        frac&=000\ldots 00\;\wedge\;\neq 000\ldots 00
+.\end{align*}   
+
+When $frac = 000\ldots$ the number being represented is a zero value, $+0, -0$
+When  $frac\neq 000\ldots$ the number being represented are the numbers closest to  $0$.
+The latter values are equispaced.
+
+\subsection*{Special Values}
+
+when $\exp = 111\ldots 11$, this value is known as a special value. 
+There are 2 cases:\\
+When $frac = 000\ldots 00$ this represents the value $\infty$, both negative and positive. 
+This operation is one that overflowed.
+For example:
+\[\frac{1.0}{0.0}=\frac{1.0}{-0.0}=\infty\]
+
+When $frac \neq 000\ldots 00$ this represents the case where no numeric value can be determined.
+For example:
+\[\\sqrt{-1}, \infty - \infty, \infty\times 0 \]
+
+From negative to positive these 3 types of float values are arranged like so:
+\begin{enumerate}
+        \item NaN
+        \item $-\infty$
+        \item -Normalized
+        \item -Denorm
+        \item -0
+        \item +0
+        \item Denorm
+        \item Normalized
+        \item $\infty$
+        \item NaN
+\end{enumerate}
+
+
+\section*{Examples}
+we shall take the toy example to show these concepts.\\
+consider a tiny floating point with 8 bits where $s$ is 1 bit,  $\exp$ is 4 bits and $frac$ is 3 bits.
+\[s\;eeee\;fff\]
+this tiny float has the same general form as the IEEE formats which means it can represent normalized,
+denormalized, 0, NaN, and $\infty$\\
+for non-negative numbers the ranges of these values are
+\begin{align*}
+        &\text{denormalized}    &0\;0000\;000\rightarrow 0\;0000\;111\\
+        &\text{normalized}  &0\;0001\;000\rightarrow 0\;1110\;111\\
+        &\text{special} &0\;1111\;000
+\end{align*}
+
+within the distribution of thes numbers one can observe that the numbers are most dense at 0, 
+        meaning that this 4-bit representation of the IEEE standard for floating point numbers can 
+        represent more values closer to 0 and less as one moves farther away from 0.
+
+
+\section*{Properties}
+a special property of this representation is that we can represent positive and negative values of 0,\\
+Furthermore, the representation for 0 is all 0s in binary.
+We can also compare signed and unsigned integers as long as NaN is not involved and one must compare the
+        sign bits first.
+
+\end{document}

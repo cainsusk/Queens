@@ -1,0 +1,50 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\newcommand{\classID}{Converting State Diagram to Regex-Examples cont.}
+\newcommand{\coursename}{Software Specifications}
+
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\begin{document}
+\date{}
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\title{\coursename\\\classID}
+
+\author{\\ \\ Cain Susko\\\today \\ \\ \\ \\ \\
+        Queen's University \\School of Computing} 
+ 
+
+\maketitle
+\pagebreak
+
+\section*{Example}
+
+Given the following state diagram, convert it to its corresponding Regex using the State Elimination Algorithm from lesson 15.
+The diagram only has 1 end state so there is no preprocessing necessary.
+\begin{figure}[h]
+        \centering
+        \incfig{st1}
+\end{figure}
+
+After removing the Top Right node the final generalized graph for the given Regex is:
+\begin{figure}[h]
+        \centering
+        \incfig{st2}
+\end{figure}
+
+And thus the resulting Regex is:
+
+\[(ac\text{*}b)\text{*}(b+ac\text{*}a)[b+dc\text{*}a+(c+dc\text{*}b)(ac\text{*}b)(b+ac\text{*}a)]\text{*}\]
+
+This State Diagram has a unique Regex because there is only one state that can be removed, as the other 2 are the 
+        start and end states--which cannot be removed
+\end{document}
+

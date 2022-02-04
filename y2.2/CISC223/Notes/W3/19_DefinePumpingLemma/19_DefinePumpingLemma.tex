@@ -1,0 +1,74 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Defining the Pumping Lemma}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Pumping Lemma}
+the Lemma is as follows:
+
+For every regular language $L$ there is a constant  $n$ such that any string  $x\in L$ is of length at least $n$.
+The lemma can be written in three parts.
+\[x=p\cdot q\cdot r\]
+\begin{enumerate}
+        \item $q\neq\epsilon$
+        \item $|pq|\leq n$
+        \item $p\cdot q^k \cdot r \in L\;\;\;\;\forall_k\{k \geq 0\}$
+\end{enumerate}
+
+The Pumping Lemma is used to show that a language is \textit{not} regular.
+Simply put, if a language does not contain a string with length $n$ but does contain one with length $n+1$, the language is not regular.
+This is normally done using proof by contradiction:
+\begin{enumerate}
+        \item assume the language in question is regular
+        \item show that the Pumping lemma cannot hold for the said language
+\end{enumerate}
+
+\subsection*{Example}
+given the set of balanced strings 
+\[L_1 = \{a^ib^i|i\geq 0\}\]
+we shall show that $L_1$ is not regular. 
+For the sake of contradiction we will assume that $L_1$ is regular.
+Let $n$ be the constant given by the Pumping Lemma.
+\[x=a^nb^n\in L_1\]
+
+By the Pumping Lemma $x$ can be written in three parts  
+\[x=p\cdot q^k\cdot r\]
+
+Where the parts satisfy the conditions of the Pumping Lemma.\\
+Since $|p\cdot q|\leq n$ and $q\neq\epsilon$, we know that  $q=a^t\;\;\forall_t\{t\geq 1\}$\\
+Thus:
+\[p\cdot q^i\cdot r = a^{n+t}b^n\]
+
+Which is a contradiction as in order for the Pumping Lemma to hold, we must have an unbalanced number of a or b.
+Thus, $L_1$ is not a Regular Language 
+
+
+
+
+\end{document}

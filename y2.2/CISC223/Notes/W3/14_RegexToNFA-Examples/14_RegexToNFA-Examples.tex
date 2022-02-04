@@ -1,0 +1,75 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\newcommand{\classID}{Convert Regex to State Diagram-Examples}
+\newcommand{\coursename}{Software Specifications}
+
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\begin{document}
+\date{}
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\title{\coursename\\\classID}
+
+\author{\\ \\ Cain Susko\\\today \\ \\ \\ \\ \\
+        Queen's University \\School of Computing} 
+ 
+
+\maketitle
+
+\pagebreak
+
+\section*{Example}
+Given
+(10+1)*0+01
+find the corresponding state diagram using the algorithm from lesson 12.
+
+\paragraph{}
+the first step we must take is to make a state diagram for 0 and 1
+\begin{figure}[h]
+         \centering
+         \incfig{ex1st1}
+\end{figure}
+
+We must then concatenate these diagrams so that we can represent $01$
+ \begin{figure}[h]
+        \centering
+        \incfig{ex1st2}
+\end{figure}
+
+\pagebreak
+
+And we continue creating diagrams until we can represent the given Regex\\
+\begin{figure}[h]
+        \centering
+        \incfig{ex1st3}
+\end{figure}
+
+Now for (01+1)*
+\begin{figure}[ht]
+        \centering
+        \incfig{ex1st4}
+\end{figure}
+\pagebreak
+
+And (01+1)*0
+\begin{figure}[ht]
+        \centering
+        \incfig{ex1st5}
+\end{figure}
+
+Finally, (01+1)*0+01
+\begin{figure}[h]
+        \centering
+        \incfig{ex1st6}
+\end{figure}
+
+And thus, we have converted the Regex $\left( 01+1 \right)* 0+01$ to its corresponding $\epsilon$-transition NFA
+\end{document}

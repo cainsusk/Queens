@@ -1,0 +1,101 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\graphicspath{ {./figures} }
+
+\newcommand{\classID}{Convert Regex to State Diagram}
+\newcommand{\coursename}{Software Specifications}
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\begin{document}
+
+\date{}
+\setlength{\parindent}{0em}  % sets auto indent at new paragrahp to none
+
+\title{\coursename\\\classID}
+
+\author{\\ \\ Cain Susko\\\today \\ \\ \\ \\ \\
+        Queen's University \\School of Computing} 
+ 
+
+\maketitle
+\pagebreak
+
+\section*{Regex to $\epsilon$--NFA}
+to do this we need 2 algorithms different algorithms
+\begin{itemize}
+        \item convert Regex to a State Diagram 
+        \item convert State Diagram to Regex
+\end{itemize}
+
+The first algorithm will produce a NFA with $\epsilon$-transitions as well as the following properties:\\
+
+\begin{enumerate}
+        \item there is exactly one final state and it is not the start state
+        \item the start state has no incoming transitions
+        \item the final state has no outgoing transitions
+\end{enumerate}
+these conditions are needed to guarantee the correctness of the recursive steps of the algorithm\\
+said algorithm is as follows:
+
+The base cases for the algorithm (as its recursive) are $a\in\sum$,  $empty\;string$, and $\emptyset$
+
+\begin{figure}[h]
+        \centering
+        \incfig{basecase}
+\end{figure}
+\pagebreak
+
+Thus, the inductive step is:\\
+suppose that a state diagram $S_i$ has been constructed for regex  $R_i$ where  $i=1,2$
+
+\begin{figure}[ht]
+        \centering
+        \incfig{inductivestep}
+        \centering
+\end{figure}
+
+Now, for $R_1 + R_2$:
+\begin{figure}[h]
+        \centering
+        \incfig{rplusr}
+\end{figure}
+
+We must merge the start and end states.\\
+note that conditions 1 and 2 (see list above) guarantee that any computation uses only transitions from $S_1$
+        or only transitions from $S_2$
+\pagebreak
+
+For $R_1\cdot R_2$:
+
+\begin{figure}[ht]
+        \centering
+        \incfig{rtimesr}
+\end{figure}
+
+We must merge the final state of $S_1$ with the starting state of $S_2$. 
+This merged state is not final.
+Conditions 2 and 3 guarantee that any accepting path consists of a string by $S_1$ concatenated with 
+        a string accepted by $S_2$.\\
+
+For $R_i*$   
+
+\begin{figure}[h]
+        \centering
+        \incfig{rclosed}
+\end{figure}
+
+We must merge the start and end states for $R_i$\\
+        furthermore the merged state is \textbf{not final}, and it cannot be the start state.
+We must then add a start and end state (with $\epsilon$-transition) to complete the diagram.\\
+we use this algorithm recursively, starting from the smallest part of a Regex, like a single number $R_i$, and build our way to
+        a more complex diagram.
+
+
+\end{document}

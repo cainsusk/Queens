@@ -1,0 +1,58 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{The Pumping Property of State Diagrams}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Regular Languages}
+A regular language is a language that can be specified by a Regex. This type of language is well suited to be 
+        converted to a State Diagram using the algorithm to convert a Regex to $\epsilon$-DFA from lesson 14. 
+Furthermore, There are other algorithms that we have learned about that can convert a $\epsilon$-DFA to a DFA to a NFA\\
+There are however, limitations to what a regular language can be.\\
+For example:
+\[\{a^ib^i | i \geq 0\}\]
+
+The set of balanced strings (above) is not regular. 
+This is because one would need an infinite amount of states to represent this Regex in a State Diagram 
+        as each length of word would be a different state. 
+Furthermore, the state diagram would have to accept illegal strings in order to represent the balanced set.
+
+\section*{The Pumping Property of Deterministic State Diagrams}
+Accepting computation on a string $x$ where $x$ has a length greater than the number of states
+\begin{figure}[h]
+        \centering
+        \incfig{pp1}
+\end{figure}
+
+This shows the state diagram for a computation on $x_i$ such that:
+\[x=p\cdot q^k\cdot r\]
+where $x$ is accepted  $\forall_k\{k\geq 0\}$.
+{\small Thus, this yields to us the nonregularity conditions formalized in the \textbf{pumping lemma}}
+
+\end{document}
+

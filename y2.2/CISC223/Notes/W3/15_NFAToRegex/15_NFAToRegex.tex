@@ -1,0 +1,76 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\newcommand{\classID}{Convert State Diagram to Regex}
+\newcommand{\coursename}{Software Specifications}
+
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\begin{document}
+\date{}
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\title{\coursename\\\classID}
+
+\author{\\ \\ Cain Susko\\\today \\ \\ \\ \\ \\
+        Queen's University \\School of Computing} 
+ 
+
+\maketitle
+
+\pagebreak
+
+\section*{State Elimination Algorithm}
+This algorithm is used to covert a State Diagram to it's corresponding Regex.
+The conditions for the algorithm are as follows:
+\begin{enumerate}
+        \item The State Diagram used as input should have exactly one final state which is not the start state
+        \item If these conditions are not met, we modify the state diagram by adding a new final state with $\epsilon$--transitions 
+                from the original final states
+\end{enumerate}
+
+\begin{figure}[h]
+        \centering
+        \incfig{algoex}
+        \incfig{algoex2}
+\end{figure}
+
+\paragraph{}
+The Algorithm uses an intermediate stage \textit{Generalized State Diagrams} where transitions are labelled by Regex.
+The algorithm eliminates states one at a time.
+The start state and final state are \textit{not} eliminated.\\
+\pagebreak
+
+Thus the elimination step is as such, where $U, V, T, R$ are Regex.\\
+We eliminate the top node, the transition between the bottom 2 is now the combined Regex for the removed transitions.
+\begin{figure}[ht]
+        \centering
+        \incfig{algoex3}
+\end{figure}
+\begin{figure}[ht]
+        \centering
+        \incfig{algoex4}
+\end{figure}
+
+Note, when eliminating a state we need to add transitions to \textbf{all pairs} of states connected to the eliminated state.
+In particular, it is possible that 2 states are the same state.\\
+\pagebreak
+
+At the end, the algorithm should produce a 2-state diagram like so:
+\begin{figure}[h]
+        \centering
+        \incfig{final1}
+\end{figure}
+
+Which can be translated into it's equivalent Regex.
+\[R\text{*}U(S+VR\text{*}U)\text{*}\]
+
+And thus, this is the state elimination algorithm for converting State Diagrams to their corresponding Regex
+\end{document}
+

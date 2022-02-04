@@ -1,0 +1,116 @@
+snippet template "Basic template" b
+snippet beg "begin{} / end{}" bA
+snippet ... "ldots" iA
+snippet table "Table environment" b
+snippet fig "Figure environment" b
+snippet enum "Enumerate" bA
+snippet item "Itemize" bA
+snippet desc "Description" b
+snippet pac "Package" b
+snippet => "implies" Ai
+snippet =< "implied by" Ai
+snippet iff "iff" Ai
+snippet mk "Math" wA
+snippet dm "Math" wA
+snippet ali "Align" bA
+snippet // "Fraction" iA
+snippet / "Fraction" i
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrA
+snippet '^.*\)/' "() frac" wrA
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+snippet sympy "sympyblock " w
+snippet 'sympy(.*)sympy' "sympy" wr
+snippet math "mathematicablock" w
+snippet 'math(.*)math' "math" wr
+snippet == "equals" iA
+snippet != "equals" iA
+snippet ceil "ceil" iA
+snippet floor "floor" iA
+snippet pmat "pmat" iA
+snippet bmat "bmat" iA
+snippet () "left( right)" iA
+snippet lr "left( right)" i
+snippet lr( "left( right)" i
+snippet lr| "left| right|" i
+snippet lr{ "left\{ right\}" i
+snippet lrb "left\{ right\}" i
+snippet lr[ "left[ right]" i
+snippet lra "leftangle rightangle" iA
+snippet conj "conjugate" iA
+snippet sum "sum" w
+snippet taylor "taylor" w
+snippet lim "limit" w
+snippet limsup "limsup" w
+snippet prod "product" w
+snippet part "d/dx" w
+snippet sq "\sqrt{}" iA
+snippet sr "^2" iA
+snippet cb "^3" iA
+snippet td "to the ... power" iA
+snippet rd "to the ... power" iA
+snippet __ "subscript" iA
+snippet ooo "\infty" iA
+snippet rij "mrij" i
+snippet <= "leq" iA
+snippet >= "geq" iA
+snippet EE "geq" iA
+snippet AA "forall" iA
+snippet xnn "xn" iA
+snippet ynn "yn" iA
+snippet xii "xi" iA
+snippet yii "yi" iA
+snippet xjj "xj" iA
+snippet yjj "yj" iA
+snippet xp1 "x" iA
+snippet xmm "x" iA
+snippet R0+ "R0+" iA
+snippet plot "Plot" w
+snippet nn "Tikz node" w
+snippet mcal "mathcal" iA
+snippet lll "l" iA
+snippet nabl "nabla" iA
+snippet xx "cross" iA
+snippet ** "cdot" iA
+snippet norm "norm" iA
+snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
+snippet dint "integral" wA
+snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+snippet -> "to" iA
+snippet <-> "leftrightarrow" iA
+snippet !> "mapsto" iA
+snippet invs "inverse" iA
+snippet compl "complement" iA
+snippet \\\ "setminus" iA
+snippet >> ">>" iA
+snippet << "<<" iA
+snippet ~~ "~" iA
+snippet set "set" wA
+snippet || "mid" iA
+snippet cc "subset" Ai
+snippet notin "not in " iA
+snippet inn "in " iA
+snippet NN "n" iA
+snippet Nn "cap" iA
+snippet UU "cup" iA
+snippet uuu "bigcup" iA
+snippet nnn "bigcap" iA
+snippet OO "emptyset" iA
+snippet RR "real" iA
+snippet QQ "Q" iA
+snippet ZZ "Z" iA
+snippet <! "normal" iA
+snippet <> "hokje" iA
+snippet '(?<!i)sts' "text subscript" irA
+snippet tt "text" iA
+snippet case "cases" wA
+snippet SI "SI" iA
+snippet bigfun "Big function" iA
+snippet cvec "column vector" iA
+snippet "bar" "bar" riA
+snippet "([a-zA-Z])bar" "bar" riA
+snippet "hat" "hat" riA
+snippet "([a-zA-Z])hat" "hat" riA
+snippet letw "let omega" iA
+snippet HH "H" iA
+snippet DD "D" iA
