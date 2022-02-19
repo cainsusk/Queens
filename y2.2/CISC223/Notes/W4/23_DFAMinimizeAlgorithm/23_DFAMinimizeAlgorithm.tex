@@ -1,0 +1,110 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Deterministic State Diagram Minimization Algorithm}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Minimization Algorithm}
+The algorithm for minimizing a state diagram is the following (note: must do preprocessing see lesson 22)
+\begin{enumerate}
+        \item mark a pair of states $(A,B)$ where  $A$ is final and  $B$ is non-final or vice versa. 
+                (distinguished by the empty-string $\epsilon$)
+        \begin{enumerate}         
+                \item consider pairs $(A,B)$ that remain unmarked. 
+                        If on a single alphabet symbol  $b\in\Sigma$ makes the states  $(A,B)$ reach a pair  $(C,D)$ and $(C,D)$
+                        was already marked, then mark pair $(A,B)$.
+                \item repeat from step 1 until there are no more pairs $(A,B)$ that are a final and end state and no more 
+                        pairs $(C,D)$ (see part a).
+        \end{enumerate}
+
+        \item all unmarked state-pairs are indistinguishable and each pair is merged.
+\end{enumerate}
+
+This algorithm has a complexity of $O(n^3)$ where  $n$ is the number of states.
+
+Note: If a pair  $(p,q)$ is distinguishable, so is  $(q,p)$ thus, the algorithm need only consider half of the $n^2$ pairs.
+
+\section*{Example}
+consider the given state diagram:
+\begin{figure}[h]
+        \centering
+        \incfig{ex1}
+\end{figure}
+
+Where the nodes are:\\ top-left = $w$, top-right = $x$, bottom-left = $y$, bottom-right = $z$
+We can then make a matrix representing the pairs, for this problem. 
+Note that because we only need to consider half the pairs, we only need to fill in half the matrix\\
+
+\subsection*{Stage 0}
+mark pairs where one state is final and the other is not with 0
+(note that the diagonal is filled with X as a state is indistinguishable from its self)
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}lllll@{}}
+\toprule
+  & w & x & y & z \\ \midrule
+w & X &   &   &   \\
+x & 0 & X &   &   \\
+y & 0 &   & X &   \\
+z & 0 &   &   & X \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Stage 1}
+\begin{itemize}
+        \item $(x,z)\rightarrow^b (w,z)$, $(w,z)$ has been marked, thus mark  $(x,z)$
+        \item $(x,y)\rightarrow^a(z,z)\;\;\wedge\rightarrow^b(w,w)$,  $(z,z)\wedge(w,w)$ has not been marked, thus $(x,y)$  is not marked,
+        \item $(y,z)\rightarrow^b(w,z)$, $(w,z)$ is marked, thus mark  $(y,z)$
+\end{itemize}
+thus, we have marked all states that can be marked as per algorithm step 1.b.
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}lllll@{}}
+\toprule
+  & w & x & y & z \\ \midrule
+w & X &   &   &   \\
+x & 0 & X &   &   \\
+y & 0 &   & X &   \\
+z & 0 & 1 & 1 & X \\ \bottomrule
+\end{tabular}
+\end{table}
+\pagebreak
+
+
+\subsection*{stage 2}
+Now we have $(x,y)$ as our only resulting indistinguishable pair.
+Thus, we will merge  $x,y$ to get our final unique minimized Deterministic State Diagram.
+ \begin{figure}[h]
+         \centering
+         \incfig{ex2}
+        
+\end{figure}
+
+Note: there is only one minimal state for each language
+\end{document}
+

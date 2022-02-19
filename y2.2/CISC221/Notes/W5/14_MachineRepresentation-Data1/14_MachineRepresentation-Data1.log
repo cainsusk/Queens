@@ -1,0 +1,279 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.1.31)  16 FEB 2022 15:33
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**14_MachineRepresentation-Data1.tex
+(./14_MachineRepresentation-Data1.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14> (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2019/12/20 v1.4l Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@chapter=\count168
+\c@section=\count169
+\c@subsection=\count170
+\c@subsubsection=\count171
+\c@paragraph=\count172
+\c@subparagraph=\count173
+\c@figure=\count174
+\c@table=\count175
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+ (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks14
+\ex@=\dimen135
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen136
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count176
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count177
+\leftroot@=\count178
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count179
+\DOTSCASE@=\count180
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen137
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count181
+\c@MaxMatrixCols=\count182
+\dotsspace@=\muskip16
+\c@parentequation=\count183
+\dspbrk@lvl=\count184
+\tag@help=\toks15
+\row@=\count185
+\column@=\count186
+\maxfields@=\count187
+\andhelp@=\toks16
+\eqnshift@=\dimen138
+\alignsep@=\dimen139
+\tagshift@=\dimen140
+\tagwidth@=\dimen141
+\totwidth@=\dimen142
+\lineht@=\dimen143
+\@envbody=\toks17
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks19
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen144
+\Gin@req@width=\dimen145
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/import.sty
+Package: import 2020/04/01  v 6.2
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen146
+\lightrulewidth=\dimen147
+\cmidrulewidth=\dimen148
+\belowrulesep=\dimen149
+\belowbottomsep=\dimen150
+\aboverulesep=\dimen151
+\abovetopsep=\dimen152
+\cmidrulesep=\dimen153
+\cmidrulekern=\dimen154
+\defaultaddspace=\dimen155
+\@cmidla=\count188
+\@cmidlb=\count189
+\@aboverulesep=\dimen156
+\@belowrulesep=\dimen157
+\@thisruleclass=\count190
+\@lastruleclass=\count191
+\@thisrulewidth=\dimen158
+) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count192
+\l__pdf_internal_box=\box47
+) (./14_MachineRepresentation-Data1.aux)
+\openout1 = `14_MachineRepresentation-Data1.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count193
+\scratchdimen=\dimen159
+\scratchbox=\box48
+\nofMPsegments=\count194
+\nofMParguments=\count195
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count196
+\MPscratchDim=\dimen160
+\MPnumerator=\count197
+\makeMPintoPDFobject=\count198
+\everyMPtoPDFconversion=\toks21
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+LaTeX Font Info:    Trying to load font information for U+msa on input line 28.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+<./figures/arrayEx.png, id=8, 770.12718pt x 377.15906pt>
+File: ./figures/arrayEx.png Graphic file (type png)
+<use ./figures/arrayEx.png>
+Package pdftex.def Info: ./figures/arrayEx.png  used on input line 40.
+(pdftex.def)             Requested size: 231.03993pt x 113.14859pt.
+<./figures/arrayPointers.png, id=10, 727.21687pt x 355.3275pt>
+File: ./figures/arrayPointers.png Graphic file (type png)
+<use ./figures/arrayPointers.png>
+Package pdftex.def Info: ./figures/arrayPointers.png  used on input line 46.
+(pdftex.def)             Requested size: 290.88159pt x 142.12846pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2 <./figures/arrayEx.png> <./figures/arrayPointers.png>]
+<./figures/arrayEx2.png, id=19, 642.90187pt x 417.05812pt>
+File: ./figures/arrayEx2.png Graphic file (type png)
+<use ./figures/arrayEx2.png>
+Package pdftex.def Info: ./figures/arrayEx2.png  used on input line 56.
+(pdftex.def)             Requested size: 128.5781pt x 83.41014pt.
+<./figures/arrayEx3.png, id=20, 804.75656pt x 510.40688pt>
+File: ./figures/arrayEx3.png Graphic file (type png)
+<use ./figures/arrayEx3.png>
+Package pdftex.def Info: ./figures/arrayEx3.png  used on input line 57.
+(pdftex.def)             Requested size: 160.94846pt x 102.07956pt.
+<./figures/loop1.png, id=21, 694.09312pt x 492.33937pt>
+File: ./figures/loop1.png Graphic file (type png)
+<use ./figures/loop1.png>
+Package pdftex.def Info: ./figures/loop1.png  used on input line 63.
+(pdftex.def)             Requested size: 208.22954pt x 147.70294pt.
+ [3 <./figures/arrayEx2.png> <./figures/arrayEx3.png> <./figures/loop1.png>]
+<./figures/arrayStruct.png, id=29, 797.22844pt x 161.10187pt>
+File: ./figures/arrayStruct.png Graphic file (type png)
+<use ./figures/arrayStruct.png>
+Package pdftex.def Info: ./figures/arrayStruct.png  used on input line 82.
+(pdftex.def)             Requested size: 239.17038pt x 48.33093pt.
+<./figures/nestedArrayEx.png, id=30, 754.31813pt x 508.90125pt>
+File: ./figures/nestedArrayEx.png Graphic file (type png)
+<use ./figures/nestedArrayEx.png>
+Package pdftex.def Info: ./figures/nestedArrayEx.png  used on input line 88.
+(pdftex.def)             Requested size: 150.86095pt x 101.77844pt.
+<./figures/nestedArrayEx2.png, id=31, 786.68906pt x 522.45187pt>
+File: ./figures/nestedArrayEx2.png Graphic file (type png)
+<use ./figures/nestedArrayEx2.png>
+Package pdftex.def Info: ./figures/nestedArrayEx2.png  used on input line 89.
+(pdftex.def)             Requested size: 157.33502pt x 104.48851pt.
+<./figures/nestedArrayEx3.png, id=32, 793.46437pt x 252.19218pt>
+File: ./figures/nestedArrayEx3.png Graphic file (type png)
+<use ./figures/nestedArrayEx3.png>
+Package pdftex.def Info: ./figures/nestedArrayEx3.png  used on input line 90.
+(pdftex.def)             Requested size: 158.69006pt x 50.43753pt.
+<./figures/multilevel1.png, id=33, 835.62187pt x 490.08093pt>
+File: ./figures/multilevel1.png Graphic file (type png)
+<use ./figures/multilevel1.png>
+Package pdftex.def Info: ./figures/multilevel1.png  used on input line 96.
+(pdftex.def)             Requested size: 250.68849pt x 147.0254pt.
+ [4 <./figures/arrayStruct.png> <./figures/nestedArrayEx.png> <./figures/nestedArrayEx2.png> <./figures/nestedArrayEx3.png> <./figures/multilevel1.png>]
+<./figures/multilevel2.png, id=42, 814.54312pt x 511.9125pt>
+File: ./figures/multilevel2.png Graphic file (type png)
+<use ./figures/multilevel2.png>
+Package pdftex.def Info: ./figures/multilevel2.png  used on input line 103.
+(pdftex.def)             Requested size: 244.36482pt x 153.57494pt.
+<./figures/arrayVmulti.png, id=43, 832.61063pt x 443.40656pt>
+File: ./figures/arrayVmulti.png Graphic file (type png)
+<use ./figures/arrayVmulti.png>
+Package pdftex.def Info: ./figures/arrayVmulti.png  used on input line 110.
+(pdftex.def)             Requested size: 333.03835pt x 177.35948pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5 <./figures/multilevel2.png> <./figures/arrayVmulti.png>]
+<./figures/indexing1.png, id=49, 516.42938pt x 197.98969pt>
+File: ./figures/indexing1.png Graphic file (type png)
+<use ./figures/indexing1.png>
+Package pdftex.def Info: ./figures/indexing1.png  used on input line 119.
+(pdftex.def)             Requested size: 206.56808pt x 79.19446pt.
+<./figures/indexing2.png, id=50, 509.65407pt x 150.5625pt>
+File: ./figures/indexing2.png Graphic file (type png)
+<use ./figures/indexing2.png>
+Package pdftex.def Info: ./figures/indexing2.png  used on input line 125.
+(pdftex.def)             Requested size: 203.858pt x 60.22392pt.
+<./figures/nxnindexing.png, id=51, 776.9025pt x 450.9347pt>
+File: ./figures/nxnindexing.png Graphic file (type png)
+<use ./figures/nxnindexing.png>
+Package pdftex.def Info: ./figures/nxnindexing.png  used on input line 131.
+(pdftex.def)             Requested size: 310.7555pt x 180.37068pt.
+ [6 <./figures/indexing1.png> <./figures/indexing2.png> <./figures/nxnindexing.png>] (./14_MachineRepresentation-Data1.aux) ) 
+Here is how much of TeX's memory you used:
+ 2117 strings out of 483183
+ 30110 string characters out of 5966292
+ 257752 words of memory out of 5000000
+ 17113 multiletter control sequences out of 15000+600000
+ 541958 words of font info for 62 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 30i,7n,27p,247b,223s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on 14_MachineRepresentation-Data1.pdf (6 pages, 2466396 bytes).
+PDF statistics:
+ 78 PDF objects out of 1000 (max. 8388607)
+ 33 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+

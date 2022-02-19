@@ -1,0 +1,275 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Assignment 2}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Question 1}
+(4 marks) Using the method described in Section 9.1 and in videos of Week 3 (video 12)
+convert the following regular expression into a state diagram:
+\[
+        (01\text{*}+10)\text{*}1\text{*}
+.\] 
+\subsection*{Answer}
+To convert a Regex to a NFA we must first create a state diagram for the most basic parts of this regex:
+        $0,1$.
+ \begin{figure}[h]
+         \centering
+         \incfig{Q1pt1}
+         \caption{0 and 1}
+\end{figure}
+
+Following the steps from Lesson 12, we will now find the concatenation of 1 and 0:
+
+\begin{figure}[h]
+        \centering
+        \incfig{Q1pt2}
+         \caption{10}
+\end{figure}
+\pagebreak
+
+Next, we shall create a state diagram for the other half of the union:
+\begin{figure}[h]
+        \centering
+        \incfig{Q1pt3}
+        \caption{1*}
+\end{figure}
+\begin{figure}[h]
+        \centering
+        \incfig{Q1pt4}
+        \caption{01*}
+\end{figure}
+\pagebreak
+
+
+Now that we have each respective part of the regex in the parenthesis, we can now represent the union:
+\begin{figure}[h]
+        \centering
+        \incfig{Q1pt5}
+        \caption{01*+10}
+\end{figure}
+
+And next we will apply closure to the above diagram:
+\begin{figure}[h]
+        \centering
+        \incfig{Q1pt6}
+        \caption{(01*+10)*}
+\end{figure}
+\pagebreak
+
+Finally, we will concatenate the above diagram with 1*:
+\begin{figure}[h]
+        \centering
+        \incfig{Q1pt7}
+        \caption{(01*+10)*1*}
+\end{figure}
+
+And thus, this is a corresponding state diagram for the given Regex.
+
+\section*{Question 2}
+(3 marks) Using the method described in Section 9.2 (and in videos of Week 3), convert
+the state diagram given in Figure 1 into an equivalent regular expression. Where $\Sigma$ =
+{a, b, c, d}.
+
+\subsection*{Answer}
+{\small
+From looking at the given state diagram, one can see that there is only one possible node to remove
+        while using the state elimination algorithm as one cannot remove the starting or final state.
+Thus, my intermediate intermediate state diagram is:}
+\begin{figure}[h]
+        \centering
+        \incfig{Q2pt1}
+\end{figure}
+
+Thus, we can now derive the Regex from the above diagram:
+\[
+        (bd\text{*}c)\text{*}(bd\text{*}a)
+        [c+bd\text{*}a+(a+bd\text{*}c)(bd\text{*}c)(bd\text{*}a)]\text{*}
+.\] 
+
+Therefore, we have found a corresponding regex for the given state diagram.
+
+\section*{Question 3}
+(4 marks)Are the following languages A and B over the alphabet $\Sigma = {a, b, c, d}$ regular or non-regular?
+\begin{enumerate}[label=\alph*)]
+        \item $A = \{a^{2i} b^{3k+1} c^{m+3} \mid i,k,m \geq 0\}\cup\{b^{3r+1} c^{2s+4} d^{5t+1} \mid r,s,t \geq 0\}$
+        \item $B = \{d^{2i} c^{3i} b^{2k+1} \mid i,k\geq 1\}\cdot\{b^{3m+2} a^{2r+1} \mid m,r\geq 1\}$
+\end{enumerate}
+\subsection*{Answer}
+\begin{enumerate}[label=\alph*)]
+        \item We will first attempt to make a Regex for the given set $A$ by creating a  $\epsilon$-NFA and converting it to an
+                NFA then a Regex
+
+                From this operation we can derive the following Regex:
+                 \[
+                [(aa)\text{*}(bbb)\text{*}bc\text{*}ccc] + [(bbb)\text{*}b(cc)\text{*}cccc(ddddd)\text{*}d]
+                .\] 
+
+                Thus, this Regex represents $A$. Therefore,  $A$ is \textbf{regular}
+                
+        \item From initial observation we can infer that $B$ may be irregular, thus we will first try to show it is irregular using the
+                pumping lemma and proof by contradiction.
+
+                For the sake of contradiction we will assume $B$ is regular. Let  $n$ be the constant given by the pumping lemma. 
+                Let $x=d^{2n} c^{3n} b^{2n+1} b^{3n+2} a^{2n+1}$.
+                By the pumping lemma, any string $x=pqr$ which satisfies the pumping lemma must be in  $B$.
+               Let $q\in x = c^{3j}\;\forall_j\{j\geq 0\}$ 
+                \[
+                x = pq^2r = d^{2n} c^{3n+3j} b^{2n+1} b^{3n+2} a^{2n+1} \not\in B
+                .\] 
+                
+                Thus, we have reached a contradiction as for $B$ to be regular is must contain the above string; which it does not.
+                Therefore,  $B$ is \textbf{irregular}
+\end{enumerate}
+\pagebreak
+
+
+\section*{Question 4}
+{\small(3 marks) Using the algorithm mark distinguishable pairs of states that was presented in
+videos of Week 4 (videos 23–24) and that can be found in the course notes, minimize the
+number of states of the DFA depicted.}
+
+\subsection*{Answer}
+We must minimize the given State Diagram in 2 steps:
+\begin{enumerate}
+        \item[\textbf{Stage 0}] First, we will mark all pairs of states that are each final and non-final with a 0:
+                \begin{table}[h]
+                \centering
+                \begin{tabular}{@{}llllll@{}}
+                \toprule
+                  & A & B & C & D & E \\ \midrule
+                A & X &   &   &   &   \\
+                B &   & X &   &   &   \\
+                C &   &   & X &   &   \\
+                D &   &   &   & X &   \\
+                E &   &   & 0 & 0 & X \\ \bottomrule
+                \end{tabular}
+                \end{table}
+        \item[\textbf{Stage 1}] Next, we will mark any pairs of states that transition--over the same symbol--to a previously 
+                marked pair of states. We will mark \textit{these} states with 1.
+                \begin{align*}
+                        &(A,D)\to^b (C,E)
+                        &(A,B)\to^b (C,E)\\
+                        &(C,D)\to^a (A,B)
+                        &(A,C)\to^a (B,A)\\
+                        &(B,C)\to^a (D,A)
+                        &(A,E)\to^a (B,C)\\
+                        &(B,E)\to^a (C,D)
+                .\end{align*}
+                \pagebreak
+                \begin{table}[h]
+                \centering
+                \begin{tabular}{@{}llllll@{}}
+                \toprule
+                  & A & B & C & D & E \\ \midrule
+                A & X &   &   &   &   \\
+                B & 1 & X &   &   &   \\
+                C & 1 & 1 & X &   &   \\
+                D & 1 &   & 1 & X &   \\
+                E & 1 & 1 & 0 & 0 & X \\ \bottomrule
+                \end{tabular}
+                \end{table}
+                
+                Thus, states D and B are indistinguishable and the resulting minimized State Diagram is:
+                \begin{figure}[h]
+                        \centering
+                        \incfig{Q4}
+                \end{figure}
+
+\end{enumerate}
+
+\section*{Question 5}
+(6 marks) Consider languages over terminal alphabet $\Sigma = \{a, b, c, d\}$.
+
+
+• Give context-free grammars that generate the following four languages.
+
+
+• In each case, also give a derivation of the specified terminal string using your grammar. 
+\begin{enumerate}[label=\alph*)]
+        \item $A = \{a^ib^{2m} c^{3i} \mid i,m\geq 1\}\cup\{b^jc^{3k}d^k \mid j,k\geq 1\}$\\
+                Derivation for the string $bc^9d^3$
+        \item $B = \{a^{3i} b^{4k} c^{3k}d^{2i}  \mid i,k\geq 0\}$ Derivation for  $a^3b^8c^6d^{2}$
+        \item $C = \{a^{3i}b^{4i}c^{3k} d^{2k+1} \mid i,k\geq 0\}$ Derivation for $c^3 b^4 c^9 d^7$
+        \item $D = \{a^{3i+1}b^{i+3}c^{2k} d^{2k} \mid i,k\geq 0\}\cup \{a^{2r}b^sc^{5s}d^{r+1} \mid r,s\geq 0\}$\\
+                Derivation for the string $a^2bc^5d^2$
+\end{enumerate}
+
+The derivation beginning from the start variable should indicate each individual
+derivation step using the notation $\Rightarrow$.
+\subsection*{Answer}
+\begin{enumerate}[label=\alph*)]
+        \item Grammar: $\{a^ib^{2m} c^{3i} \mid i,m\geq 1\}\cup\{b^jc^{3k}d^k \mid j,k\geq 1\}$
+                \begin{align*}
+                        S &\to N \mid W\\
+                        N &\to aNc^3  \mid aOc^3\\
+                        O &\to b^2O  \mid b^2\\
+                        W &\to bW \mid bY\\
+                        Y &\to c^3Yd  \mid c^3d
+                .\end{align*}
+                \[
+                S\implies W \implies bY \implies bc^3Yd \implies bc^6Yd^2 \implies bc^9d^3
+                .\]
+
+        \item Grammar: $\{a^{3i} b^{4k} c^{3k}d^{2i}  \mid i,k\geq 0\}$
+                \begin{align*}
+                        B &\to a^3Bd^2 \mid a^3Xd^2 \mid X\\
+                        X &\to b^4Xc^3  \mid b^4c^3  \mid \epsilon\\
+                .\end{align*}
+                \[
+                B \implies a^3Xd^2 \implies a^3b^4Xc^3d^2 \implies a^3b^8c^6d^2
+                .\] 
+
+        \item Grammar: $\{a^{3i}b^{4i}c^{3k} d^{2k+1} \mid i,k\geq 0\}$
+                \begin{align*}
+                        C &\to OW\\
+                        O &\to a^3Ob^4  \mid a^3b^4 \mid \epsilon\\
+                        W &\to c^3Wd^2 \mid c^3d^2d \mid d
+                .\end{align*}
+                \[
+                C \implies OW \implies a^3b^4W \implies a^3b^4c^3Wd^2 \implies a^3b^4c^6Wd^4 \implies a^3b^4c^9d^7
+                .\] 
+
+        \item Grammar: $\{a^{3i+1}b^{i+3}c^{2k} d^{2k} \mid i,k\geq 0\}\cup \{a^{2r}b^sc^{5s}d^{r+1} \mid r,s\geq 0\}$
+                \begin{align*}
+                        D &\to P \mid X\\
+                        P &\to QR\\
+                        Q &\to a^3Qb \mid a^3abb^3 \mid ab^3\\
+                        R &\to c^2Rd^2 \mid c^2dd \mid \epsilon\\
+                        X &\to a^2Xd \mid a^2Ydd \mid Yd\\
+                        Y &\to bYc^5 \mid bc^5 \mid \epsilon
+                .\end{align*}
+                \[
+                D \implies X \implies a^2Yd^2 \implies a^2bc^5d^2 
+                .\] 
+\end{enumerate}
+\end{document}
+
+
+

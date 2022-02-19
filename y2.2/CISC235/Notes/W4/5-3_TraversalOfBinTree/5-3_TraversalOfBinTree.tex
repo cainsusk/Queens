@@ -1,0 +1,91 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Traversal of a Binary Tree}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Traversal}
+Traversal means to visit every node in a tree, any time we want to traverse a tree we start from the root. There are 4ways
+        to traverse a tree.
+
+\subsection*{Preorder Traversal}
+the algorithm for this operation is:
+\begin{enumerate}
+        \item process current node
+        \item process the nodes in the left subtree
+        \item process the nodes in the right subtree
+\end{enumerate}
+
+Note: process means something like the following:
+\begin{itemize}
+        \item print the current node
+        \item search node to see if its value matches a target
+        \item add node value to sum
+        \item  etc\ldots
+\end{itemize}
+
+This algorithm is implemented recursively as one processes a node and then follows the path down to the leftmost node
+        and then works its way back up processing the right subtrees of each node that was processed in the left step.
+The path can be summarized as following the perimiter of the tree counterclockwise. A node is read when the path passes the left
+        side of a node.
+
+\subsection*{Inorder Traversal}
+\begin{enumerate}
+        \item process the nodes in the left subtree
+        \item process the current node
+        \item process the nodes in the right subtree
+\end{enumerate}
+if you draw a counterclockwise path around the circle, the node is read when the path passes underneath a node
+
+\subsection*{Postorder Traversal}
+This algorithm is very similar to the Preorder trvaersal.
+\begin{enumerate}
+        \item Process the nodes in the left subtree
+        \item process the nodes in the right subtree
+        \item process the current node
+\end{enumerate}
+using a similarly counterclockwise path, a node is only read when the path passes to the right of a node.
+
+\subsection*{Level order Traversal}
+in a level order traversal algorithm we visit each level's nodes from left to right before then visiting the nodes on the next level.
+This algorithm is non-recursive.
+The order in which the nodes are read can be determined by defining each row and reading top-down left-right.
+
+\section*{Implementation}
+One could use a Queue in order to traverse a tree like so
+\begin{enumerate}
+        \item use a temo variable and queue
+        \item insert the root node into the queue
+        \item while the queue is not empty
+        \begin{enumerate}
+                \item dequeue the top node and put it in temp
+                \item process the node
+                \item enqueue the nodes children to the queue if the are not None
+        \end{enumerate}
+\end{enumerate}
+\end{document}
+
+

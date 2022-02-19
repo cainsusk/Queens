@@ -1,0 +1,88 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Context Free Grammar Pumping Lemma Examples}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Example}
+Consider the Language of Squares:
+\[
+L_2 = \{ww \mid w\in\{a,b\}*\}
+.\] 
+The claim is that $L_2$ is not context free.
+
+Note: showing that $L_2$ is not CF, roughly speaking, shows that variable declarations
+cannot be specified with CF Grammars.
+\paragraph{attempt 1}
+The Question is what string $s$ should we use to derive a contradiction with the 
+Pumping Lemma? The first (bad) idea for $s$ is the following:
+ \[
+s = a^pba^pb\in L_2\\
+.\] 
+\[
+s = a^{p-1}aba^{p-1}b
+.\] 
+Where:
+\begin{align*}
+        u &= a^{p-1} \\
+        v &= a \\
+        w &= b \\
+        x &= a \\
+        y &= a^{p-1}b \\
+.\end{align*}
+Let p be the constant yielded from the pumping lemma.
+Additionally as given by the pumping lemma, $s = uvwxy$ for all context 
+free languages.
+
+However, there is \textbf{no contradiction} with this $s$ as  $v$ and
+$x$ can be repeated in parallel.
+
+\paragraph{attempt 2}
+We have to show that \textbf{any} way of writing a string in 5 parts, as per the 
+pumping lemma, does \textit{not} satisfy the pumping lemma in order to show 
+that a language is context free. We need to also make sure that the middle part
+of the string ($vwx$) with length at most $p$.
+
+Thus, we will try a better idea for $s$:
+ \[
+s = a^pb^pa^pb^p\\
+.\] 
+\pagebreak
+
+Thus, we will start our proof:
+
+For the sake of contradiction assume that $L_2$ is context free and let $p$ be the 
+constant given by the pumping lemma
+
+MUST COMPLETE NOTE
+\[
+s = a^pb^pa^pb^p
+.\] 
+
+\end{document}
+

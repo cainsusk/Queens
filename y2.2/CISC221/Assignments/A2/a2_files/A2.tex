@@ -1,0 +1,85 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Numbers}
+\newcommand{\coursetitle}{Computer Architecture}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Question 1}
+Encode the following decimal numbers with 8-bit two’s complement
+binary, or indicate that number would overflow the range:
+\begin{enumerate}
+        \item  $49_{10}$
+        \item  $-31_{10}$
+        \item  $120_{10}$
+        \item  $-128_{10}$
+        \item  $128_{10}$
+\end{enumerate}
+
+\subsection*{Answer}
+A 2's complement number is a number encoded in $w$ bits with a range of: 
+\[(-2^{w-1}, 2^{w-1}]\]
+
+Where the most significant digit is the sign and the remaining $w-1$ bits represent the actual number.  
+\begin{enumerate}
+        \item 00110001
+        \item 11100001
+        \item 01111000
+        \item 10000000
+        \item Overflow 
+\end{enumerate}
+\pagebreak
+
+
+\section*{Question 2}
+Around 250 B.C., the Greek mathematician Archimedes proved that:
+\[\frac{223}{71}<\pi<\frac{22}{7}\]
+Had he had access to a computer and the standard library \texttt{<math.h>} he would have been able to 
+        determine that the single precision floating-point approximation of $\pi$ has the hexadecimal
+        representation:
+        \[\texttt{0x40490FDB}\]
+Of course, all of these are just approximations since $\pi$ is not rational.
+\begin{enumerate}
+        \item What is the Fractional binary number denoted by this floating point value?
+        \item What is the Fractional binary number representation of $\frac{22}{7}$?
+        \item At what bit positions relative to the binary point do these two approximations of $\pi$ diverge?
+\end{enumerate}
+
+\subsection*{Answer}
+This question both requires the knowledge of converting hexadecimal to binary as well as converting binary to integer.
+Furthermore one must also know how to read encoded floating point binary.
+If we have a Fractional binary number with $w$ bits, a digit at position $i$ relative to the ones position represents
+        the value  $2^i$. 
+Given a $w$-bit binary string which represents the value  $x$, the Fractional decimal representation $N$ of this binary string is
+\[N = \frac{x}{2^w}\]
+
+\begin{enumerate}
+        \item 01000000010010010000111111011011
+        \item 01000000010010010010010010010010
+        \item they differ at the $10^{th}$ position from the binary decimal (if counting up from 1)
+
+\end{enumerate}
+\end{document}
+

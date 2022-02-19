@@ -1,0 +1,69 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Push Down Automaton Example}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Example}
+Find a corresponding push down automata for the following language:
+\[
+L_1 = \{a^i b^i  \mid i\geq 0\}\cup\{a^{2i} b^i  \mid  i\geq 0\}
+.\] 
+Note that $\cup$ has the functional meaning of $or$ where  $L_1$ is made up of strings from either set.
+
+For this language we need a non-deterministic push down automaton:
+\begin{figure}[h]
+        \centering
+        \incfig{ex1}
+\end{figure}
+
+Given the input $a^4 b^2$, the computation table for this automaton is:
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+state & stack      & remaining\;input \\ \midrule
+1     & $\epsilon$ & aaaabb           \\
+1     & A          & aaaabb           \\
+1     & AA         & aabb             \\
+1     & AAA        & abb              \\
+1     & AAAA       & bb               \\
+3     & AAA        & b                \\
+4     & AA         & b                \\
+3     & A          & $\epsilon$       \\
+4     & $\epsilon$ & $\epsilon$       \\ \bottomrule
+\end{tabular}
+\end{table}
+
+An thus this string is accepted as it finished in a final state and the computation ended with an empty stack.
+Note that the operation $X\mapsto\epsilon$ is a pop operation as it is popping  $X$ and pushing the empty string (nothing). 
+Also note that the first transition from 3 to 4 is effectively a $\epsilon$-transition from state diagrams as
+        the transition is nearly spontaneous as all that is needed  to transition is nothing.
+
+\end{document}
+

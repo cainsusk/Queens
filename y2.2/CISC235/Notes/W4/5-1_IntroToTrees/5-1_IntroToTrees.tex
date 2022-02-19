@@ -1,0 +1,86 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Introduction to Trees}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Trees}
+Trees are used as a data structure for many applications like
+\begin{itemize}
+        \item databases
+        \item data compression
+        \item etc\ldots
+\end{itemize}
+
+A tree is a special \textbf{linked} data structure that has many uses in Computer science.
+Normally these can store hierarchical data and make that data easily searchable.
+Some examples include parse trees, Binary trees, or Expression Trees (Like in cisc221 lesson 25).
+\begin{figure}[h]
+        \centering
+        \incfig{tree1}
+\end{figure}
+
+\subsection*{properties}
+a tree has some basic properties:
+\begin{itemize}
+        \item trees are made of nodes.
+        \item the top or origin of the tree is called the root node.
+        \item every node may have 0 or more child nodes.
+        \item a node with 0 children is called a leaf node
+        \item a tree with no nodes in an empty tree.
+\end{itemize}
+
+Note: a node can have \textbf{more} that 2 nodes.
+
+\subsection*{edge and path}
+a tree ca represent edges and paths.
+An edge is a likage between 2 nodes or a node and a leaf. A path is a seires of edges one could take to get from the higher node to the
+        lower node.
+
+Note that a tree is onmidirectional--you can only go down.
+
+\subsection*{height of node}
+the height of a node is the number of \textit{edges} in the \textbf{longest} downward path from said node.
+Any node can have a height. A leaf has a height of 0 (essentially no height).
+
+Essentially, it is the longest path to a leaf from a node.
+
+Furthermore, the height of a tree is the height of its root.
+
+\subsection*{depth}
+The depth of a node is the number of edges from said node to the root of the tree.
+
+\subsection*{level}
+the level of a node is the layer of the tree it is in, starting counting from one.
+
+Simply, is is the depth of a node plus 1
+
+
+
+
+\end{document}
+
+

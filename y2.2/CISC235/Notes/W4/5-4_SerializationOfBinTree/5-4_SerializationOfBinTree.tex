@@ -1,0 +1,65 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Saving and Restoring Binary Trees}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Serialization}
+This is the process of generating a seires of bits for a binary tree such that another computer could read these bits and 
+        restore the tree.
+
+A possible way of doing this is using the order of a type of traversal. 
+The problem with this is a reading order is not unique to a tree, however if we kept track of the number of nodes
+        at each node as well as their traversal order.
+If one wrote down the order of a preorder traversal and the number of nodes' children sent it t someone else, 
+they could redraw the tree if they knew how preorder traversals worked.
+
+An algorithm for such a process is as follows
+\begin{verbatim}
+rebuildTree():
+        /*read next (O,D) pair from file*/
+
+        t = new tree(O)
+        if ((D==2) ||  (D==L)):
+                t.attachL(rebuildTree())
+        if ((D==2) || (D==R)):
+                t.attachR(rebuildTree())
+        return t
+        
+\end{verbatim}
+Note: the code is not complete.
+
+\section*{Evaluation}
+Some trees represent structures that can be evaluated.
+If we wanted to evaluate an expression tree for example, we could use the following algorithm:
+\begin{enumerate}
+        \item if the current node is a number, return its value
+        \item recursively evaluate the left subtree and get the result
+        \item recursively evaluate the right subtree and get the result
+        \item apply the operator in the current node to the left and right results, return the result.
+\end{enumerate}
+\end{document}
+

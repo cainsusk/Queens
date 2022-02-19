@@ -1,0 +1,76 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{The Pumping Property of Context Free Grammars}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Limitations of Context Free Grammars}
+Grammars are very useful and versatile however they have some limitations.
+Particularly, a limitation of CF Grammars is their pumping property which states that:\\
+if a grammar has a sufficiently long terminal string then the parse tree of said terminal string must
+        repeat a non-terminal string within the said parse tree.
+
+\section*{Pumping Lemma for CF Languages}
+For every context free language  $L$ there exists a constant  $p$ such that any string $s\in L$ of length at least  $p$
+can be written in five parts:
+ \[
+s = uvwxy
+.\] 
+where:
+\begin{enumerate}
+        \item $v\neq\epsilon$ or  $x\neq \epsilon$ 
+        \item $|vwx|\leq p$
+        \item  $uv^i wx^i y\in L$ for all  $i\geq 0$
+\end{enumerate}
+the Context Free Pumping Lemma is used to show that a language is not Context Free. This is done by using proof by contradiction.
+
+\section*{Example}
+Given: $L = \{a^i b^i c^i\}$
+
+Using the CF Pumping Lemma we show that $L$ is not context free.
+For the sake of contradiction assume that  $L$ is Context Free and let  $p$ be the constant given by the pumping lemma.
+We will use the following string in this proof:
+ \[
+s = a^p b^p c^p \in L
+.\] 
+\pagebreak
+
+
+By the Pumping Lemma, $s$ can be written in five parts:  $s = uvwxy$ where the parts satisfy 1, 2, 3 (see pumping lemma above).
+There are 2 cases to consider in this situation:
+ \begin{itemize}
+        \item if one of $v$ or  $x$ contains more than one type of symbol then  
+
+        $uv^2wx^2y\not\in a^\text{*} b^\text{*} v^\text{*}$ and $uv^2wx^2y\not\in L$ 
+        \item if $v$ and  $x$ both have one type of symbol then,
+        $uv^2wx^2y$ cannot have the same number of all symbols  $a,b$ and  $c$
+        Thus, $uv^2wx^2y \not\in L$
+\end{itemize}
+All cases lead to a contradiction! Thus this means that $L$ is not context free.
+\end{document}
+

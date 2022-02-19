@@ -1,0 +1,93 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Binary Search Trees}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Binary Search Tree}
+The main purpose of this type of tree is for searching.
+It is extremely efficient at searching and storing data.
+You will likely be asked about this in job interviews.
+
+A binary search tree is a Binary tree with unique properties:
+\begin{itemize}
+        \item for every node $x$ in a tree:
+         \begin{itemize}
+                \item all nodes in $x$'s left subtree must be \textit{less} than $x$
+                \item all nodes in $x$'s right subtree are \textit{greater} than $x$
+        \end{itemize}
+\end{itemize}
+
+A tree is a binary search tree if and only if it is a binary tree and it satisfies these conditions.
+
+Many algorithms will specify that duplicates are excluded and that the left children are \textit{less than or equal to }$x$ 
+
+\section*{Validation}
+the algorithm for checking the validity of a binary search tree is to go through each node and check if the subtrees match the
+        conditions above.
+Furthermore, while this isn't necissarily unique, printing the read-order of Inorder traversal of a biary search tree will
+        print out the items in order from highest to lowest.
+
+\section*{Operations}
+the operations on a binary search tree are:
+\begin{itemize}
+        \item search
+        \item insert
+        \item delete
+        \item traverse
+\end{itemize}
+
+\subsection*{Search}
+Search is the most important operation for binary search trees.
+The algorithm is as follows:
+
+Given a target value $v$
+\begin{enumerate}
+        \item start at the root of the tree and process unitll we hit a None object.
+        \item if $v$ is less than the current nodes value, go left
+        \item if  $v$ is equal to the current nodes value, return true
+        \item if  $v$ is greater than the current nodes value, go right
+        \item if the current nodes value is None, return false
+\end{enumerate}
+
+It is possible to write this algorithm both iteratively and recursively.
+
+Recursively, we check a value and then recursively call the check function again on the left or right node.
+Iteratively, we iterate through the nodes in the same manner.
+In the real world, the iterative method is faster.
+but with regards to big O, the recursive method is better.
+
+generally the worst case big O for binary tree search is:
+\[
+O(n)
+.\] 
+Which is incredible for a worst case evaluation.
+
+Note that the Big O complexity is \[
+\log_2(n)
+.\] 
+\end{document}
+

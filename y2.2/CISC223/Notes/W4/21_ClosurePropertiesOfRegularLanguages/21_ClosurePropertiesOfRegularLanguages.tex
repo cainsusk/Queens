@@ -1,0 +1,65 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Closure Properties of Regular Languages}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Closure Properties}
+Regular languages are closed under Boolean operations thus, if $R$ and $S$ are regular, then so are:
+ \begin{itemize}
+        \item $R\cup S$ (=$R+S$)
+        \item  $R\cap S$
+        \item  $\overline{R} = \Sigma\text{*} -R$ (complement of $R$)
+\end{itemize}
+
+To illustrate this property we will show the state diagram fir language $L$:
+ \begin{figure}[h]
+        \centering
+        \incfig{L1}
+\end{figure}
+
+And then the closure of diagram $L$,
+\begin{figure}[h]
+        \centering
+        \incfig{L2}
+\end{figure}
+
+Such that every time $L$ is in a final state, its closure is not.
+Note that this can only be done with Deterministic State Diagrams.
+\pagebreak
+
+\subsection*{Example}
+Given:
+\[A = \{w\in\Sigma  \mid  w\text{ has equally many many occurrences of symbols a and b} \}\]
+
+Show that $A$ is non-regular\\
+Recall:
+\[B = \{a^i b^i \mid i \geq 0\}\]
+Note:
+\[A\cap a\text{*}\;b\text{*} = B\]
+If A were regular, then is B (because the union of 2 regular languages is also regular). We know B is not regular thus: A is not reguar
+\end{document}
+

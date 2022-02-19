@@ -1,0 +1,190 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Orthogonal Projection}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Concepts in Orthogonal Projection}
+We now ask the question, if we are given a vector space, what vector in a vector space is closest to the given vector.
+This is whats known as projecting.
+
+We will first look at projecting a vector in 1 Dimensions.
+
+Consider the vector $\vec a$ as a basis for a 1D space. Given a new vector  $\vec c$ what multiple of  $\vec a$ is nearest to 
+        $\vec c$
+\begin{figure}[h]
+        \centering
+        \incfig{projection}
+\end{figure}
+
+
+\section*{b Projecting a Vector to a Vector}
+We will explore how we can project a vector in a 1-dimensional vector space.
+
+Given: basis $\vec a$ and s new vector  $\vec c$
+
+We want the vector in the vector space of  $\vec a$ that is nearest to  $\vec c$. 
+We refer the nearest vector as:
+\[
+\vec p =^{def}w\vec a
+.\] 
+
+To find $\vec p$ we must use the \textbf{error vector}. The error vector is defined as
+ \[
+\vec e =^{def} \vec c - \vec p
+.\] 
+\pagebreak
+
+Using the example from section a of this lesson, $\vec e$ is:
+ \begin{figure}[h]
+        \centering
+        \incfig{evec}
+\end{figure}
+
+Thus we require the vector $\vec a$ perpendicular to vector  $\vec e$
+ \[
+\vec a \bot \vec e
+.\] 
+IN linear algebra, this can be represented as:
+\begin{align*}
+        \vec a \cdot \vec e &= 0\\
+        \equiv \vec a^\top\vec e &=0\\
+        \equiv \vec a =^\top(\vec c-\vec p) &= 0\\
+        \equiv \vec a^\top \vec c - \vec a^\top \vec p &= 0\\
+        \equiv \vec a^\top w\vec a &= \vec a^\top\vec c\\
+        \equiv w(\vec a^\top \vec a) &=\vec a^\top \vec c\\
+        \equiv w &= \frac{\vec a^\top \vec c}{\vec a^\top \vec a} 
+.\end{align*}
+
+Thus a projection vector is:
+\[
+\vec p = w\vec a = \frac{\vec a^\top \vec c}{\vec a^\top \vec a}\vec a
+.\] 
+Which is the nearest vector to $\vec c$ in vector space  $\vec a$
+
+\section*{c Projecting a Vector to a Vector Space}
+We will now explore how to project a given vector to a 2 dimensional vector space.
+
+Given: vector space $ \mathbb{V} $ with basis  $\vec a_1, \vec a_2$ and new vector $\vec c$ \\
+What $\vec p \in \mathbb{V}$ is nearest to  $\vec c$
+\pagebreak
+
+We will thus define $\vec p$ for 2D space as:
+\begin{align*}
+        \vec p &=^{def} w_1\vec a_1 + w_2\vec a_2 \\
+               &= \begin{bmatrix} \vec a_1 & \vec a_2 \end{bmatrix} \begin{bmatrix} w_1\\w_2 \end{bmatrix} \\
+               &=  A\vec w\\
+.\end{align*}
+and the error vector is define as:
+\[
+\vec e =^{def} \vec c- \vec p
+.\] 
+Where:
+\[
+\vec e \bot \vec a_1 \wedge \vec e \bot \vec a_2
+.\] 
+This can be represented visually as:
+\begin{figure}[h]
+        \centering
+        \incfig{2devec}
+\end{figure}
+Note that this is a 2D representation of 3D space so one cannot see how it is perpendicular to both $a$'s.\\ 
+Mathematically, this is represented as:
+\begin{align*}
+        \vec a_1 \cdot \vec e &= 0\\
+        \vec a_2 \cdot \vec e &= 0\\
+        \vec a_1^\top \cdot \vec e &= 0\\
+        \vec a_2^\top \cdot \vec e &= 0
+.\end{align*}
+
+We then gather up our observations into a matrix:
+\[
+\begin{bmatrix} \vec a_1^\top \vec a_2^\top \end{bmatrix} \vec e = \begin{bmatrix} 0\\0 \end{bmatrix}\implies A^\top\vec e = 0 
+.\] 
+
+Observe that this means  the vector e is in the null space of $A$ such that: $\vec e \in null(A)$.
+Thus we can also say that $\vec e$ in the orthogonal complement of  $\mathbb{V}$
+
+
+\section*{d The Normal Equation}
+Consider $\mathbb{V}$ with basis  $\vec a_1, \vec a_2$ and the new vector $\vec c$\\
+What  $\vec p\in\mathbb{V}$ is nearest to $\vec c$
+ \begin{align*}
+         A^\top \vec e &= \vec 0\\
+         A^\top (\vec c-\vec e) &= \vec 0\\
+         A^\top \vec c- A^\top\vec p &= \vec 0\\
+         [A^\top A] \vec w &= A^\top\vec c
+.\end{align*}
+Observe that $A=\Sigma V^\top$ which means that A is symmetric:  $A^\top A = V\Sigma V^\top$. Thus, the following matrix is
+        positive definite  
+        \[
+        [A^\top A] \succ 0
+        .\] 
+Whic implies that there is an explicit solution of $\vec w$ such that
+\[
+\vec w ={[A^\top A]}^{-1}A^\top\vec c
+.\] 
+
+And thus $\vec p$ is:
+ \begin{align*}
+        p &= A\vec w \\
+        &= A{[A^\top A]}^{-1} A^\top \vec c \\
+        &= P\vec c \\
+.\end{align*}
+Thus $\vec p$ is equal to the projection matrix  $p$ times  $\vec c$.
+The projection matrix $P$ is based only on  $A$ thus we can use  $P$ with any  $\vec c$ to find the nearest vector to $\vec c$ in $A$\\
+Observe that $\vec p$ is not the sum of  $\vec p_1$ nearest to $\vec a_1$ and $\vec p_2$ to $\vec a_2$
+You can use these as examples to practice
+\begin{align*}
+        \vec a_1 = \begin{bmatrix} 1\\0\\0 \end{bmatrix}
+        \vec a_2 = \begin{bmatrix} 1\\2\\0 \end{bmatrix}
+        \vec c = \begin{bmatrix} 1\\1\\1 \end{bmatrix} 
+.\end{align*}
+\pagebreak
+
+\section*{e Overdetermined Linear Equations}
+We will now consider 2D projection as a linear equation. 
+
+For 2 vectors $\vec a_1, \vec a_2$ of size 3. Matrix $A$ is  $3\times 2$, vector $\vec c$ is size 3. 
+The entries of  $A$ where  $A\vec w \approx \vec c$ are:
+ \[
+         \begin{bmatrix} a_{11} & a_{12}\\a_{21} & a_{22}\\ a_{31} & a_{32} \end{bmatrix} \begin{bmatrix} w_1\\w_2 \end{bmatrix} 
+         =\begin{bmatrix} c_1 \\ c_2 \\ c_3 \end{bmatrix} 
+.\] 
+While we have not solved this overdetermined system, we have \textit{approximately} solved it.
+
+\section*{Learning Summary}
+Students should now be able to
+\begin{itemize}
+        \item formulate a projection problem from $\vec a_j$ and  $\vec c$
+        \item solve for the weight vector  $\vec w$
+        \item solve for the projection vector  $\vec p$
+        \item solve for the error vector  $\vec e$
+\end{itemize}
+
+\end{document}
+

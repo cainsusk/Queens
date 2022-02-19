@@ -1,0 +1,77 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Ambiguity}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Ambiguity}
+given the example:
+\[
+\diamond \to \diamond + \diamond  \mid  \diamond \times \diamond  \mid (\diamond ) \mid a
+.\] 
+Where this grammar's terminal string is:
+\[
+a+a\times a
+.\] 
+Upon examination of the string one may find that the string as 2 valid parse trees:
+\begin{figure}[h]
+        \centering
+        \incfig{ambig1}
+        \incfig{ambig2}
+        \caption{the two parse trees of $a+a\times a$}
+\end{figure}
+
+Thus this means that this terminal string is \textbf{ambiguous}.
+However, the tree on the right is the \textit{desired} parse tree as multiplication has higher precedence than addition 
+        (we read the trees from the bottom up).
+\paragraph{}
+We can then use an `ad-hoc' process to transform this grammar example into an equivalent \textit{unambiguous} grammar. This 
+        new grammar is as follows. Note that $\diamond = expression$
+\begin{align*}
+        expression &\to expressiom + term  \mid term\\
+        term &\to term \times factor  \mid factor\\
+        factor &\to (expression)  \mid a
+.\end{align*}
+\pagebreak
+
+
+Thus the terminal string $a+a\times a$ in this grammar is unambiguous:
+\begin{figure}[h]
+        \centering
+        \incfig{unambig}
+\end{figure}
+
+Thus this terminal string has a unique parse tree is unambiguous. To Prove a Grammar is unambiguous one must first show that 
+        all terminal strings within the grammar are  unambiguous.
+
+
+
+
+
+
+\end{document}
+

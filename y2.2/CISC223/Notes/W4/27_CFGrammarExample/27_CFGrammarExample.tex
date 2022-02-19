@@ -1,0 +1,79 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Context-Free Grammar Example}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Example}
+Given the following, find the grammar for $B$:
+ \begin{align*}
+         \Sigma &= \{a,b,c,d\}\\
+         B &= \{a^ib^{2k}c^kd^{3i} \mid i,k \geq 1\}\cup\{a^rb^{2r}c^sd^{3s} \mid r,s\geq 1\}
+.\end{align*}
+
+We can see that in both sets, $a,b$ and  $c,d$ are related in the first set and $a,b$ and $c,d$ re related in the second set
+        because of the exponents.
+Note that union is like saying \textit{or}. Thus the first rule is
+\[S\to X \mid Y\]
+now we can continue with defining $X$ and  $Y$.
+
+We can then define $X$ as an option between it's two related parts:
+
+\[S\to aXd^3 \mid aZd^3\]
+
+Note that $X$ is in the first option because it can continue to make $a,d$ until it switches to the  $Z$ option where it will make
+        the inner part of the string.
+\[
+Z\to b^2Zc \mid b^2
+.\] 
+Where the second option is the terminal string for $X$
+
+Now we can move on to  $Y$
+ \[
+Y\to UW
+.\] 
+
+Note that capital letters like $W,U$ are variables. 
+The above rule represents the concatenation of the two strings  $U,W$\\
+Now, to define U\@:
+ \[
+U\to aUb^2  \mid ab^2
+.\] 
+
+which represents $U$'s recursive and terminal strings.\\
+Finally, W is written as
+ \[
+W\to cWd^3  \mid cd^3
+.\] 
+
+Which has a similar form to $U$
+\\
+
+Thus we have found the recursive grammar rules for the union of sets $B$
+
+
+\end{document}
+

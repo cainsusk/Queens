@@ -1,0 +1,79 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Context-Free Grammars}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{CF Grammar}
+A context free grammar is a set of rules for rewriting a language, applied recursively.
+A CF grammar can generate many nonregular languages and is commonly used to specify the syntax of a programming language.
+
+\section*{Example 1}
+Given the set of balanced strings:
+\[A=\{a^i b^i  \mid i \geq 0\}\]
+Find a Grammar for $A$
+\begin{align*}
+        &S\rightarrow aSb\\
+        &S\rightarrow\epsilon
+.\end{align*}
+
+Where $S$ is the start variable and all expressions to the right of  $S$ are recursive rules for the given set.
+The  $S$ in the first rule represents a call of this rule again, hence the recursive property.\\
+Combining these rules, we derive the grammar for  $A$:
+\[S \Rightarrow aSb\]
+which operates like so:
+\[aSb\Rightarrow aaSbb\Rightarrow aaaSbbb \Rightarrow \ldots\]
+
+\section*{Example 2}
+Given the Expression grammar:
+\begin{align*}
+        \diamond &\to \diamond +\diamond \\
+        \diamond &\to \diamond \times \diamond \\
+        \diamond &\to (\diamond)\\
+        \diamond &\to a
+.\end{align*}
+Where $\diamond =\text{expression}$.
+ $\diamond $ is \textbf{non-Terminal/Variable}.
+Note: the Terminal symbols are $\{+,\times, (, ), a\}$
+Thus the derivation of these rules is:
+\[\diamond \Rightarrow \diamond + \diamond \Rightarrow \diamond + \diamond \times \diamond \Rightarrow a + \diamond \times \diamond \Rightarrow a+a\times \diamond \Rightarrow a+a\times a  \]
+Thus, the terminal string is 
+\[a+a\times a\]
+
+From this derivation and terminal string we can create a Parse Tree:
+\begin{figure}[h]
+        \centering
+        \incfig{pt1}
+\end{figure}
+
+Note: Grammar is Ambiguous such that some terminal strings can have more than one parse tree. 
+For example:
+\begin{figure}
+        \centering
+        \incfig{pt2}
+\end{figure}
+\end{document}
+

@@ -1,0 +1,122 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Quiz 2 Review}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Main Concepts}
+\begin{itemize}
+        \item Standardization of data
+        \item Projecting a vector to a subspace
+        \item Linear regression (essentially vector projection)
+        \item Validation of linear regression
+        \item cross-validation by $k$-fold training and testing
+        \item Singular-value decomposition (SVT)
+        \item How the SVD can be used to describe matrix subspaces
+\end{itemize}
+
+\section*{Vector Standatdization}
+\begin{enumerate}
+        \item Transform vector $\vec a\in \mathbb{R}^m$ to zero-mean  $\vec m$ 
+        \item Transform $\vec m$ to unit variance  $\vec z$
+\end{enumerate}
+This is done by:
+\begin{align*}
+        \overline{a} &= \frac{\vec 1^\top \vec a}{m} &\text{Find the mean of a vector in a matrix}\\
+        \\
+        \vec m &= \vec a - \vec 1 \overline{a} &\text{find the zero-mean from the mean} \\
+        \\
+        \sigma^2 &= \frac{||\vec m||^2}{m-1} &\text{find the unit variance of $\vec a$ from the mean}\\
+        \\
+        \vec z &= \frac{\vec m}{\sigma} &\text{derive the z-score/z-vector for $\vec a$}
+.\end{align*}
+
+Note: $m$ is the size of the vector;  $\vec m$ is the zero mean of a vector. Additionally, note that
+it is  $\sigma$ used in the final equation, not  $\sigma^2$
+\pagebreak
+
+\section*{Projection}
+Projection is the process of taking a vector  $\vec c$ to subspace  $\mathbb{U}$, spanned by the vectors  $\vec a_j$.
+The result of this process is a vector  $\vec p$.
+\begin{align*}
+        &\vec e =^{defined} \vec c - \vec p &\text{error vector} \\
+        &\vec w &\text{the weight vector}\\
+        &[A^\top A]\vec w = A^\top \vec c &\text{find $\vec w$ using the normal equation}\\
+.\end{align*}
+Thus, projection is:
+\[
+\vec p = A\vec w = A[A^\top A]^{-1} A^\top \vec c = P\vec c
+.\] 
+Note: there is a special case where: if $A$ is singular, use a basis of  $\mathbb{U}$ rather than an ordinary span of $\mathbb{U}$ like $\vec a_j$
+
+
+\section*{Linear Regression}
+Linear Regression is the process of projecting observations $\vec c$ to the column space of  $A$.
+ \begin{align*}
+        &\vec w &\text{weight vector}\\
+        &\vec e(\vec w) = \vec c - A\vec w &\text{error vector}\\
+        &RMS(A,\vec c;\vec w) = \frac{||\vec e(\vec w)||}{\sqrt{m}} &\text{error of $\vec e$ using Root Mean Square}\\
+.\end{align*}
+
+\section*{Cross Validation}
+Validation is the process of confirming that the outputs of a model are acceptable using RMS error (see above).
+Cross validation is the process of dividing data into a training and validation sets and then validating the model $\vec w$ using both
+sets.
+In  $k$-fold cross validation, divide the data into  $k$ sets we then:
+ \begin{enumerate}
+        \item Train on $k-1$ sets and validate on 1 set, for all sets
+        \item accumulate RMS errors for analysis
+\end{enumerate}
+
+\section*{Singular Value Decomposition}
+for any matrix $A\in\mathbb{R}^{m\times n}$ with all real entries of rank  $r$, the SVD of $A$ is:
+ \[
+A = U\Sigma V^\top
+.\] 
+where:
+\begin{itemize}
+        \item $U\in\mathbb{R}^{m\times m}$ and $V\in\mathbb{R}^{n\times n}$ are orthogonal
+        \item $\Sigma\in\mathbb{R}^{m\times n}$ is `diagonal', the singular values (the values in this matrix) are:
+                \[
+                \sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_r > 0
+                .\] 
+        \item $\vec u_j$ of  $\sigma_j\neq 0$ is the basis for  $\mathbb{U}$ which is the column space of  $A$
+        \item  $\vec v_j$ of  $\sigma_j = 0$ is the basis for the nullspace of  $A$ 
+        \item $\vec u_j$ of  $\sigma_j$ is the orthogonal complement of $\mathbb{U}$, which is represented as  $\bot\mathbb{U}$
+\end{itemize}
+
+\section*{Preparation}
+One should have the data and working code for:
+\begin{itemize}
+        \item Assignment 2 (regression and $k$-fold cross validation)
+        \item Homework for week 1, especially \textbf{`your' data matrix}
+        \item Homework for week 4, projections
+        \item Homework for week 5, Cross Validation (CV) and SVD
+\end{itemize}
+\end{document}
+

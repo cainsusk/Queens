@@ -1,0 +1,23 @@
+question 1
+=-=-=-=-=-=
+2	%rdx = 0 + i*8
+3	%rdx = %rdx - i
+4	%rdx = %rdx + j
+5 	%rax = j + j*4
+6	i = i + %rax
+7	%rax = Q[i*8]
+8	%rax = P[%rdx*8] + %rax
+9	ret
+
+question 2
+=-=-=-=-=-=
+#1	accum
+#2	idx
+#3	arrsize
+#4	idx
+#5	idx = arr[idx] + accum
+#6	idx ++
+#7	idx = accum
+#8	ARRAYSIZE
+#9	arr
+#10	the return value

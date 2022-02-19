@@ -26,9 +26,15 @@ We know we must be able to represent numbers that are not just integers for thin
 We can represent a decimal number like so:
 \[10110.1001\]
 Using a binary point '.'\\
-The number 1 place to the left of the point represents $2^0$ 
-	and numbers to the left incrament on $0$ and numbers to the right decrement on $0$.
-Because of this we can represent fractional numbers to the right of the point.
+if the number $k$ is the digits position relative to the ones position (right of binary point) then the position
+        represents the value $2^k$.
+The actual number $N$ represented by a solely Fractional number is:
+\\
+
+$x$ = the number represented by the binary string if it were not  Fractional\\
+$k$ = the length of  $x$\\
+$N$ =  $\frac{x}{2^k}$
+
 \begin{align*}
         &value  &representation\\
         &5.\;{3}/{4}   &101.11\\
@@ -157,7 +163,7 @@ for non-negative numbers the ranges of these values are
         &\text{special} &0\;1111\;000
 \end{align*}
 
-within the distribution of thes numbers one can observe that the numbers are most dense at 0, 
+Within the distribution of thes numbers one can observe that the numbers are most dense at 0, 
         meaning that this 4-bit representation of the IEEE standard for floating point numbers can 
         represent more values closer to 0 and less as one moves farther away from 0.
 

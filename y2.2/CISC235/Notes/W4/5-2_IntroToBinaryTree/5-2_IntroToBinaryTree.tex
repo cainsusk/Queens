@@ -1,0 +1,81 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Introduction to Binary Trees}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Valid Trees}
+A valid tree is one that is defined as a tree where there is a single unique path to each node.
+
+\section*{Binary Tree}
+A binary tree is a tree where each node either has 2 to 0 children.
+A binary tree can represent an arithmetic expression can be represented as a binary tree whose leaves are associated with 
+        variables or constants and whose internal nodes are associated with one of the operators in the expression.
+
+\subsection*{Binary Subtrees}
+a sub tree is a section of a Binary tree that is also a valid tree, where the root of the subtree is a node in the original tree.
+
+\subsection*{Complete \& Full Binary Trees}
+A \textbf{full} binary tree is a tree where each node is either a leaf or possesses exactly two child nodes.
+
+A \textbf{complete} binary tree is one where all \textit{levels} are completely filled \textbf{except} the last level which has all 
+        keys as left as possible.
+
+A Binary tree can be both full or complete.
+
+\section*{Operations}
+the following are common operations that one might perform on a binary tree
+\begin{itemize}
+        \item traverse all items
+        \item search for item
+        \item adding a new item
+        \item deleting item or the entire tree (destruction)
+        \item removing or adding a section of the tree
+\end{itemize}
+
+\section*{example}
+Below is an example implementation of a Binary tree class in Python
+\begin{verbatim}
+class BTNode:
+        def_init_(self, data):
+                self.left = None
+                self.right = None
+                self.value = data
+
+def main():
+        BTNode temp
+
+        pRoot = new BTNode(5)
+
+        temp = new BTNode(7)
+        pRoot.left = temp
+
+        temp = new BTNode(-3)
+        pRoot,right = temp
+\end{verbatim}
+
+\end{document}
+

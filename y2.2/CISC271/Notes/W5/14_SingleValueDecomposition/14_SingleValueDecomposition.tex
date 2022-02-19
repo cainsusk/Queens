@@ -1,0 +1,189 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Single Value Decomposition}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Intro to the Single Value Decomposition}
+Recall a diagonalizable matrix is $A\in\mathbb{R}^{m\times m}$ where
+\[
+A = E\Lambda E^{-1}
+.\] 
+
+For a matrix of this type there are multiple situations we have not considered:
+
+For any matrix $A\in\mathbb{R}^{m\times n}$ what if:
+\begin{itemize}
+        \item $A\in\mathbb{R}^{m\times m}$ and is full rank with no eigenvector basis?
+        \item $A\in\mathbb{R}^{m\times m}$ and is rank deficient?
+        \item $A\in\mathbb{R}^{m\times n}$ is full rank? 
+        \item $A\in\mathbb{R}^{m\times n}$ is rank deficient?
+\end{itemize}
+
+We will use a method to handle these matrices by first examining the following matrices
+\[
+[A^\top A]\preceq 0\;\;\; [A A^\top]\preceq 0
+.\] 
+where both are diagonalizable 
+\pagebreak
+
+\section*{b The Left Transpose Product}
+The Left transpose product is $A^\top A$.
+
+Consider the rectangular matrix $A\in\mathbb{R}^{m\times n}$.
+
+Suppose that the columns of $A$ are linearly independent. (meaning must be either square or full rank).
+
+Let: 
+\begin{align*}
+        B_v &= A^\top A\\
+            &= V\Lambda V^\top &\leftarrow\text{by the spectral theorum} \\
+        V &= [\vec v_1,  \vec v_2, \ldots, \vec v_n]\\
+        \Lambda &= \begin{bmatrix} \lambda_1  & & \\ & \lambda_2 & \\ & & \lambda_n \end{bmatrix}  \\
+.\end{align*}
+
+Now, suppose that the rank of $A$ equals  $rank(A) = r$ such that:
+\[
+\Lambda =        \begin{bmatrix} \lambda_1  & & & \\ & \lambda_2 & & \\ & & \lambda_r & \\ & & & 0\ldots \end{bmatrix} 
+.\] 
+where all values on the diagonal past $\lambda_r$ are 0.
+
+\subsection*{Example}
+Given the matrix rectangular matrix $A$
+ \begin{align*}
+         &A = \begin{bmatrix} 1 & 1 \\ -1 & 1\\ 1 & 1 \end{bmatrix} &A^\top A = \begin{bmatrix} 3 & 1\\ 1 & 3 \end{bmatrix}\\
+         &\lambda_1 = 4\;\;\;\;\;\;\;\lambda_2 = 2
+.\end{align*}
+
+Because $A$ is full rank and tall thin, it's EigenVectors are an orthonormal basis such that:
+ \[
+\vec v_1 \propto \begin{bmatrix} 1\\1 \end{bmatrix}\;\;\;\vec v_2 \propto \begin{bmatrix} 1\\-1 \end{bmatrix}  
+.\] 
+
+Which is expected for a symmetric, positive semidefinite matrix.
+
+
+\section*{c The Right Transpose Product}
+The right transpose product is $A A^\top$.
+
+Consider the rectangular matrix $A\in\mathbb{R}^{m\times n}$
+
+Suppose that $A$ has linearly independent  \textbf{rows} (meaning $A$ must  be square or full rank).
+
+Let:
+\begin{align*}
+        B_u &= A A^\top\\
+        &= U\Lambda U^\top\\
+        U &= [\vec u_1, \vec u_2, \ldots, \vec u_m ]\\
+        \Lambda &= \begin{bmatrix} \lambda_1  & & \\ & \lambda_2 & \\ & & \lambda_m \end{bmatrix}  \\
+.\end{align*}
+
+Same as Left Transpose, Suppose $rank(A)=r$ such that:
+\[
+\Lambda =        \begin{bmatrix} \lambda_1  & & & \\ & \lambda_2 & & \\ & & \lambda_r & \\ & & & 0\ldots \end{bmatrix} 
+.\] 
+
+\subsection*{Example}
+Given the rectangular matrix $A$:
+ \begin{align*}
+         &\;\;A = \begin{bmatrix} 1 & 1 \\ -1 & 1\\ 1 & 1 \end{bmatrix} &B_u = A A^\top\\
+         &\lambda_1 = 4\;\lambda_2 = 2\;\lambda_3 = 0& B_u = \begin{bmatrix} 2 & 0 & 2 \\ 0 & 2 & 0 \\ 2 & 0 & 2 \end{bmatrix} 
+.\end{align*}
+
+Where:
+\[
+\vec v_1 \propto \begin{bmatrix} 1\\0\\1 \end{bmatrix}\;\;\vec v_2 \propto \begin{bmatrix} 0\\1\\0 \end{bmatrix}
+\;\; \vec v_3 \propto \begin{bmatrix} 1\\0\\-1 \end{bmatrix} 
+.\] 
+
+Such that these EigenVectors create a orthonormal basis. Furthermore, the nullspace of $B_u$ should be spanned by  $\vec v_3$
+\section*{d Structure of The Singular Value Decomposition}
+Here, we will state the Single Value Decomposition (SVD) theorum.
+A decomposition is a way of representing a matrix using the products of factors.
+Sometimes referred to as a decomposition or factorization.
+
+A general $A\in\mathbb{Rm\times n}$ can be factorized as:
+\[
+A = U\Sigma V^\top
+.\] 
+Where:
+\begin{align*}
+        &U \in \mathbb{R}^{m\times m} &\text{real, Orthogonal Matrix, Orthonormal columns: basis for $\mathbb{R}^m$}\\
+        &V\in\mathbb{R}^{n\times n} &\text{real, Orthogonal Matrix, Orthonormal columns: basis for $\mathbb{R}^n$}\\
+        &\Sigma \in \mathbb{R}^{m\times n} &\text{`diagonal' matrix of singular values such that:}\\
+        & &\sigma\in\mathbb{R},\;\;rank(A) = r \to  \text{if } j\leq r: \sigma>0
+\end{align*}
+Note, diagonal is in quotes as while $\Sigma$ isn't necessarily square, it has values only on its diagonal
+Additionally, the values in $\Sigma$ are ordered largest to smallest such that  $\sigma_1$ is the largest value and $\sigma_r$ is
+ the smallest non zero value.
+
+ The Singular matrix $\Sigma \in \mathbb{R}^{m\times n}$ is structured as:
+\[
+\Sigma =        \begin{bmatrix} \lambda_1  & & & \\ & \lambda_2 & & \\ & & \lambda_r & \\ & & & 0\ldots \end{bmatrix} 
+.\] 
+where all values are 0 accept for the diagonal: where values below $\lambda_r$ are 0
+
+\subsection*{Example}
+Given:
+\[
+        A = \begin{bmatrix} 1 & 1 \\ -1 & 1 \\ 1 & 1 \end{bmatrix}\;\;A = U\Sigma V^\top 
+.\] 
+Observe that $U$ is the same as  $B_u$ and  $V$ is the same as  $B_v$.
+Additionally, $\Sigma$ must have the same shape as  $A$, thus:
+ \[
+         \Sigma = \begin{bmatrix} 2 & 0 \\ 0 & \sqrt{2} \\ 0 & 0  \end{bmatrix} 
+.\] 
+Now, we can use the SVD to decompose $A$.
+
+First, we will to the left transpose:
+\begin{align*}
+        A^\top A &= [U\Sigma V^\top]^\top [U\Sigma V^\top]\\
+        &= V\Sigma^\top U^\top U\Sigma V^\top \\
+        &= V\Sigma^2V^\top \\
+.\end{align*}
+Thus $A^\top A$ is the spectral decomposition of a positive semidefinite
+symmetric matrix. Note $\Sigma^2$ is the EigenValue matrix and thus, $\sigma^2\in\Sigma$ are
+        the EigenValues of $A^\top A$
+
+Next, we will do the right transpose:
+\begin{align*}
+        A A^\top &= [U\Sigma V^\top][U\Sigma V^\top]^\top\\
+        &= U\Sigma V^\top V\Sigma^\top U^\top\\
+        &= U\Sigma^2 U^\top\\
+.\end{align*}
+
+Note that $A A^\top$ and $A^\top A$ share most of their EigenValues
+\section*{Learning Summary}
+students should now be able to:
+\begin{itemize}
+        \item state dimensions of $U$ and  $V$ from $A$
+        \item write the structure of  $\Sigma$ from rank  $r$ of  $A$
+        \item compute EigenValues of  $A^\top A$ and  $A A^\top$
+\end{itemize}
+\end{document}
+

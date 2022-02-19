@@ -1,0 +1,71 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Minimizing Deterministic State Diagrams}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Minimization}
+A regular language can be represented by many (very) different Deterministic State Diagrams.
+Minimization of a Regex or Non-Deterministic State Diagram is intractable--which is to say there 
+        is on efficient algorithm to minimize these.
+
+However, because a regular language has a \textit{unique} DFA with a smallest number of states,
+        there is an efficient algorithm to minimize this diagram.
+
+\section*{Distinguishable States}
+We must define that two states $p,q$ of a DFA are \textbf{distinguishable}.
+
+If there exists a string  $w$ such that it takes  $p$ to final state and  $q$ to a non-final state; or vice versa.
+
+ \begin{figure}[h]
+        \centering
+        \incfig{iff1}
+\end{figure}
+
+$p,q$ are \textbf{indistinguishable} if and only if for any string $w$:
+ \begin{itemize}
+        \item $w$ takes  $p$ to final state
+        \item  $w$ takes  $q$ to a final state
+\end{itemize}
+
+Otherwise, they are Distinguishable 
+\pagebreak
+
+
+\section*{Idea of Algorithm}
+the main operation of the minimization algorithm is to find all pairs of \textbf{distinguishable} states.
+The reason for this is that, the only way to verify that any states are distinguishable, one must
+        compare 2 states and only 2 states.
+
+Any states that are pairwise indistinguishable can be merged into one state (that is, a pair of states that are indistinguishable).
+
+\section*{Preprocessing for Algorithm}
+before performing the minimization algorithm, one must eliminate all states that cannot be reached from the starting state
+        by any string.
+This is done by using a state reachability algorithm.
+
+\end{document}
+

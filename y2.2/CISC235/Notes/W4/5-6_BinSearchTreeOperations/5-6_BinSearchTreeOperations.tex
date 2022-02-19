@@ -1,0 +1,94 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Binary Search Trees - Insert and Delete}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Insert}
+to insert a new node into our binary search tree (BST) we must place the new node so that the resulting tree is still a valid BST.
+The algorith for inserting is as follows:
+Given a new value $v$ to insert
+\begin{enumerate}
+        \item if the tree is empty allocate a new node and put $v$ into it and return
+        \item start at the root of the tree if not empty
+        \item if  $v$ is equal to the current node's value then return
+        \item if $v$ is less than the current node's value and there's a left child, go left
+        \begin{enumerate}
+                \item else, allocate a new node and put  $v$ into it. 
+                Set this new node as the left child of the current node and return.
+        \end{enumerate}
+        \item if $v$ is greater than the current node's value and there is a right child, go right
+        \begin{enumerate}
+                \item else, allocate a new node and put $v$ into it. 
+                        Set the new node as the right child of the current node and return
+        \end{enumerate}
+\end{enumerate}
+
+The big O of this algorithm is:
+\[
+O\left( \log_2 (n) \right) 
+.\] 
+
+Furthermore, the configuration of a BST can change its effectiveness. 
+The more full a tree is, the faster it is at searching (cause it avoids long 1-child strings of ordered numbers).
+This is known as a \textbf{balanced} tree.
+\pagebreak
+
+
+\section*{Delete}
+deleting a node from a binary tree requires an algorithm for properly relinking the remaining nodes.
+This algorithm is as follows.
+
+Given a value to delete $v$:
+ \begin{enumerate}
+        \item find the value $v$ in the tree with a slightly modified BST search algorithm.
+                 Search using a \texttt{current} pointer and a  \texttt{parent} pointer
+        \item if the node was found, delete it from the tree while making sure to preserve the ordering (there are 3 cases to consider).
+        \begin{enumerate}
+                \item if the found node is a leaf
+                \begin{enumerate}
+                        \item if the found leaf is not the root node, remove the leaf and set the current node to None
+                        \item if the found leaf is the rood node, remove the root node and set the tree value to None
+                \end{enumerate}
+                \item if the found node has 1 child
+                \begin{enumerate}
+                        \item if the found node is not the root node, relink the parent node to the current nodes only child.
+                        \item if the found node is the root node, set the current node's only child as the root.
+                \end{enumerate}
+                \item if the found node has 2 children
+                        \begin{enumerate}
+                                \item we can replace the value in the found node with the largest value in the left subtree or the
+                                        right subtree's smallest value. 
+                                        Once the found value is replaced, use case (a) or (b) to remove the node the
+                                        found value was replaced with.
+                        \end{enumerate}
+        \end{enumerate}
+\end{enumerate}
+
+\section*{Min \& Max}
+the minimum value of a BST is located at the leftmost node of the tree and the maximum is located at the rightmost node.
+\end{document}
+
