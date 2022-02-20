@@ -1,0 +1,80 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Inserting Nodes Into an AVL Tree}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+{\small
+\section*{Operations}
+For all AVL operations it is assumed that the tree was balanced \textit{before} the operation began.
+
+\section*{Insert}
+The insertion process begins the same as with a normal BST, but adding a new node to the AVL tree, it 
+may unbalance the tree by 1. This would cause the AVL tree to become invalid. We rectify this by using an operation
+called Rotation.
+
+\paragraph{Rotation}
+If a node has becore out of balance in a given direction, we \textit{rotate} it in the \textbf{opposite} direction.
+This maintains the inorder ordering of keys. The height of each touched node must be updated as well.
+
+\paragraph{Unbalanced Cases}
+Consider the lowest node $k$ that has now become unbalanced. The new `offending' node could be in one of the four
+following \textit{grandchild} subtrees relative to $k$:
+ \begin{enumerate}
+        \item[\textbf{Left / Right}]
+                There was an insert into a left child's left subtree or insert into right childs right subtree. 
+                All that is required is to rotate once away from the direction of the offending node.
+        \item[\textbf{L-R / R-L}] There was an insert in the left subtree of a right child or a right subtree of a 
+                left child. There first must be a rotation on the offending new node 
+                (opposide of its direction), and then a rotation on the offending, existing child node 
+                (again, opposide to its direction).
+\end{enumerate}
+
+\subsection*{Algorithm}
+thus, the insertion algorithm for AVL trees is the following:
+\begin{enumerate}
+        \item Find a Location within a given tree for the new value that satisfies the existing BST requirements.
+        \item Insert the node.
+        \item Search from the insert up the tree, looking for imbalances.
+        \item if an imbalance is found:
+        \begin{enumerate}
+                \item if it is \textbf{Left / Right}, perform a single rotation.
+                \item if it is \textbf{L-R / R-L}, perform a double rotation
+        \end{enumerate}
+\end{enumerate}
+ }
+
+\end{document}
+
