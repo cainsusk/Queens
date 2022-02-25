@@ -1,0 +1,32 @@
+to use a digraph one must use <Ctrl-k> in INSERT mode
+
+char    code    name                    NOTES
+====================                    =-=-=
+☺       0u      smiley face
+
+α       a*      alpha                   all greek letters are made with X* where x is (almost) any letter
+ε       e*      empty                   commonly used for empty string in CISC223
+∈       (-      in                      the other way is '-)'
+∧       AN      and
+∨       OR      or
+¬       NO      not
+∅       /0      empty set
+∩       (U      intersection
+∪       )U      union
+∆       DE      delta
+∠       V-      angle                   commonly used for vectors (∠u == vector u) in CISC217
+∴       .:      therefore
+∵       :.      because
+∾       CG      infinity
+⊂       (C      subset                  the other way is ')C'
+⊆       (_      proper subset           the other way is ')_'
+⊥       T-      bottom
+ 
+∝       0(      proportional to
+π       *p      pi
+·       .M      multiplied
+˚       0'      ring above
+
+
+∥       PP      2 vertical bars         normally for representing the integer set (∥Z) or a vector space (∥U)        
+
