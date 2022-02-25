@@ -1,0 +1,13 @@
+%-=-==GitHub Personal Access Token==-=-%
+
+|Made
+==========================
+->              2022.02.24
+
+|Done
+==========================
+->              2022.03.26
+
+|Token
+==========================
+->              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
