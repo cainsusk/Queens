@@ -1,0 +1,8 @@
+def BST_geq(x):
+  min = INT_MIN
+    for i in range x.height:
+         row = x.row[i]
+         for j in row:
+            if j >= x && j < min:
+              min = j
+    return min
