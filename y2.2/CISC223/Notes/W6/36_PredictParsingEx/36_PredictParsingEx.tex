@@ -1,0 +1,76 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Predictive Recursive Descent Parsing Example}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Recall}
+given the set of balanced strings, the grammar for this set is:
+\[<balanced> \to 0<balanced>1 \mid \epsilon\]
+
+thus, the parser operations for the set are:
+\begin{itemize}
+        \item if next token is 0, use $<balanced> \to 0<balanced>1$
+        \item if next token is 1 or EOS, then use 
+                $<balanced> \to \epsilon$
+\end{itemize}
+
+This is the process commonly used in program compilers.
+
+\paragraph{Limitations}
+there are, however, limitations to what languages can use Recursive 
+Descent Parsing. 
+
+take for example, the language of palendromes 
+$L_{pal} = \{w\in\{0,1\}\mid w = w^r\}$ where if $w = 110$ then
+$w^r = 011$
+
+the Grammar would thus be:
+\[S \to 0S0 \mid 1S1 \mid 0 \mid 1 \mid \epsilon\]
+
+which outlines the problems of predictive parsing with $L_{pal}$:
+\begin{itemize}
+        \item two productions for same variable begin with the same token
+                \[S \to 0S0 \mid 0\]
+        \item the variable $S$ has productions that begin with 0 \textit{
+                and} 0 can occur directly after $S$ \textbf{and} S has
+                a erasing production:
+                \[S \to 0S0 \;\;\; S \to \epsilon\]
+                the problem is there is no way for the parser to know
+                which production to use and there is more than 1 option.
+\end{itemize}
+
+\end{document}
+
