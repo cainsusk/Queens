@@ -1,0 +1,68 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Heap Sort}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{The Heapsort}
+given an array of $N$ numbers that we want to sort:
+\begin{enumerate}
+        \item Insert all $N$ numbers into a new maxheap
+        \item wile there are nunbers left in the heap:
+                \begin{enumerate}
+                        \item remove the largest value from the heap.
+                        \item place it in the last open slot in the new maxheap
+                \end{enumerate}
+\end{enumerate}
+However, this is a niave approach, as we should convert the input into a maxheap:
+\incimg{maxheapSort}{0.5}
+
+for step 1 the algorithm is:
+\begin{enumerate}
+        \item for (currentNOde = lastNode till rootNode):\\
+                focus on the subtree rooted at currentNode.\\
+                think of this subtree as a maxheap\\
+                keep shifting the top value down until your subtree becomes a valid maxheap
+\end{enumerate}
+once we finish heapisfying from our \textit{root node}, our entire array will hold a valid maxheap!
+however, because the array represents a complete binary tree, we dan ignore all nodes before $N/2 -1$ as all of the nodes after are leafs, so
+$lastNode = N/2 - 1$
+\pagebreak
+
+Now, for step 2, we will use the reheapify algorithm as follows;
+\incimg{reheap}{0.5}
+
+\end{document}
+

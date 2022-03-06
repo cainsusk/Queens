@@ -1,0 +1,96 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Heaps}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Heaps}
+heaps are a type of data structure that is based on the binary tree and a priority queue. there are 2
+types of a heap: Maxheap and Minheap
+
+\paragraph{Maxheap}
+a max heap can quickly insert values and quickly get the largest value inthe heap.
+
+within a maxheap, data is contained such that a nodes children are all less then the value in the node. it is also a complete binary tree.
+
+\paragraph{Minheap}
+a min heap can quickly insert into heap and get the smallest value from the heap,
+
+the structure is the same as maxheap but with the min at the root with all children are lagrer.
+
+\subsection*{Operations}
+the main operation with a heap is \textbf{extraction}. The algorithm for extraction is as follows:
+\incimg{extract}{0.5}
+
+\subsection*{Implementation}
+we can use arrays in order to implement a heap.
+
+we can map the complete binray tree of the heap using level order traverse and entering the values by row. the memory for each row increses eponentially
+(accept for possibly the final row).
+
+with this implementation, we can always find the largest value at \texttt{HEAP[0]} and the bottom-right-most mode at \texttt{HEAP[-1]}.
+finally, we can also always find the bottom-left-most empty spot (for adding a new value) at \texttt{HEAP[len(HEAP)]}.
+
+but how do we maintain the tree structure within the array?specifically, can we find the children of a node using an algorithm like so:
+\[\texttt{leftChild(parent) = 2 * parent + 1} \] 
+\[\texttt{rightChild(parent) = 2 * parent + 2}\]
+
+So, the code implementation may use the following logic:
+\incimg{extractCode}{0.5}
+\pagebreak
+
+Additionally, the implementation for inserting a node to the heap would be:
+\incimg{addCode}{0.5}
+
+\subsection*{Complexity}
+since our tree is a \textit{complete} binary tree, if it has $N$ entries, it is guarunteed to be exactly $log_2(N)$ Levels deep.
+
+extraction, takes, for the max/min: $O(1)$ and for any other value the complexity is $O(\log n)$
+
+the complexity for searching for an element in a heap, however, is $O(n)$
+\incimg{complexity}{0.5}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

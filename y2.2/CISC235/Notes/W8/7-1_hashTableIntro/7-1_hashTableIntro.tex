@@ -1,0 +1,78 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Intro to Hash Tables}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Hash Table}
+a hash table is a data structure that implements a map ADT (associative array). a hash table has the properties of:
+\begin{itemize}
+        \item a structure that can map keys to values
+        \item a structure for fast lookup (and insertion)
+\end{itemize}
+
+and a map ADT consists of:
+\begin{itemize}
+        \item a set of unique keys
+        \item a set of values where each key is associated with one value or set of values. for example:
+                \[\texttt{\{('cain', 12), ('matthew', 11)\}}\]
+\end{itemize}
+Search engines use hashmaps to find webpages containing words in your query.
+An example of a hash table used in a search engine is a \textbf{doc-word }$<$key-value$>$ pairs:
+\incimg{keyval}{0.6}
+\pagebreak
+
+\section*{Map Operations}
+so to go over the hash table operations we must first go over the map operations:
+\begin{itemize}
+        \item get(key k)\\
+                returns null if key is not in map
+        \item put(key k, val v)\\
+                if the key is already associated with a value, replace that value with val
+        \item remove(key k)\\
+                if key is not in the map, do nothing
+        \item size()
+        \item isEmpty()
+\end{itemize}
+
+the main idea of a hash table is that we can use some mathematical function that takes a input (normally number) and converts it into a unique slot
+number between 0 and 99,999 in an array.
+
+\paragraph{Hash Function}
+the main way of keeping the output of the hash within the array bounds is by using the modulus function. once we have that implemented we can
+then create a operation for mutating the input such that each input gives a unique output for the given application
+
+\end{document}
+
