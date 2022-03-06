@@ -1,0 +1,93 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Data Structures}
+\newcommand{\coursetitle}{AVL Tree Implementation}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Update Height}
+it is important to keep track of and update the height of an AVL tree,
+as mentioned in the lesson 5-3-2. the height is mainly changed during insertion and deletion.
+an implementation of this process could look like so. Note that this code is within a ALVTree
+class.
+{\scriptsize
+\begin{verbatim}
+# step 1, perform normal BST insert
+def insert(self, root, key):
+        if not root:
+                return TreeNode(key)
+        elif key < root.val:
+                root.left = self.insert(root.left, key)
+        else:
+                root.right = self.insert(root.right, key)
+
+# step 2, Update the height of the ancestor node
+
+        root.height = 1 + max(self.Height(root.left), self.Height(root.right))
+
+# step 3, get the balance factor of the node
+
+        balance = self.getBalance(root)
+
+# step 4, if node is unbalanced then try out the 4 cases
+
+# CASE 1 - LeftLeft
+if balance < -1 and key < root.left.val:
+        return self.rightRotate(root)
+
+# CASE 2 - RightRight
+if balance > 1 and key > root.right.val:
+        return self.leftRotate(root)
+
+# CASE 3 - LeftRight
+if balance < -1 and key > root.left.val:
+        root.left = self.lefttRotate(root.left)
+        return self.rightRotate(root)
+
+# CASE 4 - RightLeft
+if balance > 1 and key < root.right.val:
+        root.right = self.rightRotate(root.right)
+        return self.leftRotate(root)
+
+\end{verbatim} 
+}
+\pagebreak
+
+the implementation for the rotate functions mentioned above are the following:
+
+\incimg{rotate}{0.5}
+
+
+\end{document}
+

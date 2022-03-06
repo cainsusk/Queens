@@ -1,0 +1,93 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Red Black Tree Insert and Delete}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Intro to RBTree Insert and Delete}
+the insert and delete operations modify the tree such that we must fix the following in
+order for it to remain a RBTree.
+\begin{enumerate}
+        \item colour changes
+        \item restructuring the links of the tree via. rotation
+\end{enumerate}
+
+\section*{Rotations}
+rotations are used to maintain the ordering of the keys. A rotation can be performed in $O(n)$
+
+\section*{Insertion}
+When doing an insertion, the only property that is violated is property 4 (see lesson 5-3-5).
+This is because nodes are only added as a leaf of the tree (as is the normal).
+There are 3 cases for this violation given $x$, the target node:
+\begin{enumerate}
+        \item if the Aunt or Uncle node $y$ of $x$ is red then:\\
+                recolour $y$, the parent of $y$, and the parent of $x$
+        \item if the Aunt or Uncle node is black, and $x$ and it's parent are on the same
+          side, then:\\
+                right-rotate $y$ and recolour the parent of $x$ and $y$
+                \incimg{yBlack}{0.5}
+        \pagebreak
+
+        \item if the Aunt or Uncle node is black, and $x$ and it's parent are on different sides,
+        then:\\
+               left rotate $x$ 
+               \incimg{case3}{0.5}
+\end{enumerate}
+
+The time complexity of all 3 of these cases are:
+        \[O(\log n)\]
+to see each of these cases in the context of eachother in a real example, observe the following:
+\incimg{bigEx}{0.5}
+
+\paragraph{Algorith for Insertion}
+from all this information, we can generalize the process for insertion as the following algorithm:
+\begin{verbatim}
+if current and parent are both red:
+        if grandparent's other child (aunt or uncle) is red:
+                colour grandpa red
+        else if the current and parent are both on the same side:
+                do a single rotation and recolour
+        else:
+                do a double rotation and recolour
+\end{verbatim}
+
+An implementation can also be seen in the following figure
+\incimg{insEx}{0.5}
+\incimg{LLfix}{0.3}
+\incimg{LRfix}{0.3}
+\incimg{AllCases}{0.6}
+
+\end{document}
+

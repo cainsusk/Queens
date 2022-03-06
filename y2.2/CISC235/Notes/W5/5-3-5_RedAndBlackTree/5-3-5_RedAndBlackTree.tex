@@ -1,0 +1,68 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Red And Black Trees}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Definition of RBT}
+An Red Black Tree is another type of binary search tree that is self balancing. Each node in the
+tree is either coloured $red$ or $black$. In order for a tree to be a RBT it must satisfy the
+following conditions
+\begin{enumerate}
+        \item Every node is red or black
+        \item the root is black
+        \item every leaf (NIL) is black
+        \item if a node is red, then both of it's children are black. thus no 2 consecitive nodes
+                are red.
+        \item for each node $x$, all simple paths from the node to it's descendant leaves
+                contain the same ammount of black nodes.
+\end{enumerate}
+
+\incimg{RBTex}{0.5}
+
+An RBTree also has the following properties:
+\begin{itemize}
+        \item The path from any node to the farthest leaf is no more than \textit{twice} as long
+                as the path from the node to the nearest leaf
+        \item the sortest path for node $n$ down to a leaf is equal to $k'\geq b \geq \frac{k}{2}$
+                where $k'$ is the length of the shortest path and $b$ is the number of 
+                black nodes in all paths (as this number must be the same for all paths).
+        \item a red black tree with nodes has a height of:
+                \[h \geq 2\log_2 (n+1)\]
+        \item the number of leaves in an RBTree is $n+1$
+\end{itemize}
+
+\end{document}
+
