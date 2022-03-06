@@ -1,0 +1,47 @@
+||==-= Info for CISC271 A3 =-==||
+
+|Question 1
+
+cluster data
+------------
+we can cluster the given data (wine stuff i think) into [k]
+clusters using the [I = kmean(X,k)] function in matlab.
+
+this will output a matrix [I] which contains [k] vectors in which 
+the indicies for each cluster are located.
+
+finding score
+-------------
+Given the Data-Matrix A
+
+the first step is to find the the zero mean of the data,
+represented as [M]. 
+
+we will then find the covariance of [A]:
+        [ B = 1/(m-1) * M'M ]               NOTE: ' = transpose
+
+then, find the Single Value Decomposition of [B]
+        [ B = USV' ]
+
+we can then find the scores of data by doing:
+        [ Z = MV ]
+
+where [Z] will contain the scores of the principal components (thats
+to say, certain vectors within [E] and/or [V] as [E = V]
+
+reduce dimensions
+-----------------
+we must first find [C_k] where [k] is the number of dimensions/ranks
+the approximation matrix should have (in this case, [k=2]).
+
+We find [C_i {0 < i < k}] using the following equation:
+        [ C_i = ∠u_i * s_i * ∠v'_i ]
+
+and once we add all the C: [ {i=1→k}SUM(C_i) ]
+we get the closest rank-k approximation of [A]
+
+standardize data
+----------------
+can use the [Z = zscore(A)] function in MatLab which outputs a
+matrix of z-scores for each entriy in A. the z score is the
+standardized form of the data.
