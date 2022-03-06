@@ -1,0 +1,89 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Intro to Specification}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Specification}
+a specification is what a program should \textit{do}. the implementation is what the program \textit{does}.
+In specific terms, specifications include:
+\begin{itemize}
+        \item what the input are
+        \item what the outputs should be
+        \item the environment in which the program should run
+\end{itemize}
+
+\paragraph{Formalization}
+a given specification has a corresponding formulation which will include:
+\begin{itemize}
+        \item assertion on input values (pre-condition)
+        \item assertion on onput values in validation to input values (post condition)
+        \item declaration interface: static properties of identifiers
+\end{itemize}
+
+\paragraph{Specification as a Contract}
+if the program is started in a state satisfying the pre-conditions, then it terminates in a state satisfying the post condition (aka: total correctness).
+if the preconditions do not hold, then the program can do anything without violating the specifications.
+
+a weaker notion of total correctness is partial correctness; which says that if the program is started in a state satisfying the precondition then 
+if it terminates at the end the state satisfies the postcondition.
+
+Specifications use locigcal formulas like from cisc204. the characters used can be made using standard keyboard
+characters (as they are intended to be written in comments in code etc.)
+\begin{align*}
+        &\text{Boolean Operations} &\&\&, ||, \!\\
+        & \text{Implies} &implies\\
+        &\text{if} &if, iff\\
+        & \text{equality} &==, !=
+\end{align*}
+
+The quantifiers are represented as $\forall = ForAll(int i)$ and $\exists = Exists(int i)$.
+an example of an expression in this notation is:
+\[P\&\&Q\;implies\;P||Q\]
+Note: the above equation is generally true.
+
+\section*{Example}
+consider the following expressions:
+\[ForAll(int i)Exists(int j)j == i+1\]
+\[Exists(int j)ForALL(int i)j == i+1\]
+
+the first equation is true.
+there is also a shorthand for a range used by the textbook:
+\[ForAll(i=a; i<b)P\]
+which stands for $ForAll(int i)a=i<b\;implies\;P$.
+this can also be done for $Exists$ which has the same function.
+Additionally, the notation uses alot of programming conventions, for example:$A[i]\;!=\;A[j]$
+\end{document}
+

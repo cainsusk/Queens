@@ -1,0 +1,76 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Grammars and Recursive Descent}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Recursive Descent Parsing}
+A context free grammar allows recursive descent parsing iff for any two productions having the
+same variable on the left side:
+\[N \to \alpha \mid \beta\]
+the follwowing conditon holds:
+\begin{itemize}
+        \item[RD1] $FIRST(\alpha)\cap FIRST(\beta)=\emptyset$
+        \item[RD2] if $\beta \Rightarrow\text{*} \epsilon$ then:\\
+                $FIRST(\alpha)\cap FOLLOW(N) = \emptyset$
+\end{itemize}
+
+\section*{Example}
+given:
+\begin{align*}
+        & S\to cAa \mid aAb \mid bB\\
+        & A \to dAb \mid cB \mid \epsilon\\
+        & B \to bB \mid cBa \mid \epsilon
+\end{align*}
+to show that Recursive Descent is possible on
+the above grammar we must show that it satisfies 
+the above requirements, observe the following. Note, we can use the derivations of the above
+grammar in order to help find the $FOLLOW$ sets.
+\begin{itemize}
+        \item[RD1] productions for each variable begin with 
+                distinct terminals or are $\epsilon$. thus the grammar holds for RD1
+        \item[RD2] $FOLLOW(S) = \{EOS\}$\\
+                $FOLLOW(A) = \{a,b\}$\\
+                $FOLLOW(B) = \{EOS, a, b\}$\\
+                thus, this grammar does not satisfy RD2 as the production $B\to bB$ which is
+                makes the following
+                \[FIRST(bB)\cap FOLLOW(B)\neq 0\]
+                therefore, RD2 does not hold.
+
+
+        
+\end{itemize}
+\end{document}
+

@@ -1,0 +1,100 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{lID}
+\newcommand{\coursetitle}{cID}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Example}
+grammars can have if/else statements.
+
+for example:
+\[S \to iEtS \mid iEtSeS \mid a\]
+
+where $i$ is if, $t$ is then, and $e$ is else.
+
+we can then apply left factoring on the grammar as, it cannot be parsed with recursive descent parsing, which we want.
+It would result in 
+\[S \to iEtSS' \mid a\]
+\[S' \to eS \mid a\]
+
+but we still cannot use recursive descent parsing on this grammar as: $e \in FOLLOW(S')$
+\[S \implies iEtSS'\implies iEtiEtSS'S' \implies iEtiEtSS'eS\]
+
+it violates RD2.
+
+\section*{Left Recursive Productions}
+given the grammar:
+\[<expr> \to <expr> + <term> \mid <term>\]
+\[<term> \to ...\]
+
+in this grammar, the parser goes into an infinite loop when $<expr>$ is at the top of the stack.
+we an then modify the rules to avoid this.
+\[<expr> \to <term> <expTail>\]
+\[<expTail> \to + <tem><expTail> \mid \epsilon\]
+
+However, left recursion can be sometimes be replaced by right recursion.
+
+\section*{Eliminate Left Recursion}
+the forula for eliminating left recursion from a grammar is:
+\[A \to A\alpha_1 \mid ... \mid A\alpha_m\mid B_1\mid ...\mid B_n\]
+where $B_i$ does not begin with $A$, $\alpha_j \neq \epsilon, i \leq j \leq m$
+such that:
+\[A\to B_iA' \mid ... \mid B_nA'\]
+\[A' \to \alpha_1 A' \mid ... \mid \alpha_m A' \mid \epsilon\]
+
+\section*{Example}
+given the grammar:
+\[S \to bSa \mid ccaSb \mid ccbSa \mid abc \mid \epsilon\]
+we can use left factoring and recursion elimination to convert it to the following grammar:
+\begin{align*}
+        S &\to ccS' \mid abc \mid \epsilon \mid bSa\\
+        S' &\to aSb \mid bSa
+\end{align*}
+\section*{Example}
+given:
+\[S \to Sabc \mid Sabd \mid ccb \mid cca\]
+we will first elimiate the left recursion:
+\[S \to ccbS' \mid ccaS'\;\;\;\;S' \to abcS' \mid abdS' \mid \epsilon\]
+
+we will then do left factoring twice (as we can see that there are 2 common prefixes in the new above grammar: $cc, ab$)
+\[ \;\;\;\; \]
+\begin{align*}
+        S &\to ccX\\
+        X &\to bS' \mid aS'\\
+        S' &\to abY \mid \epsilon \\
+        Y &\to cS' \mid dS'
+\end{align*}
+\end{document}
+
