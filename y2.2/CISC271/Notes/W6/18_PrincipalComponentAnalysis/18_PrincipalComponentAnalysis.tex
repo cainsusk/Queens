@@ -1,0 +1,119 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Principal Component Analysis}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Introduction to the PCA}
+this note will explore the PCA, which is related to the covariance matrix, and singular vectors 
+of difference. It can be used to reconstruct a matrix.
+
+Principal analysis is the process of finding the the `principal' ammount from which data varies
+from the `average' data.
+
+take, for example, a matrix of students and test scores $A\in R^{m\times n}$ where a
+variable is a column of scores for a given test; and an observation
+is a row of scores for all tests for a given person.
+
+\section*{b PCA from Covariance Matrix}
+this section will expolre the covariance of data with respect to the PCA.
+
+For a zero mean matrix $M$ from the matrix $A$, the covariance of $M$ is equal to:
+\[cov(M) = \frac{1}{m-1}M^\top M = B\]
+
+thus, $B$ is the covariance matrix of $A$ where each place $b\in B$ represents the variance
+between tests (from our student example above) $i, j$ where $i,j$ are the indicies of $a$. 
+Note: this matrix is symmetrical and thus, $b_{ij} = b_{ji}$. 
+
+because $B$ is both symmetric and positive semidifinite (values are $\geq 0$) we know that
+it also has a Eigen-decomposition: $B = E\Lambda E^\top$.
+
+This, thus, allows us to analyzie the covariance matrix $B$, from $A$, and make the following 
+observations:
+\begin{itemize}
+        \item[\textbf{Principal Components}] eigenvectors of $B$\\
+                the principal components tell us how the variables in our data is related
+        \item[\textbf{Latent Variables}] eigenvectors of $B$ and,\\
+                diagonal entries of the eigenvalue matrix $\Lambda$\\
+                the latent variables tell us how much each principal component contributed
+                to the covariance.
+        \item[\textbf{Scores}] Products of zero-mean matrix $M$ with the principal components
+\end{itemize}
+
+Note: the first eigenvector in $E$ which is associated with the first eigenvalue in $\Lambda$
+is the best rank 1 approiximation to the covariance matrix $B$; which means that the aformentioned
+eigenvector is the best 1 dimensional approximation of the column space of $M$ which is closely
+related to a 1 dimensional approximation the column space for $A$.
+
+\section*{c PCA as Spectral Decomposition}
+givem the data $in R^{M\times n}$ with a covariance matrix $B\in R^{n\times n}$ where $B$ is 
+positive semidifinite with an eigen decomposition $B = E\Lambda E^\top$
+\incimg{Edecomp}{0.5}
+
+where the first eigenvector is approximately 
+$\vec v_1 = \begin{bmatrix} 0.5\\0.5\\0.7 \end{bmatrix}$
+
+Now, we can start to try and represent the matrix $B$ using the Spectral Decomposition.
+recall, the covariance matrix is defined as
+\[B = \frac{MM^\top}{m-1} = \frac{[U\Sigma V^\top]^\top [U\Sigma V^\top]}{m-1}
+ = \frac{V\Sigma^\top U^\top U\Sigma V^\top}{m-1} = V\frac{\Sigma^\top \Sigma}{m-1}V^\top\]
+ thus, the loading vectors of $B$ are the right singular vectors $U$ of the zero mean data $M$.
+ In practice, $U$ may be quite large as it is $U\in R^{m\times m}$. to account for this in
+ MatLab one could use what is called the `economy' svd:
+ \[\texttt{[U,S,V] = svd(M, 0)}\]
+ the matrix \texttt{U} will have $U\in R^{m\times n}$ rows and columns, thus reducing the ammount
+ of memory required from a computer.
+
+ \section*{PCA Scores of Data}
+ \paragraph{First Loading Vector} 
+is the eigenvector which is associated with the
+largest eigenvalue in the covariance matrix (obtained through eigen decomposition).
+this `weights' the $i^{th}$ observation by $v_1, v_2, ..., v_n$ which results in:
+ \[v_1m_{i1},v_2m_{i2},...,v_nm_{in}\]
+
+ the score fot component \#1 is $z_i$. compute all scores for component \#1 at once by doing:
+ \[\vec z = M\vec v\]
+
+ Note: the PCA error is Orthogonal error (it measures the distance from the model to the data
+ orthogonal to the model, instead of vertically (along the y axis) from the model).
+
+ \section*{Learning Outcomes}
+ \begin{itemize}
+         \item find the `explained variance' from Latent Variables
+         \item find the principal components of data.
+         \item compute scores of data using Principal Compoinent Analysis
+ \end{itemize}
+\end{document}
+

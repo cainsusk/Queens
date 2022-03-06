@@ -1,0 +1,143 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Matricies and Linear Regression Matrix Approximation}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Matrix Norms}
+this section will focus on how to use one matrix to approximate another matrix.
+We will look at the Axioms of a matrix.
+
+\paragraph{Matrix Norms: Axioms}
+how close are 2 matricies ? what is $|| A - C ||$ ?
+
+consider $A\in R^{m\times m}, C \in R^{m\times m}, a\in R$.
+the matrix norm $||\cdot||$ satisfies 4 axioms:
+\begin{itemize}
+        \item $||A||\geq 0$
+        \item $||A|| = 0$ iff $A=0$
+        \item $||\alpha A|| = |\alpha|;\;||A||$
+        \item $||A+C|| \leq ||A|| + ||C||$
+\end{itemize}
+
+additionally, compatible matrix and vector norms for $\vec w \in R^n$
+\[||A\vec w|| \leq ||A||\;\; ||\vec w||\]
+
+\section*{b L2 Matrix Norm and Frobenius Matrix Norm}
+this section will explore 2 types of norms.
+
+\paragraph{$L_2$ Norm}
+For $A\in R^{m\times m}, \vec w \in R^n$ the $L_2$ norm $||A||_2$ is defined as:
+\[||A||_2 =^{def} \frac{||A\vec w||}{||\vec w||}\]
+such that $||A||_2$ is the largest possible value that can be computed given the equation and $A$.
+in summary, if we find the largest eigenvalue $\lambda_{max}$, then
+\[||A||_2 = \sqrt{\lambda_{max}(A^\top A)} = \sigma_1\]
+
+\paragraph{Frobenius Norm}
+for $A\in R^{m\times n}$:\\
+\begin{align*}
+        ||A||_F &= \sqrt{\sum^m_{i=1}\sum^n_{j=1} (a_{ij})^2} = \sqrt{\sigma^2_1, \sigma^2_2...
+        ,\sigma^2_n} = \vec\sigma\\
+        \\
+        ||A||^2_F &= \sum_i \sum_j (a_{ij})^2 = \vec\sigma^\top \vec\sigma\\
+\end{align*}
+
+thus we can see the $L_2$ norm is the largest singular value ($\sigma_1$) and the Forbenius Norm
+is the Euclidian Norm of the vector of singular values ($\vec\sigma$)
+
+\section*{c Matrix Series from the SVD}
+this section will focus on how to write a matrix as a series.
+there are some applications that require this simplification.
+
+Recall that the SVD is:
+\[A = U\Sigma V^\top\]
+where $rank(A) = r$
+the matricies would look like the following:
+\incimg{Explaination}{0.7}
+
+thus we can see how the SVD is changed into a different decomposition of 
+\[A = U[\Sigma V^\top]\]
+
+this thus (it does) show us that any matrix $A$ with rank $r$ can be summed as many rank 1
+matricies using the above equation. (iff $\vec u \neq 0, \vec v \neq 0$)
+
+\section*{d Rank-$k$ approximations}
+we will cover how to approximate a matrix with a rank-$k$ marix.
+
+Given: $A\in R^{m\times n}$, we will approximate $A$ with $C\in R^{m\times n}$.
+We first want to measure $||A-C||$.
+Consider $rank(C) = 1$, build $C$ from $\vec z \in R^m$, thus:
+\[C = [\alpha_1\vec z, \alpha_2\vec z, ..., \alpha_n \vec z] = \vec z \vec \alpha^\top\]
+Alternatively; we can use $||\vec w|| = 1$
+\[\vec \alpha = \beta\vec w\;\;\;\; C = \vec z\beta\vec w^\top\]
+but what are the optimal values of $\vec z, \beta, \vec w$ with the $L_2$ and Frobenius norm:
+\[C = \vec u_1 \sigma_1 \vec v_1^\top\]
+Once again, consider $A = C_1 + C_2 + ... + C_r$ where each $C_i$ is a rank one matrix (from
+using the matrix series equation from section c of this note. Thus we can define $C_i$ as
+\[C_i =^{def} \vec u_i \sigma_i \vec v^\top_i\]
+
+The Eckart-Young Theorum states that the optimal rank k approximation for $A$ is $C = C_1 + C_2 
++ ... C_k$ where $C_i$ is derived from the SVD of $A$.
+
+Note that, the column space of $C_1 + C_2$ is equal to $U = [\vec u_1 \vec u_2]$. This thus means
+that a rank-$k$ approximation of $A$ is \textit{also} a rank-$k$ approximation of the column
+space of $A$.
+
+\section*{Scree Plot}
+this section explores guidelines for matrix approximation. 
+
+Given $A = U\Sigma V^\top$, form $\vec \sigma$.
+
+We first want to rescale $\sigma \in [0,1]$. to do this, we must find the explaiined variance
+\[\Theta = \sum^r_{i=1}\sigma_1 = ||\vec\sigma||_1\]
+and the total variance
+\[T = \sum^r_{i=1}(\sigma_i)^2 = ||\vec\sigma||^2_i\]
+
+\pagebreak
+if we plot $\vec\sigma / \Theta$ or $\vec\sigma/T$ we then get a \textbf{Scree plot}
+where the interesting thing to us is the \textit{elbow} if it has one.
+
+\paragraph{Examples}
+mathematically, we can see that 
+as we progress through $i$ from $C_i$, we can see that the approximation of $A$ gets better, and
+that a rank 2 approximation of $A$ is pretty good
+\incimg{ex1}{0.5}
+
+visually in this second example, we can see the elbow mentioned earlier:
+this line represents the fit for the approximation of $A$ by $C_j$. The elbow shows where
+the approximation gets closer.
+\incimg{ex2}{0.5}
+\end{document}
+
