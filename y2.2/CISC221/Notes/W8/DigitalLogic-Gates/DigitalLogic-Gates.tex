@@ -1,0 +1,99 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Digital Ciruits}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Digital circiuts}
+digital circiuts are ophysical login chips that can be represented with boolean logic.
+
+there are 2 types of digital circiuts:
+\begin{itemize}
+        \item combinational circiuts
+        \item sequential circiuts
+\end{itemize}
+
+\section*{Combinational Circuits}
+the functional specifications of a combinational circiut expresses the output values in terms of the input values.
+The timing specifications are consists of a lower and upper bound on the delay from input to output.
+a given combinational logic can be represented in many different ways.
+in diagrams, represent a combinational circiut as $CL$ and use a line with a slash through it for a bus $\not --$
+
+\paragraph{rules}
+in a combinatorial circuit, there are a few limitations as to what kind of circuit is combinational.
+\begin{itemize}
+        \item every circuit element is itslef, combinational
+        \item every node in the circiuts is either designated as an input or connected to a output
+        \item there are no cyclic paths
+\end{itemize}
+
+\paragraph{creation}
+to make a combinational circiut one must:
+\begin{itemize}
+        \item create a truth table with columns for input and output, and a row for each possible combination of inputs. define what output should be.
+        \item from the table, create a boolean function for each output
+        \item create a logic network from boolean expressions using logic gates in order to represent the boolena function.
+\end{itemize}
+
+\subsection*{Example}
+given the following truth table, find the sum of product form:
+\incimg{truthtable}{0.5}
+where:
+\[Y = \neg A \neg B \neg C + A \neg B \neg C + A \neg B C\]
+\end{document}
+or, in other terms: $Y = \Sigma(0,4,3)$.
+
+the final step is to find the visual circuit representation of the boolean logic, like so:
+\incimg{circiut}{0.5}
+
+\section*{Boolean Algebra}
+Boolean algebra is based on a set of axioms that we assume are correct.
+From these axioms, we prove all the theorums of boolean algebra.
+\incimg{bool1}{0.5}
+\incimg{bool2}{0.5}
+
+\paragraph{DeMorgans Law}
+also known as push the bubble (apparently ?). there are many ways of writing demorgans law (is is the case with combinational logic)
+Either as NAND or NOR
+\incimg{demorgan}{0.5}
+
+\paragraph{Simplifying Equations}
+These are common tools that we can use to simplify boolean equation. Foe example:
+\incimg{ex1}{0.5}
+\incimg{ex2}{0.5}
+
+the final visual result of simplifications like this can be like:
+\incimg{ex3}{0.5}
+

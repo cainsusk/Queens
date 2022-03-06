@@ -1,0 +1,67 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Dont Cares in Digital Circiuts}
+\newcommand{\coursetitle}{Computer Architecture}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Dont Cares}
+Many circuits have multiple outputs, each 
+of which computes a separate Boolean 
+function of the inputs  
+When there are strong correlation among 
+the outputs, the truth table can often be 
+simplified with “don’t care” as certain 
+input values don’t matter in some cases
+\incimg{circuit}{0.5}
+
+\incimg{dontcare}{0.7}
+
+\pagebreak
+
+\section*{Karnaugh Map}
+A karnagh map is a way of simplifying boolean expressions. it was developed by Maurice Karnaugh of Bell Labs in the 1950's. the idea of the k-map is
+that by arranging the minterms on a grid, it makes combinable terms easier to recognize.
+\incimg{karnaugh}{0.5}
+Take another example. Note, the C, AB represent true or false values of variables, one has to fill
+in the karnaugh map with the corresponding boolean values.
+\incimg{karnaugh2}{0.5}
+We can also use up to 4 variables from a boolean equation
+
+Also, note that the table is `connected' such that the going past the top goes to the bottom, and going too far left puts you as far right.
+
+Areas that are able to be simplified are ones that are consecutive and have the same bit (dont cares are counted as 1, also, they are represented as $x$)
+Note, when combining variables in the boxes, the variables that are kept from the simplification are the ones that stay the same within the box.
+\end{document}
+
