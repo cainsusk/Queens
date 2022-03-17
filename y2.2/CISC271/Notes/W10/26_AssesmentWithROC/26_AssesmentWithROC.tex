@@ -1,0 +1,134 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Classification - Assesment With ROC Curve}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Reciever Operator Charaterisitc}
+Reciever Operator Charaterisitc (ROC) is a curve for scoring data. We do this by finding the 
+Area Under the Curve or (AUC).
+
+An early use of the ROC included radar threat detection in wartime. The Reciever is the Operator
+of the radar; the Operator is the human who interpereted the display; and the Characteristic is
+the evaluation of human performance.
+
+
+\section*{b ROC And The Confusion Matrix}
+This section relates the confusion matrix to ROC.
+we have encountered an Absolute confusion matrix:
+\begin{table}[h]
+        \centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+                        & +1 & -1 \\ \midrule
+\multicolumn{1}{l|}{+1} & TP & FN  \\
+\multicolumn{1}{l|}{-1} & FP & TN   \\ \bottomrule
+\end{tabular}
+\end{table}
+
+but we can also make a \textbf{realtive} Confusion Matrix.
+\begin{table}[h]
+        \centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+                        & +1 & -1  \\ \midrule
+\multicolumn{1}{l|}{+1} &TPR & FNR \\
+\multicolumn{1}{l|}{-1} &FPR & TNR \\ \bottomrule
+\end{tabular}
+\end{table}
+
+which uses the rates that can be derived from the Absolute Confusion Matrix. Note: the sum of the
+first row should be 1 as well as the second row. In this relative Matrix, there are 4 entries
+and 2 contsants which implies that there are 2 degrees of freedom. This means that we can 
+use 2 variables from the the relative confusion table in order to plot the entire entire table.
+
+\paragraph{ROC as 2D Measure}
+Thus, the ROC is a 2D measure thar uses (FPR, TPR).
+Once we plot this measure, we can change the threshold we're using $\Theta$ and plot these
+different values of $\Theta$.
+When one plots all values of $\Theta$, then any point on the curve plotted specifies a relative 
+confusion matrix and any relative confusion matrix specifies a point on the ROC curve (for a 
+given system)
+
+\subsection*{Example}
+Consider the following plots where 5 Relative Confusion Matricies of Classifiers are plotted
+(left) and where 1 point is iterated over time to increase the threshold for classification
+$\Theta$
+\incimg{ROCex}{0.5}
+
+\section*{c ROC Curve of Ficticious Virus}
+\begin{enumerate}
+        \item variant of a virus infects most people quite promptly
+        \item variant infects most people slowly and eventually
+\end{enumerate}
+\incimg{variants}{0.8}
+
+Say we want to be able to determine if someone has a variant while only testing
+for the second variant.
+\pagebreak
+
+\paragraph{Solution}
+The cumulative detection of the virus is equal to the area under the curve. The number of
+days after the onset of the virus is $\Theta$ where the time someone has had the virus determines
+which variant they have.
+
+\incimg{AUC}{0.7}
+
+Note: red = variant 1, blue = variant 2\\
+Observe that the area under the red curve but above the blue curve are true positives for
+variant 1 and the area under the blue \& red curves represents the false positives for variant 1.
+
+\paragraph{Vary $\Theta$}
+We shall vary the hyper-parameter $\Theta$ from $0:20$. For small $\Theta$: FPR = 0 and TPR = 0
+where FPR is magenta and TPR is cyan.
+\incimg{fprtpr}{0.5}
+
+we can now find the ROC Curve where the independent variable $\Theta$ has the dependent
+variables FPR and TPR. The area under the curve is usually $0.5 \leq AUC \leq 1$
+\incimg{ROCCurve}{0.4}
+
+The AUC is 0.86 which is not very good, this suggests that time is not ideal for 
+diagnosing variant.
+
+\subsection*{ROC Summary}
+\begin{itemize}
+        \item Confusion matirx - absolute and relative methods
+        \item Key measures - FPR, TPR
+        \item $2 \times 2$ relative confusion matirx has 2 degrees of freedom (can be represented 
+                by 2 of the four entries)
+\end{itemize}
+
+\end{document}
+

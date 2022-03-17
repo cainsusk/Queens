@@ -1,0 +1,87 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{How To Design A Good HAsh Function}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Algorithms}
+The djb2 algorithm was first reproted by Dan Berstien many years ago.
+\incimg{djb2}{0.5}
+
+\paragraph{Python Hash}
+In python, a hhash function could look like so:
+\incimg{hashpy}{0.5}
+
+\section*{Designing Your Own Hash Function}
+When Creating a  Hash Function a large part of the process is figureing out what data to use from the input it hash the data. This is because is
+is common for the Hash Table to contain a besspoke dataa  type for storing a specific class of data. The ocnvention is to design your algorithm,
+\textit{analyze it}, and \textbf{iterate it}
+\begin{itemize}
+        \item[\textbf{Tip 1}] Make Use of All Data, as this help avoid collisions
+        \item[\textbf{Tip 2}] Try to Spread Out Values so that they are more Evenly Distributed.
+\end{itemize}
+
+In practice, is is very hard to derive the hash values independent of any patterns (which is what were trying to do with the quadratic probing and
+double hashing).
+
+There are a few methods we can use in order to try and achive this even distrubution.
+
+\paragraph{Division Method}
+The idea is to map a key $k$ to one of the$m$ slots by taking the remainder of $k$ divided by $m$.
+\[h(k) = k\mod m\]
+Although this method is fast, prime values of $m$ cannot be used.
+
+\paragraph{Multiplication Method}
+The algorithm for this method is generally as follows:
+\begin{enumerate}
+        \item Multiply each key $k$ by a constant $A$, where $0 < A < 1$
+        \item extract the fractional part of $A$, $kA$
+        \item multiply fractional part $kA$ by $m$
+        \item take the floor of the above result:
+                \[h(k) = \lfloor m(kA - \lfloor kA \rfloor n ( k A \mod 1)\rfloor \]
+\end{enumerate}
+
+\pagebreak
+\section*{Examples}
+for Division
+\incimg{ex1}{0.4}
+
+and Multiplication
+\incimg{ex2}{0.4}
+
+
+
+\end{document}
+

@@ -30,6 +30,11 @@
 
 
 \section*{Example}
+
+\begin{figure}[h]
+        \centering
+        \includegraphics{./figures/pumpingLemma.png}
+\end{figure}
 Consider the Language of Squares:
 \[
 L_2 = \{ww \mid w\in\{a,b\}*\}
@@ -59,7 +64,7 @@ Let p be the constant yielded from the pumping lemma.
 Additionally as given by the pumping lemma, $s = uvwxy$ for all context 
 free languages.
 
-However, there is \textbf{no contradiction} with this $s$ as  $v$ and
+However, there is \textbf{no contradiction} with $s$ as  $v$ and
 $x$ can be repeated in parallel.
 
 \paragraph{attempt 2}
@@ -72,17 +77,48 @@ Thus, we will try a better idea for $s$:
  \[
 s = a^pb^pa^pb^p\\
 .\] 
-\pagebreak
 
 Thus, we will start our proof:
 
 For the sake of contradiction assume that $L_2$ is context free and let $p$ be the 
-constant given by the pumping lemma
-
-MUST COMPLETE NOTE
+constant given by the pumping lemma.
 \[
 s = a^pb^pa^pb^p
 .\] 
+by the pumping lemma, $s$ can be written in 5 parts:
+\[s = uvwxy\]
+where $u, v, w, x, y$ satisfy the 3 properties of the 
+pumping lemma.
 
+we shall divide $s$ into 3 parts such that:
+\begin{align*}
+        I &= a^pb^p\\
+        II &= a^p b^p\\
+        III &= b^p a^p
+\end{align*}
+
+\begin{figure}[h]
+        \centering
+        \includegraphics{./figures/string.png}
+\end{figure}
+
+Since $|vwx| \leq p$, the substring $vwx$ must be within one of the parts
+$I, II, III$.
+\begin{itemize}
+        \item[part I] $vwx$ is inside the prefix $a^pb^p$ in the string
+                $uv^2wx^2y$. The first symbol of the second half of
+                the prefix is $b$ and the first symbol of the first half 
+                is an $a$. Therefore, $uv^2wx^2y$ is not in $L_2$
+        \item[part II] Similarly, if $vwx$ is inside the suffix $a^pb^p$
+                in the string $uv^2wx^2y$ then the last symbol of the 
+                first half is $a$ and the last symbol of the second half
+                is $b$. Again, $uv^2wx^2y \not\in L_2$
+        \item[part III] The last case is that $vxy$ is in the middle part.
+                Now, $uv^0wx^0y = uwy$ is of the form $a^pb^ia^jb^p$
+                where $i \neq p$ or $j \neq p$. Again, 
+                $uv^0wx^0y \not\in L_2$, which produces \textbf{a 
+                contradiction},
+                and thus, $L_2$ is \textit{not} context free.
+\end{itemize}
 \end{document}
 

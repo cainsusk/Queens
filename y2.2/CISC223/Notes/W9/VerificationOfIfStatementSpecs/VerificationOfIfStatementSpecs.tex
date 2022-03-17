@@ -1,0 +1,120 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Verification of Conditional Statements in Specifications}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{If Else Verification}
+there are 2 parts to verification, given the example:
+\begin{verbatim}
+       ASSERT(y == y0 && z == z0)
+
+       if(y <= z)   {y = z+1; z = z+2;} else
+                    {z = y+2; y = y+1;}
+
+       ASSERT(y == y0 && z == z0 && y <= z)
+\end{verbatim}
+\begin{enumerate}
+        \item[\textbf{If Part}] FINISH WITH SLIDES ON ONQ
+\end{enumerate}
+
+\section*{If Verification}
+there is also a case of the if statement when there is no else part. this is represented as:
+\[P\;if\;(B)\;C\}\;Q\]
+
+the inference rule for this statement is:
+\[\frac{P\;\&\&\;B\;\{C\}\;Q\;\;\;\;\;\;\;\;\;P\;\&\&!\;B\{\;\}\;Q}{P\;\{if\;(B)\;C\}\;Q}\]
+
+\paragraph{Example}
+\begin{verbatim}
+        ASSERT(z <= y)
+        if (w > z || y > x) {w = z-1; x = y;}
+        ASSERT(w <= z <= y <= x)
+\end{verbatim}
+
+The If Part of the Verification looks like so:
+\begin{verbatim}
+       ASSERT(z <= y && (w > z || y > x)) 
+       // z <= implies 
+        FINISH USING SLIDE ON ONQ
+\end{verbatim}
+
+The non-existant else part would go like so:
+\begin{verbatim}
+        z <= y && !(w > z || y > x)
+        z <= y && w <= z && y <= x
+\end{verbatim}
+in which the last line implies the post-condition in the if part.
+
+\section*{Verifying While Loops}
+To verify while loops a special assertion must be used. it is called the \textit{loop-invariant}. The loop-invariant has the 
+following formula:
+\[\frac{I\;\&\&\;B\;\{C\}\;I}{I\;\{while(b)\;C\;\}\;I\;\&\&\;!B}\]
+
+verifying whie loops has the following proof tableau scheme:
+\begin{verbatim}
+        ASSERT(I)
+                while(B){
+                        ASSERT(I && B)
+                                C
+                        ASSERT(I)
+                        } // end while
+                ASSERT(I && !B)
+\end{verbatim}
+
+Observe: the inner assertion block (I \&\& B) -> (I) is the permise for the proof.
+This proof also has a side condition that the evaluation of B should not change the state
+
+\paragraph{What Should we use as Invariant}
+there is a certian art to choosing which part of the code fragment to use as invariant, which must be done in order to verify the while loop
+
+\paragraph{Example}
+The best way to get gud is through doing so here is an example:
+\begin{verbatim}
+        ASSERT(true)
+        i = 0; j = 100;
+        while(i <= 100){
+
+                i = i + 1;
+                j = j - 1;} // end while
+        ASSERT(i == 101 && j == -1)
+\end{verbatim}
+
+Here, the invariant is \texttt{i + j == 100} as this statement is always true within the loop.
+the syntax for writing this within our above code would be:
+\[\texttt{INVAR(i + j == 100 \&\& 0 <= i <= 101)}\]
+Note: \texttt{0 <= i <= 101} is also invariant as it is always true within the loop
+\end{document}
+

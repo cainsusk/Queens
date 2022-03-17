@@ -24,23 +24,22 @@ then
         exit -1
 fi
 
-
 cID="$1"
 week="$2"
 read name
 lID="$(sed -E 's/ /_/' <<< $name)"
 
-
-school_root="/mnt/c/Users/cain/Documents/GitHub/Queens"
-
-count=$(find $school_root | grep -E -c "$cID")
-y=$(find $school_root | grep -E "$cID" | cut -d / -f 9)
+school_root="/Users/cain/.queens"
+count=$(find $school_root/ | grep -E -c "$cID")
+y=$(find $school_root/ | grep -E "$cID" | cut -d / -f 5)
 year=${y:0:4}
+echo $y
 
 if [[ $count != 0 ]]
 then
         path="$school_root/$year/$cID/Notes/$week/$lID"
         mkdir -p $path
+
         file="$path/$lID.tex"
         cp "$school_root/MISC/Scripts/MakeNote/stdnote.tex" $file 
         

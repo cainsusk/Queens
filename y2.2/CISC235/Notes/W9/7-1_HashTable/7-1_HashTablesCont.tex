@@ -1,0 +1,117 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Hash Tables}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Recall}
+python or other laguages have  different names for hash tables. FOr example, in python, a hash table is a dictionary.
+
+Also, recall the 2 most important opertations of the map ADT are:
+\begin{itemize}
+        \item get()
+        \item put()
+\end{itemize}
+Hash tables implement a map ADT.
+Hash tables use direct addressing using a \textbf{hash} function and a key.
+The hash function is bounded within an array size using the modulus operation. for example:
+
+\[int\;bucket = input\;\%\;arraySize\]
+
+so a hash function could looklike:
+\begin{verbatim}
+        def hash (int key):
+                return key % 10000
+\end{verbatim}
+
+\section*{Hash Tables}
+there are 2 types of proper hash tables. Open Hash Tables and Closed Hash Tables
+
+\paragraph{Closed Hash Table}
+A closed hash table is called such because data is stored in a fixed length array, there are a fixed number of `buckets' in which you can 
+store values. We cannot add new buckets
+with inserting or `probing' in a closed hash table the algorithm would be as follows:
+\begin{itemize}
+        \item first, we use the has function to find the correct bucket
+        \item if the target bucket is empty, we store the value there
+        \item however, if the bucket is full, scan down the array from the bucket untill you find a empty one
+\end{itemize}
+
+the Algorithm for searching is also quite similar:
+\begin{itemize}
+        \item We compute the target bucket using the hash function
+        \item we check that bucket for our value. if we find it, return true
+        \item if we dont find the value, we `probe' linearly down the array untillwe either findour value or hit an empty bucket
+        \item if while probing, we reach an empty bucket (the end) without finding the value, it means the value is not in the hash table
+\end{itemize}
+
+the insert function (using linear probing) would look something like this:
+\incimg{linProbe}{0.5}
+
+And the Search function would operate like so:
+\incimg{linSearch}{0.5}
+\pagebreak
+
+So, how do we delete a item from the Hash Table?
+
+For example, lets delete 65 from the below hash table. To delete it, we can use a `delete flag' to show a element is deleted. this may cause the 
+insert and within the table to take longer as you delete more and more and more of the table is blocked out by the delete flag.
+
+\paragraph{Open Hash Tables}
+A open hash table does not have a fixed number of buckets, but this means that the hash function does not always create numbers within the bounds of the
+open hash table. the way it works is instead of storing the values directly in the array, each array bucket points to a linked list of values.
+
+For example, to insert a new item:
+\begin{itemize}
+        \item compute the bucket index using the hash function (like always) 
+        \item add the item to the linked list at $array[bucket\_array]$
+\end{itemize}
+
+\section*{Asignment 3}
+it is a web search engine
+
+there are 2 parts of the engine:
+\begin{itemize}
+        \item Docs: 1 to $n$
+        \item Quereys: 1 to $n$
+\end{itemize}
+
+we have to majke a WebPageIndex class that maps the lines of docs to an AVL tree
+
+we also have to make a priority queue for storing the Queries and words.
+
+This shit is going to be painful cause ive got no idea how to do any of that.
+\end{document}
+

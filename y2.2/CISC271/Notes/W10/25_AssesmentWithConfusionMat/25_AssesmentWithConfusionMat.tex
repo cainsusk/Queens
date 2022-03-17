@@ -1,0 +1,152 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Classification - Assesment With Confusion Matrix}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Data Labels as Dependent Variables}
+this lecture will cover data which has labels. labesl are categorical dependent data.
+Classification is the predicion of data given previoys data. A confusion matrix is
+used to assess the classification.
+
+\paragraph{Dependent Variables}
+Consider observation $i$ which has a label which is provided by a different system (human, AI, ...)
+. $i$ is a categorical variable in a finite set. An independent variable cannot be categorical. 
+Additionally, a category cannot be scaled. For new data, we want to \textit{predict} the new
+label. This implies that \textbf{a label is a dependent variable $y_i$}.
+
+\paragraph{Binary Classification}
+We mostly do supervised binary classification. the supervised means that we are given labels; the
+binary means there are only 2 labels, and the classification means we want to classify
+new data with a label.
+
+Given $m$ data:
+\begin{itemize}
+        \item Each observation is a row $\underbar{x}_i$ of $n$ variables. 
+        \item each binary label $y_i \in \{-1, +1\}$
+\end{itemize}
+To score a classification, we map $z:\mathbb{R}^n \rightarrow \mathbb{R}$. Prediction / 
+classification / quantization is a map:
+\[q : \mathbb{R} \rightarrow \{-1, +1\} \text{ or } q(z(\vec u)) = \pm 1\]
+
+such that for each data vector there are 2 labels and 2 predictions, thus there are 4 contingencies
+possible.
+
+\paragraph{Colouring in MatLab}
+we can use the command \texttt{gscatter} to colour our categorical data.
+\pagebreak
+
+\section*{b Confusion Matrix for Binary Labels}
+in binary calssification we have 4 contingencies, 2 from the system that labeled the data, and 2 
+from a quantization of our labelling algorithm.
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+                       & +1 & -1 \\ \midrule
+\multicolumn{1}{l}{+1} & TP  & FN  \\
+\multicolumn{1}{l}{-1} & FP  & TN  \\ \bottomrule
+\end{tabular}
+\end{table}
+
+We use this Confusion Matirx as a truth table in order to know what is or is not correct
+within the contingencies of data. the sum of the first row gives the number of positive
+vectors that are provided by the user. the sum of the second row is the number of all negative
+data vectors provided by the user. the rows represent the provided labels and the columns
+represent the predicted labels. each space is filled with the number of True Positives, False 
+Negatives, False Positives, and True Negatives.
+
+\paragraph{Sensitivity}
+The True Positive Rate (TPR) can be calculated from the confusion matrix as:
+\[TPR = \frac{TP}{P}\]
+where $P$ is the number of positives and $TP$ is the number of true positives
+
+\paragraph{Specificity}
+The True Negative Rate (TNR) can be calculated as:
+\[TNR = \frac{TN}{N}\]
+where the variables are the same for TPR accept `negative' instead of `positive' 
+
+\paragraph{Accuracy}
+The Accuracy can be calculated as:
+\[ACC = \frac{TP + TN}{P + N}\]
+
+\paragraph{Errors}
+There are 2 types of errors in classification:
+\begin{itemize}
+        \item[\textbf{I}] False Positive (FP)
+        \item[\textbf{II}] False Negative (FN)
+\end{itemize}
+
+\section*{c Example of Confusion Matrix}
+Consider Data with the labels:
+\[y_1 = \begin{bmatrix} 1\\-1\\-1\\1\\-1\\1\\1\\1\\-1\\-1\\1\\-1\end{bmatrix}\;\;\;\;q_1 = \begin{bmatrix} 1\\-1\\1\\1\\-1\\1\\-1\\1\\1\\-1\\1\\-1\end{bmatrix}\]
+
+where $y_1$ are the user provided labels and $q_1$ is the classification of said data 
+using a labeling algorithm.
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+                       & +1 & -1 \\ \midrule
+\multicolumn{1}{l}{+1} & 5  & 1  \\
+\multicolumn{1}{l}{-1} & 2  & 4  \\ \bottomrule
+\end{tabular}
+\end{table}
+Where the rows represents the provided labels and the columns represent the predicted
+class (label).
+
+\paragraph{Given Scores}
+Instead of calculating the predicted label, we shall use the score from some other classification
+algorithm:
+\[\vec z_1 = \begin{bmatrix} -2.5\\-2\\-1.5\\-1\\-0.5\\0\\0.5\\1\\1.5\\2\\2.5\\3\end{bmatrix}\]
+
+We can then create a confusion table using the threshold $\Theta$ where: 
+\begin{itemize}
+        \item class -1 iff $z_i < \Theta$
+        \item class +1 iff $z_i \geq \Theta$
+\end{itemize}
+
+We must first find the proper hyperparameter $\Theta$ for best classification
+
+\section*{Learning Summary}
+Students should now be able to:
+\begin{itemize}
+        \item visualize labebled data
+        \item threshold data scores to predict classes
+        \item compute a confusion matrix for a threshold
+        \item measure the FNR and FPR for a given threshold.
+\end{itemize}
+\end{document}
+

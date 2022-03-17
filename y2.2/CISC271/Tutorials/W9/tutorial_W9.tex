@@ -1,0 +1,71 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Week 9 Tutorial}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Fun Pre-Notes}
+we used to tell time from our pocket (pocket watch). 50 years ago we told time on our watch.
+Now, we tell time from our pocket again (smart phones).
+
+Also, were probably gunna have to use masks for the rest of our lives...
+
+\section*{Home Work Assignment for This Week}
+for 2D data, PCA finds the elipsoid of best fit for the given data.
+
+you can get all the data that matches a certain condition like so:
+\[\texttt{X1 = X(y < 0, :)}\]
+This puts all the rows of \texttt{X} less than 0 into the rows of \texttt{X1}
+
+a scatter matrix is $S = M^\top M$
+\\
+\\
+Note, a column is always a variable. A row is always a observation. If this is not the case; transpose.
+
+\section*{Magic EigenValue Incantation}
+After finding the Eigenvalues of a Matrix.
+
+After finding the eigenvalues \& vectors we should:
+\begin{enumerate}
+        \item sort the raw eigenvalues in descending order:\\
+                \texttt{[lvec ndx] = sort(diag(lraw), descend)}
+        \item Permute the eigenvectors:\\
+                \texttt{Emat = Eraw(:, ndx)/norm(Eraw, 'fro')}
+\end{enumerate}
+
+
+
+\end{document}
+

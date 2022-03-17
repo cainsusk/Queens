@@ -1,6 +1,5 @@
-
-# 1) implement Node (see AVT for height)
 class Node:
+    # 1) implement Node (see AVT for height)
     def __init__(self, k, v, parent=None):
         self.key = k
         self.value = v

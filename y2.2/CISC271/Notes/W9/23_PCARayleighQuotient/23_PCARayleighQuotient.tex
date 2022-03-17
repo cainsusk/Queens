@@ -1,0 +1,128 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{PCA And The Rayleigh Quotient}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a PCA, Scores, and the SVD}
+This lesson will look at the relations between the Rayleigh Quotient and PCA.
+The main concepts are we will view PCA as an optimization process. And the Rayleigh
+Quotient is just one way we can represent this optimization.
+
+\paragraph{Recall}
+given the orginal data matrix $A \in \mathbb{R}^{m \times n}$, we can create a zero mean data 
+matrix $M \in \mathbb{R}^{m \times n}$. The scatter matrix for this system would be:
+\[S = M^\top M\]
+
+Loading vectors $\vec v_j$ are the eigenvectors of $S$, which are the columns of SVD factor
+$M = U \Sigma V^\top$. Thus, the first score vector is:
+\[\vec z_1 = M\vec v_1\]
+
+\section*{b PCA Maximizes a Linear Transformation}
+we will explore PCA as a process of maximizing a mapping. Given the zeor mean matrix 
+$M \in \mathbb{R}^{m \times n}$, we can maximize its $L_2$ vector norm $||M\vec u||^2$.
+Note: we square the norm cause its better for calculations and will give us the same result 
+in computations. Thus:
+\[||M\vec u||^2 = [M\vec u]^\top [M\vec u] = \vec u^\top M^\top M \vec u = \vec u^\top S \vec u\]
+\[||M\vec u||^2 = \vec u^\top S \vec u\]
+
+This is what is known as the Max Quadratic Form.
+
+\subsection*{Solving the Max Quadratic Form}
+Using Spectral Decomposition, we an solve a Max Quadratic Form equation $\vec u^\top S \vec u$
+like so:
+\begin{align*}
+        \vec w &= \arg\max_{\vec u \in \mathbb{R} : ||\vec u|| = 1} \vec u^\top S \vec u\\
+        \vec w &= \vec v_{max} \in S
+\end{align*}
+Note: $\vec u$ is constrained to a unit vector such that $||\vec u||=1$
+Thus, one could see that the maximum value is achived when $\vec u$ is the largest loading vector
+in $S$.
+
+Therefore, maximizing $M\vec u$ is the same as finding the largest eigenvalue and corresponding 
+eigenvector within the scatter matrix $S$, where the found vector will be the principle loading
+vector for our data as well as the \textbf{Principal Axis} of the system.
+
+\section*{c PCA and Rayleigh Quotient}
+this section will explore using PCA and the Rayleigh Quotient.
+
+Consider the vector $\vec w$:
+\[\vec w = \arg\max_{t\in\mathbb{R}^n:||\vec t||=1}\vec t^\top S \vec t\]
+$\vec w$ is only a maximization of a unit normal vector. to make this equaton more general, 
+we can set $\vec t$ to be:
+\[\vec t = \frac{\vec u}{||\vec u||}\]
+such that $\vec w$ will now be:
+\[\vec w = \arg\max_{\vec u \in \mathbb{R}^n}\frac{\vec u^\top S \vec u}{\vec u^\top \vec u}\]
+
+\paragraph{The Rayleigh Quotient}
+Thus, the rayliegh quotient, used to maximize a mapping, is:
+\[R(S, \vec u) =^{def} \frac{\vec u^\top S \vec u}{\vec u^\top \vec u}\]
+Where \textbf{if $\vec u = \vec 0$, then $R(S, \vec0) = 0$}
+
+\paragraph{Recall}
+For the sake of notation, recall the following symbols:
+\begin{itemize}
+        \item $\lambda_{max}$ is the largest eigenvalue
+        \item $\vec v_{max}$ is the eigenvector associated with the largest eigenvalue.
+\end{itemize}
+
+\paragraph{Fact}
+Let us remeber that:
+\[\lambda_{max} \in B =\max_{\vec u \in \mathbb{R}^n} R(B, \vec u)\]
+\[\vec v_{max} \in B = \arg\max_{\vec u \in \mathbb{R}^n} R(B, \vec u)\]
+
+We can now see that not only is the PCA related to the covariance matrix and eigenvalues of 
+the scatter matrix, but also the Rayleigh Quotient. The Principal Axis of PCA is the result of 
+finding the maximum input argument ($\vec v_{max}$) for the Rayleigh Quotient. Additionally, 
+the largest eigenvalue $\lambda_{max}$ is the latent variable for the PCA.
+
+\paragraph{PCA Summary}
+The principal loading vector in PCA:
+\begin{itemize}
+        \item is the main way to describe covariance matrix
+        \item provides scores of how data vary from the mean
+        \item is the solution to an optimization problem
+        \item described by the Rayleigh Quotient of the Scatter Matrix
+\end{itemize}
+
+\section*{Learning Summary}
+Students should now be able to:
+\begin{itemize}
+        \item Relate PCA scores to singular vectors
+        \item interperet PCA as a maximization process
+        \item describe Principal PCA Axis as Rayleigh Quotient
+\end{itemize}
+\end{document}
+

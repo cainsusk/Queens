@@ -1,0 +1,41 @@
+# bin/bash
+#
+# usage:
+# mknote CISC123 W2 <enter>
+# 2.1 ComputersAndMan
+#
+# this script was designed to make maintianing a organized file heirarchy
+# while taking notes easier. its meant to be quicckly deployed before a
+# class to convieniently make a note in the proper location with a 
+# approproate name and template
+
+#==-= Get Class Info ==-=#
+classID=$1
+week=$2
+
+#==-= Get Name of Lectre =-==#
+read -p "Lecture Name: " lecName
+lecName=$(sed 's/ /_/' <<< $lecName)
+
+#==-= Find Correct Directory =-==#
+
+#---- set school root & year ----#
+schoolRoot="$HOME/Documents/Queens/"
+year="y2.2/"
+#--------------------------------#
+
+if [[ -d ${schoolRoot}${year}${classID} ]]
+then
+        notePath="${schoolRoot}${year}${classID}/Notes/${week}/${lecName}/"
+        mkdir -p "${notePath}figures"
+        cp "${schoolRoot}MISC/Scripts/MakeNote/stdnote.tex" "${notePath}${lecName}.tex"
+
+        #=-== Add Class Name To TeX File ==-=#
+
+        ClassName = $(head -n 1 "${schoolRoot}${year}${classID}/${classID}.mknote")
+        sed 's/cID/'"$ClassName"'/' <<< "${notePath}${lecName}.tex"
+else
+        echo "macnote: im sorry, but ${classID} does not seem to be in the specified year directory. check the macnote file to make sure that your configuration is correct"
+fi
+
+#==-= TaDa Done ! =-==#

@@ -1,0 +1,37 @@
+||=-= URL Hasing Algorithm =-=||
+================================
+Given 10,000 URL visit records, design a 
+hashing-based method so that we can quickly 
+retrieve URLs that are most frequently visited. 
+Describe your design concerns in a txt file. 
+Like how you would design the data structure and 
+how you plan to process input and generate output.
+
+Note:
+(please have someone proof read your assignments,
+this is terrible grammar and your meaning can
+very easily get lost in the gibberish)
+
+
+|Answer
+--------------------------------
+The hasing algorithm shall use should be fast 
+for locating the most recently visited page as well
+as for locating the most frequently visited URL.
+
+thus, the hash function would place pages most recently, 
+frequiently visited at the top of the heap,
+and have those lesser below it.
+
+these will be measured by taking the frequency (the higher, 
+the higher the priority) and then subtract the most 
+recent access by the current time to get the time from
+access to now and the priority is then calculated
+as the frequency plus the inverse of the time from
+access.
+
+The rest of the implementation is the same as a 
+standard heap.
+
+
+

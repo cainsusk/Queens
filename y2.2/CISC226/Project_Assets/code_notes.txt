@@ -1,0 +1,36 @@
+the ant script is contained in insect movement
+
+each inect has 3 sensors for stroring values and radius for pharamones.
+
+you can edit all ants within the ant prefab.
+
+the code is taking the position of the sensor and the position of the ant to then 
+dictate direction.
+
+
+all of the insects have a prefab with a parent and children for sensors and food it's carrying carrying etc.
+
+the Insecthill has the role of producing a specific kind of bug.
+they hold the data for the oinsect and insect-solider and can be set to autobuild with a ratio of bugs to soliders.
+
+
+Pharamones have a different colours which correspont to a different pharamone map (which is a script that handles the 
+position of the pharamones. it creates all of the possible pharamones and turns them off and on depending on if they
+are placed or not)
+
+there needs to be a higher level of absraction like a queen script in order to implement many hills within a scene.
+
+
+the food sources are trees (there is a tree script) which stores the drop rate, the prefab for the food, drop radius.
+it has a co-routine that instantiates all the trees.
+
+the food just stores the 'value' of food or the ammount in hunger
+
+the GameController controls the gui but should eventually do the pharamone map 
+
+Main Scripts:
+-------------
+
+        * insect hill script
+        * insect movement ( /solider movement)
+        * paint pharamones script

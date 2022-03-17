@@ -1,0 +1,150 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Sequential Circiuts}
+\newcommand{\coursetitle}{Computer Architecture}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Sequential Curcuits}
+within a sequential circuit there are: 
+\begin{itemize}
+        \item Outputs depend on the current and past values of input
+        \item this implies that the use of some type of memory device to store the effects of past 
+                inputs
+        \item It takes a sequence of inputs and generates a sequence of outputs
+\end{itemize}
+A sequential logic might remember previous inputs or it may just distill the previous inputs into
+states to remeber.
+Sequential circuits are widely used to implement computing and storage components of computer
+systems.
+
+\paragraph{Devices}
+there are different devices we can implement within sequential circuits:
+\begin{itemize}
+        \item latches and flip-flops
+        \item building blocks of sequential logic circuits - register, counter, shift register
+        \item memory array and register file
+\end{itemize}
+these can be used to implement sometthing like a finite state machine
+
+\section*{Single Bit Memory}
+to have a on or off state, we must have what is known as a Bi-Stable Device. This is
+the fundamental building block of memory. This device must be stable at one of the 2 states,
+and must require an input to transition state. Examples of this device include a light switch
+or an inverted pendulum (see below)
+\incimg{pendulum}{0.5}
+Another example is a coin flipping, where there are 2 states and to change the state one must pick
+up and flip the coin. with many coins we could store more than $number of coins^2$
+states as each coin is bi-stable.
+
+\subsection*{Cross-Coupled Inverter Pair}
+Within circuits, we can represent a bi-stable device using cross-coupled inverter pairs:
+\incimg{crossCpl}{0.5}
+
+However, Once the state is set it cannot be changed.
+
+\subsection*{SR Latch}
+The SR Latch is the actual way we implement a bi-stable device within circuits. The SR latch 
+stores a single bit, and it;s value can be set by the \\\texttt{S} (set) and \texttt{R} (reset)
+terminals. The disign is derived from the Cross coupled inverter pair.
+\incimg{srlatch}{0.5}
+
+\subsection*{D Latch}
+A D (data) Latch is a addition to the SR latch and has:
+\begin{itemize}
+        \item a \texttt{D} (data) input
+        \item a \texttt{CLK} (clock) input
+\end{itemize}
+these are to get inuput and control the timing of the input.
+\incimg{dlatch}{0.5}
+
+the \texttt{CLK} is a sequence on pulses such that it passes the value in \texttt{D} at a high 
+voltage (at a specified interval). 
+
+\subsection*{Flip Flop}
+A Flip Flop stores a single bit of information. It has a \texttt{D} (data) and \texttt{CLK}
+(timing).  It will only accept the value in \texttt{D} at the high voltage (rising edge)
+of the \texttt{CLK} while `remembering' its state at all other times.
+
+It is implemented with 2 back to back D latches--specifically utilizing the delay intorduced
+by the \texttt{CLK} inverter (the \texttt{not} after the \texttt{CLK}):
+\incimg{flipflop}{0.7}
+
+The flip flop is going to remeber things and then is going to be able to execute things as the
+transitions within the flip flop.
+a D flip flop sybmol is:
+\incimg{dflipsym}{0.5}
+
+The D flip flop can be used to implement state machines. We also often use \texttt{S, S'} to 
+label the current and next state. Some computers also have a `watchdog' which resets the 
+D flip flop to not look at the current state and only look at the future.
+
+\section*{Circuits}
+Now, with these devices there are many circuits we can make.
+\pagebreak
+
+\paragraph{Registers}
+An $N$-bit register is a bank of $N$ flip flops sharing a common \texttt{CLK}. Registers
+are the key building block of sequential circuits.
+\incimg{register}{0.7}
+
+\paragraph{Counter}
+A counter is a very important device within computers. An $N$ bit binary counter is a sequentail
+circuit with:
+\begin{itemize}
+        \item clock and reset inputs
+        \item an $N$-bit input
+\end{itemize}
+\incimg{clock}{1}
+
+The counter implements an Adder, and a D Latch.
+\pagebreak
+
+\paragraph{Shift Register}
+A shift register takes an input and shifts it by a given ammount. An $N$-bit regiser
+has:
+\begin{itemize}
+        \item a serial input \texttt{$S_{in}$}
+        \item a serial output \texttt{$S_{out}$}
+        \item $N$ parallel outputs \texttt{$Q_{N-1:0}$}
+\end{itemize}
+on the risiing edge (high voltage) of the clock, a new bit is shifted in from $S_{in}$ and all
+the subsequent contents are shifted forward. The last bit in the shift register is 
+then available in $S_{out}$
+\incimg{shiftReg}{0.8}
+
+
+
+\end{document}
+

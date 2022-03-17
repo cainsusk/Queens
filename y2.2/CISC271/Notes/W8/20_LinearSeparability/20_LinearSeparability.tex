@@ -1,0 +1,177 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Classification - Linear Seperability}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Seperating two Clusters}
+we will expolre how to seperate clusters by a hyper-plane. Binary clustering
+uses 1 hyper-plane. multiple clusterings require multiple hyperplanes.
+
+\paragraph{Calssification from Clustering}
+Consider the output of clustering:
+\[k\text{ centriods using }L_2 \text{ vector norm }||\cdot||^2_2\]
+
+how do we classify a new vector $\vec u$? We should first simplify to a 
+binary clustering for classification
+\begin{itemize}
+        \item centriod $\vec g_1$, `positive'
+        \item centriod $\vec g_2$, `negative'
+\end{itemize}
+
+the geometry is as such that there is a hyper-plane seperating 
+$\vec g_1, \vec g_2$
+
+Consider a vector $\vec v$ on the boundary: 
+$||\vec v - \vec g_1||^2 = ||\vec v - \vec g_2||^2$
+
+which defines the vector that is equidistant from $\vec g_1, \vec g_2$, thus 
+showing us the hyper-plane seperating the 2 centriods, which is perpendicular
+to the difference vector of $\vec g_1, \vec g_2$.
+
+\section*{b A Hyper-plane From Cluster Centriods}
+given the clusters $\vec g_1, \vec g_2$ and the hyper plane $\mathbb{H}$
+with a normal vector $\vec w$ and a biased scalar $b$.
+\incimg{hyperplane1}{1}
+
+where $\vec w$ is the difference vector between $\vec g_1, \vec g_2$ directed
+from $\vec g_2$ to $\vec g_1$. and $\vec r$ is the reference point of the 
+hyperplane and is the midpoint between $\vec g_1, \vec g_2$. Thus:
+\begin{align*}
+        \vec w &= \vec g_1 - \vec g_2\\
+        \vec r &= \frac{\vec g_1 + \vec g_2}{2}
+\end{align*}
+
+\paragraph{Consider}
+$\vec v$ is in $\mathbb{H}$. we know that $\vec v$ must satisfy the following
+equation.
+\begin{align*}
+        \vec w \cdot (\vec v - \vec r) &= 0\\
+        \vec w \cdot \vec v - \vec w \cdot \vec r &= 0\\
+        \vec w \cdot \vec v + b &= 0\\
+         b &= -\vec w \cdot \vec r\\
+         b &= -[\vec g_1 - \vec g_2][\frac{\vec g_1 + \vec g_2}{2}]
+\end{align*}
+
+\paragraph{Consider}
+a new vector $\vec u$. Is $\vec u$ in $S_1$ or $S_2$?
+
+We shall say that $\vec u$ is in $S_1$ if and only if:
+\[\vec w^\top \vec u + b \geq 0\]
+
+else, it is in $S_2$ (as the clustering is binary)
+
+\subsection*{Clustering Iris Data}
+Now, we shall do this computation on fisher's iris data. after doing k-means
+this is the clustering with it's corresponding hyper-plane:
+
+\incimg{iris}{1.2}
+
+we can see by the cyan outlier that the kmeans algorithm made some decisions 
+that a human expert may not support.
+
+\section*{c Hyper-planes for Multiple Clusters}
+let us try to work out the partitioning of a set into 3 clusters. each with a
+corresponding centriod.
+\[S_1, S_2, S_3\]
+\[\vec g_1, \vec g_2, \vec g_3\]
+
+we shall now decide how each hyper-plane will seperate each cluster.
+\[\mathbb{H}_{12}, \mathbb{H}_{13}, \mathbb{H}_{23}\]
+where each plane seperates cluster 1 and 2, 1 and 3, and 2 and 3 respectively.
+
+Note that in the above diagram, the reason the hyper-planes are not extended to 
+infinity (this part represented by the dotted line) is because if we want to 
+know if $\vec u$ (see diagram) is on the positive side of $\vec g_3$ then we
+check just that; and having the planes extend is visually distracting.
+
+\paragraph{Logical Method}
+A logical method for finding out if $\vec u$ is in a specific cluster is:
+
+$\vec u \in S_1$ iff:
+\[\vec w_{12}^\top \vec u + b_{12} \geq 0\;\;\;\wedge\;\;\;\vec w_{13}^\top \vec u + b_{13} \geq 0\]
+
+\paragraph{New Operator}
+consider the vector alpha: $\alpha \in \mathbb{R}^m$
+we can say that alpha is greater than 0 if and only if all of alpha's entries are
+also less than 0 using the new operator:
+\[\vec \alpha \geq \vec 0 \text{ iff } \forall_i(\alpha_i \geq 0)\]
+
+where $\forall$ is the new operator, meaning `for all'
+
+\paragraph{Gather Values}
+we can now gather the values from the hyper-plane calculations as:
+\begin{align*}
+        \vec b &= \begin{bmatrix} b_{12}\\b_{13} \end{bmatrix}\\
+        W_1 &= \begin{bmatrix} \vec w_{12}^\top \\ \vec w_{13}^\top \end{bmatrix}
+\end{align*}
+
+thus, we can say that $\vec u \in S_1$ if and only if:
+\[W_1\vec u + \vec b_1 \geq \vec 0\]
+
+thus we can see that it is easy to deal with $k$ clusters when trying to find a 
+hyper-plane.
+
+\section*{d The Davies-Bouldin Index for Clusters}
+the DB index is used to score the clustering of data such that 
+\[\vec x_i \in S_1 \vee S_2 \]
+
+the DB index measures the closeness and spread-outness 
+of a clustering.
+Note: $S_1$ has $m_1$ members, $S_2$ has $m_2$ members. Each set will
+have a centriod $\vec g_1, \vec g_2$
+
+\paragraph{cluster distnace}
+We will first measure the distance between $\vec g_1, \vec g_2$ by doing
+the calculation
+\[\frac{1}{||\vec g_1 - \vec g_2||}\]
+
+\paragraph{cluster dispursion}
+We then also want to score the cluster by the mean distance within a partition 
+(cluster). This can be calculated as:
+\[d_1 = \frac{1}{m_1}\sum^{m_2}_{i=1}||\vec x_i - \vec g_1||\]
+Thus, the equation for $d_2$ would be:
+\[d_2 = \frac{1}{m_2}\sum^{m_2}_{j=1}||\vec x_j - \vec g_2||\]
+
+thus, the measure of the dispursion is:
+\[d_1 + d_2\]
+
+and finally, the DB index can be calculated as:
+\[DB =^{def} \frac{d_1 + d_2}{||\vec g_1 - \vec g_2||}\]
+
+thus, the smaller the DB index, the farther apart the clusters are and the less
+dispursed they are within the cluster.
+\end{document}
+

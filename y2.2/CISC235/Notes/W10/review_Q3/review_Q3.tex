@@ -1,0 +1,161 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Quiz 3 Review}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Priority Queue}
+we should know the following things to do with Priority Queue:
+\begin{itemize}
+        \item priority queue vs. BST
+        \item Properties - ie. for a complete binary tree, what is the priority level
+        \item Operations and time complexity
+        \item Implementations
+                \begin{itemize}
+                        \item max heap, min heap (array based, linked list, tree)
+                        \item check, put (add, insert), pop (delete)
+                        \item heapify
+                        \item heapsort
+                \end{itemize}
+        \item Applications
+                \begin{itemize}
+                        \item use priority queue for task scheduling 
+                        \item heapsort
+                \end{itemize}
+\end{itemize}
+
+\subsection*{Operations}
+a priority queue has three operations:
+\begin{itemize}
+        \item[i] insert a new item into a queue
+        \item[ii] get he value of the highest priority item
+        \item[iii] remove the highest priority item from the gueue
+\end{itemize}
+
+Additionally, when we implement a priority queue, we must define what is the priority 
+of each possible item in the queue (normally based on it's value)
+
+\section*{Heaps}
+There are 2 types of heaps that we can use (which implement the priority queue)
+\begin{itemize}
+        \item maxheap
+        \item minheap
+\end{itemize}
+\paragraph{maxheap} has the following advantages:
+\begin{itemize}
+        \item Quickli insert items into the heap
+        \item quickly extract the largest item from the heap
+\end{itemize}
+
+\paragraph{minheap} has the following advantages
+\begin{itemize}
+        \item quickly insert a new item into the heap
+        \item quickly extract the smallest value from the heap
+\end{itemize}
+
+\subsection*{Implementation}
+When implementing a heap, we find the best was is by using an array.
+We do this like so:
+\begin{enumerate}
+        \item the root of the heap goes in \texttt{array[0]}
+        \item if the data for the node appears in \texttt{array[i]}, it's children, if they exist, are in the locations:
+                \begin{itemize}
+                        \item left child: \texttt{array[2i+1]}
+                        \item right child: \texttt{array[2i+2]}
+                \end{itemize}
+        \item if the data for a non-root node is \texttt{array[i]}, then its parent is always at \texttt{arra[(i-1)/2]} (using integer division)
+\end{enumerate}
+
+\paragraph{Extracting from the Heap}
+\incimg{extractHeap}{0.5}
+
+\paragraph{Adding Node to Heap}
+\incimg{addHeap}{0.5}
+
+\paragraph{Complexity}
+the complexity of the Heap, when both inserting and extracting is 
+\[O(\log_2(n))\]
+
+But, if you cannot find a given element in a heap, it takes 
+\[O(n)\]
+time. In order to avoid this case we can implement efficient heapsort.
+
+\subsection*{Heapsort}
+Heapsort is done in 2 steps:
+\begin{enumerate}
+        \item convert input array into maxheap
+                \incimg{heapsort1}{0.5}
+
+        \item reheapify the array:
+                \incimg{heapsort2}{0.5}
+\end{enumerate}
+
+\paragraph{Complexity}
+the time complexity for transfering a list into a maxheap is:
+\[O(n)\]
+
+and the time complexity for extracting a element is :
+\[O(\log n) * n\]
+
+\pagebreak
+\section*{Hash Tables}
+
+\incimg{hashtable}{0.2}
+
+\pagebreak
+\subsection*{Types} There are 2 types of hash tables:
+
+\incimg{openVclose}{0.2}
+
+\pagebreak
+\subsection*{Chaining} Chaining is a way of searching for an item:
+
+\incimg{chain}{0.2}
+
+\pagebreak
+\subsection*{Implementation} The following is a possible implementation of a hash table in python.
+
+\incimg{openHash}{0.2}
+
+\pagebreak
+\subsection*{Collisions}
+collisions are when the hash table probes into a bucket that is already full, there are 2 ways we can avoid that:
+\begin{itemize}
+        \item quadratic probing - using a quadratic function to dictate the sequence in which buckets are checked
+        \item double hasing - using 2 hash functions in order to add more randomness to the initial probing and avoid collisions.
+\end{itemize}
+
+\end{document}
+
