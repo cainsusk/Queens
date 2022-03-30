@@ -1,0 +1,85 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Urban Geography}
+\newcommand{\coursetitle}{The Growth Plan for the Greater Golden Horseshoe\\Policy Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Plan Objectives}
+\paragraph*{}
+\textit{A Place to Grow: Growth Plan for the Greater Golden Horseshoe (also known as the GGH)} is the Government of Ontario's initiative
+to support development and growth in the GGH such that economic prosperity, security, and a higher quality of life
+can be achieved by individuals and enterprises in the GGH.
+
+\paragraph*{}
+The plan is the first of its kind to provide a framework for implementing the Government of Ontario's plan for growth 
+which hopes to build stronger, more prosperous communities by better managing growth within the GGH. This Framework
+is meant to be used long into the future in order to facilitate growth in both rural and urban communities in order to 
+improve Ontario's towns and cities in the long term while taking into account factors that governments cannot control.
+
+\paragraph*{}
+The Government of Ontario's vision is for the GGH to continue to grow and mature into a global economic force as well as
+continue to integrate into the surrounding region and become an access point for Canadians to the wider world.
+
+
+\section*{Policy Mechanism}
+\paragraph*{}
+Section 2.2.4 of the growth plan: \textit{Transit Corridors and Station Areas} outlines policies governments in the Greater Golden Horseshoe
+could enact in order to better incentivize Transit Oriented Development. 
+
+\paragraph*{}
+The policies outlined in this section focus on the designation of transit corridors and station areas in order to make it easier for 
+denser development around these high-demand but often neglected areas. Transit corridors within the framework are intended to be outlined
+within Official Plans for the GGH and it's constituent regions. Transit Station Areas are delineated by all levels of government as the
+concerns of each area are unique and require those at the top of government and those who live in thew communities to be involved. These areas
+are to be designated with minimum density requirements. These are:
+\begin{itemize}
+        \item 200 residents and jobs total per hectare for areas served by the Subway
+        \item 160 residents and jobs total per hectare for areas served by light rail or bus rapid transit (BRT)
+        \item 150 residents and jobs combined per hectare for ares served by GO regional rail.
+\end{itemize}
+
+\paragraph*{}
+In Addition to these minimum requirements the framework outlined by the plan suggests policies which prohibit development which
+would inhibit the area reaching it's required density. The framework also suggests that transit station areas are to be supported by
+zoning which allows both multi-modal transportation as well as medium-density mixed-use developments to foster economic and
+social mobility. Finally, in order to facilitate future growth, the plan states that land adjacent to existing or planned transit corridors 
+should be pre-allocated to transit oriented development or transit infrastructure.
+
+\section*{Sources}
+Ontario Legislative Assembly. (2020, August). A place to grow - premier of ontario. \textit{A Place To Grow: A Growth Plan For The Greater Golden Horseshoe.} Retrieved March 19, 2022, from https://files.ontario.ca/mmah-place-to-grow-office-consolidation-en-2020-08-28.pdf
+
+
+\end{document}
+

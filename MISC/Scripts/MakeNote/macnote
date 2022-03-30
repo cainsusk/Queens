@@ -32,7 +32,7 @@ then
 
         #=-== Add Class Name To TeX File ==-=#
 
-        ClassName = $(head -n 1 "${schoolRoot}${year}${classID}/${classID}.mknote")
+        ClassName=$(head -n 1 "${schoolRoot}${year}${classID}/${classID}.mknote")
         sed 's/cID/'"$ClassName"'/' <<< "${notePath}${lecName}.tex"
 else
         echo "macnote: im sorry, but ${classID} does not seem to be in the specified year directory. check the macnote file to make sure that your configuration is correct"

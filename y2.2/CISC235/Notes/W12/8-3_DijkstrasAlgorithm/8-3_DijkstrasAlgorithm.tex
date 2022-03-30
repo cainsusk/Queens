@@ -1,0 +1,99 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Djikstra Algorithm}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Finding the Shortest Path}
+it is useful to know the shortest path in an a graph is
+useful as it allows us to move as efficiently as possible
+in a graph. A graph will normally be wieghted if you
+are asked to find the shortest path, the objective is to 
+find the path from $a$ to $b$ with the smallest sum of weights.
+
+One can also be taked to find the shortest path between any 2 verticies
+in a graph.
+
+\section*{Djikstra's Algorithm}
+This algorithm determines the shortest path in $G$ from vertex $s$ to
+\textbf{all other} verticies in the graph.
+\begin{align*}
+        &\text{Input} &G, s\\
+        &\text{Output} &dist
+\end{align*}
+
+where $dist$ is an array containing the optimal distances from $s$
+to every other vertex in $G$.
+
+\subsection*{Data Structure}
+Djikstra uses 3 different data structures to carry out its operation.
+\begin{enumerate}
+        \item A $dist$ array (min-heap) that tracks the \textbf{current
+                best known cost} to get from $s$ to every other vertex in
+                the graph. For each vertex $i$ in $dist$:
+        \begin{enumerate}
+                \item set the distance from $s$ to be equal 
+                        to 0
+                \item set the distance from all other verticies to $\infty$
+        \end{enumerate}
+        \item An array called $done$ that holds boolean values denoting
+                if a vertex has been fully prosessed. For each vertex $i$,
+                set $done[i]$ to false.
+        \item An array called $parent$ that holds the parent for each
+                vertex.
+\end{enumerate}
+\pagebreak
+
+\subsection*{Algorithm}
+The Djikstra Algorithm is as follows:
+\begin{verbatim}
+while !done {
+        u = the closest unprocessed vertex to s
+
+        for v in notDoneVertx{
+                if edgeExists.(u,v){
+                        if dist[v] > dist[u] + weight(u,v){
+                                dist[v] = dist[u] + weight(u,v)
+
+                                parent[v] = u
+                        }
+                }
+        }
+}
+
+\end{verbatim}
+
+\end{document}
+

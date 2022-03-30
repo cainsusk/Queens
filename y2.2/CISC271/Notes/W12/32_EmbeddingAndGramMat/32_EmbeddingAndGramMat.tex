@@ -1,0 +1,211 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\newcommand{\und}{%
+        \underline
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Nonlinear Separation - Embedding and Gram Matrix}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Some Data are Nonlinearly Separable}
+This lecture covers data that is not linearly separable but 
+visually, looks like to can be separated. This can be done
+using Embedding, which is the opposite of projection.
+
+\paragraph{Example}
+Given the data:
+\incimg{smile}{0.5}
+
+While this data is not linearly separable, it does seem like it can be 
+separated somehow. 
+\begin{itemize}
+        \item[\textbf{Augment}]        
+        To address this we will take the 2D data and 
+        project it into 3 dimensions. We could do this by \textbf{appending
+        the squared norm of each operation to it's self}, this would result 
+        in the following plot:
+        \incimg{smile3D}{0.5}
+\pagebreak
+        \item[\textbf{Map}] 
+        We can also use whats known as a quadratic embedding. Given the same
+        data it would produce:
+        \incimg{smileQuad}{0.5}
+\end{itemize}
+
+Both of these techniques allow for the creation of a hyperplane that
+can then be projected back down to 2 dimensions.
+
+\subsection*{Observation Notation}
+For $a \in \mathbb{R}$, we write the $i^{th}$ row as 
+\[\und a_i\]
+
+Which is an unusual notation but will be very useful for us. Additionally,
+we will allow ourselves a definition for the dot-product; which
+is a useful fiction, but not mathematically rigorous. It is defined as:
+\[\und a_i \cdot \und a_j = \und a_i \und a_j^\top\]
+
+Note: in this and subsequnet notes, we will treat a row as if it 
+is a vector: $\und a_i \in \mathbb{R}^n$
+
+\section*{b Embedding a Vector Space}
+This section will cover what is meant by embedding a vector.
+embedding is done using a mapping:
+\[\phi : \mathbb{R} \hookrightarrow \mathbb{R}^P\]
+
+This will be written as:
+\[\underline \phi(\und u)\]
+
+Note: the hook arrow denotes a embedding.
+
+\paragraph{Example: Augmentation}
+Given the embedding statement:
+\[\und u \hookrightarrow \hat u\]
+
+We expand the equation to be:
+\[[u_1\;\;u_2]\hookleftarrow[u_1\;\;u_2\;\;||\und u||^2]\]
+
+\paragraph{Example: Polynomial}
+Given the same statement, a polynomial\\(quadratic) embedding would
+look like:
+\[[u_1\;\;u_2] \hookrightarrow [u_1^2\;\;u_2^2\;\;u_1u_2\sqrt2]\]
+
+\subsection*{Uses}
+What are these techniques for embedding used for?
+Given the data $A \in \mathbb{R}^{m \times n}$, we will embed
+$A$ such that $A \hookrightarrow \hat A$ where:
+\[\hat A \in \mathbb{R}^{m \times P}\]
+
+If we then did an ordinary PCA the scatter matrix would be:
+\[\hat S \in \mathbb{R}^{P \times P}\]
+And the eigenvectors would be such that:
+\[\hat v \in \mathbb{R}^P\]
+
+\paragraph{Recall}
+With polynomials, the number of coefficients grows and the term
+is combinatorially in $n$ (as we are raising the vectors of $\und u$ by
+a power). This is not very computationally efficient and takes up a lot
+of memory.
+
+\section*{c Gram Matrix for an Embedding}
+Recall the right transpose of a matrix:
+\[AA^\top\]
+
+It is such that entry $(i,j)$ equals:
+\[\und a_i \und a_j^\top = \und a_i \cdot \und a_j\]
+
+\paragraph{Consider}
+If we take the right transpose of embedded data we then get:
+\[\hat A\hat A^\top\]
+Such that each entry $(i,j)$ is:
+\[\und \phi(\und a_i)[\und \phi(\und a_j)]^\top = \und \phi(\und a_i) \cdot \und \phi(\und a_j)\]
+
+Thus, it is clear to see that in either case what we end up doing is either
+transpositions or dot products.
+
+\subsection*{Kernel}
+A kernel function is:
+\[k(\und u, \und v) = k(\und v, \und u)\]
+
+If we are given the finite data $\und u_i \in \mathbb{R}^n $, then
+the matrix $K$ would be:
+
+\[K_{ij} = k(\und u_i, \und u_j)\]
+
+Where $K$ is positive semi-definite ($k$ is not a kernel function otherwise)
+and $K$ is known as a \textbf{Gram Matrix}.
+\paragraph{Example: Augmented}
+Given the embedding:
+\[[u_1\;\;u_2] \hookrightarrow [u_1\;\;u_2\;\;(u_1^2 + u_2^2)]\]
+
+The kernel function is equal to:
+\[k(\und u, \und v) = \und \phi(\und u)\cdot\und\phi(\und v)\]
+Which then equals:
+\[= \und u \cdot \und v + (\und u + \und v)^2\]
+Thus, this is the kernel function for an Augmented Embedding
+
+\paragraph{Example: Polynomial}
+Given: 
+\[[u_1\;\;u_2] \hookrightarrow [u_1\;\;u_2\;\;\sqrt2 u_1u_2]\]
+The kernel function would be:
+
+\[k(\und u, \und v) = u_1^2v_1^2 + u_2^2v_2^2 + 2u_1v_1u_2v_2\]
+
+Which simplifies to:
+\[=(\und u \cdot \und v)^2\]
+
+Note: This technique for embedding is called polynomial because it 
+produces a polynomial kernel.
+
+\paragraph*{Usage}
+Both of these techniques produce a kernel which allows us to do embedding 
+computations much faster. Thus, we can compute entry $(i,j)$ of
+$\hat A\hat A^\top$ as:
+\[k(\und a_i, \und a_j)\]
+
+We then gather the outputs of the kernel function into the augmented weight
+vector $\hat W$ which is symmetric and positive semi-definite. With
+this new matrix we may want to perform PCA, which \textit{is} possible.
+doing a PCA on a $\hat W$ is known as the kernel trick for PCA.
+
+\subsection*{Kernel Types}
+There are a few kinds of general kernels:
+\begin{align*}
+        &\text{Linear} &k(\und u, \und v) = \und u\und v^\top\\
+        &\text{Quadratic} &k(\und u, \und v) = (\und u \und v + 1)^2\\
+        &\text{Polynomial, order $l$} &k(\und u, \und v) = (\und u und v^\top + c)^l\\
+        &\text{Guassian} &k(\und u, \und v) = \exp(\frac{-||\und u - \und v||^2}{2\sigma^2})
+\end{align*}
+
+In MatLab, you can use a gaussian kernel on \textbf{standardized} data by
+doig:
+\[k(\und u, \und v) = \exp(-||\und u - \und v||^2)\]
+
+\subsection*{Gram Matrix and PCA}
+We know that The PCA of a matrix is derived from it's scatter matrix
+of variables. In order to use the kernel trick with PCA, we must first 
+make a scatter matrix of \textit{Observations}. This is done by replacing
+$AA^\top$ with $\hat W$ as the scatter matrix.
+
+\section*{Learning Outcomes}
+Students should now be able to:
+\begin{itemize}
+        \item relate an embedding to a kernel function
+        \item select kernel function from a library of functions
+        \item compute a Gram matrix from given data
+\end{itemize}
+
+\end{document}
+

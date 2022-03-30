@@ -1,0 +1,192 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Odds of Occurrence and Probability}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Odds of Hyperplane Classification}
+Previously, We dealt with a hyperplane $\mathbb{H}$ and a vector $\vec u$ such 
+that $\vec u$ is on one of 2 sides of the $\mathbb{H}$. This is useful
+but there is more information we can use to determine the location of $\vec u$ 
+relative to $\mathbb{H}$.
+For example, the measurements of $\vec u$ are taken in a coordinate frame. 
+Hyperplane $\mathbb{H}$ will have values in the same coordinate frame. This 
+allows us to create a reference point on $\mathbb{H}$ called $\vec r$ and
+a corresponding unit vector $\vec n$; which allows us to determine the 
+probability that $\vec u$ is on one side of $\mathbb{H}$ or the.
+This is to account for when points are very
+close to the hyperplane as the labeling is not as certain as the binary
+classification makes it seem.
+
+\paragraph{Terms}
+The definition of terms for probability in this course are:
+
+\begin{align*}
+        &\text{Odds} &\text{ratio of likelihood of an event}\\
+        &\text{Probability} &\text{inverse function of odds}\\
+        &\text{Logistic Function} &\text{maps a score to a probability}\\
+\end{align*}
+
+We shall be dealing with the \textit{Odds} that a data point will be in a given 
+set.
+
+\section*{b Odds and Probability}
+we shall first show by example what we mean by Odds. Given Odds (written as 
+$S$), we say that $S$ is the evaluation of the following ratios:
+
+
+\begin{align*}
+       &50:50 &S=1\\
+       \\
+       &9:1 &S=9\\
+       \\
+       &1:4 &S=\frac{1}{4}
+\end{align*}
+\pagebreak
+
+From these examples we can then infer that the Odds from a given ratio are: 
+\[S = \frac{p}{1-p}\] 
+where we are given $a:b$ such that $p = \frac{a}{a+b}$ which is the probability
+of the action occurring.
+This implies that $S$ is greater than 0 with no upper bound.
+
+\paragraph{Finding Probability}
+Given the Odds $S$, can we find the probability $p$?
+\begin{align*}
+        S &= \frac{p}{1-p}\\
+        &\equiv S(1-p) = p\\
+        &\equiv S-Sp = p\\
+        &\equiv S = p+Sp\\
+        &\equiv S = p(1+S)\\
+        &\equiv p = \frac{S}{S+1}
+\end{align*}
+
+Thus, the formula for finding the probability of an outcome  given it's odds is:
+\[p = \frac{S}{1+S}\]
+
+\section*{c Logistic Function for Odds}
+this section relates the score of a data point to it's probability using 
+the Logistic Function. The bounds of an Odd and a Score are:
+\begin{align*}
+        &\text{Odd} &S \in (0, +\infty)\\
+        &\text{Score} &z \in (-\infty, +\infty)\\
+\end{align*}
+
+The Logistic function should map an Odd to an Score such that:
+\[f:S\mapsto z\]
+where the resulting graph is invertible, smooth, 1:1, and monotone.
+These constrains allow for the score to equal:
+\[z = ln(S)\]
+such that:
+\[S = e^z\]
+
+Now, given a hyperplane $\mathbb{H}$, a unit normal vector $\vec n$ and
+reference point $a$ (same as weights vector and bias scalar for $\mathbb{H}$)
+. The score for a given value $\vec u$ is equal to:
+\[z(\vec u) = \vec n^\top \vec u + a\]
+
+Now, to relate all these inferences, the way we relate a probability to
+a score is:
+\begin{align*}
+        p(z) &= \frac{e^z}{1+e^z}\\
+        \\
+        &= \frac{1}{1+e^{-z}}
+\end{align*}
+
+A consequence of this equation is that if $z$ is negative, then:
+\[p(-z) = 1-p(z)\]
+
+Thus the Odds of $\vec u$ of being in the \textbf{positive half-space} of 
+$\mathbb{H}$ is:
+\[z(\vec u) = \vec n^\top \vec u + a\]
+\[p(\vec u; \vec n, a) = \frac{1}{1+e^{-(\vec n^\top \vec u + a)}}\]
+
+\section*{d Properties of The Logistic Function}
+given the scores and probability of data-vectors from a logistic function we
+can plot the following graph:
+\incimg{logFunc}{0.5}
+
+Where the white line is the Logistic function and the green line is the 
+binary classification function.
+Additionally the x axis is the score and the y axis is the probability 
+for $\vec u$.
+
+\subsection*{Derivative of p(z)}
+The equation for relating score to a probability is:
+\[p(z) = \frac{e^z}{1+e^z}\]
+observe:
+\begin{align*}
+        1-p(z) &= \frac{1+e^z}{1+e^z}-\frac{e^z}{1+e^z}\\
+               &= \frac{1}{1+e^z}\\
+       \\
+               &= p(-z)\\
+\end{align*}
+
+\paragraph{Recall}
+The derivative of a fraction is:
+\[\frac{d}{dz}\left(\frac{f(z)}{g(z)}\right) = \frac{f'g - fg'}{g^2}\]
+Additionally, the derivative of $e^x$ is:
+\[\frac{d}{dz}e^z = e^z\]
+
+\paragraph{Solution}
+The formula for the derivative of $p(z)$ is:
+\begin{align*}
+        \frac{d}{dz}p(z) &= \frac{e^z(1+e^z)-e^ze^z}{(1+e^z)^2}\\
+        \\
+        &= p(z)(1-p(z))
+\end{align*}
+
+\section*{Summary}
+\paragraph{Probability}
+\begin{itemize}
+        \item Odds: ratio involving probability
+        \item Probability: function of distance from hyperplane
+\end{itemize}
+
+\paragraph{Logistic Function}
+\begin{itemize}
+        \item continuous, differentiable, invertible
+\end{itemize}
+
+\section*{Learning Outcomes}
+Students should now be able to:
+\begin{itemize}
+        \item Transform between Odds and Probability
+        \item Find unit form of hyperplane $\mathbb{H}$
+        \item find probability that $\vec u$ is on positive side of $\mathbb{H}$
+\end{itemize}
+
+\end{document}
+

@@ -1,0 +1,63 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Week 12 Tutorial}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Degree Laplacian Matrix}
+you can calculate the Laplacian Matrix of a matrix \texttt{A} in matlab using:
+\[\texttt{L = diag(sum(Amat, 2)) - Amat}\]
+
+\section*{Sort}
+we can sort the Eigenvectors from largest to smallest using:
+\[\texttt{[lvec lx] = sort(EvecRaw, `descend')}\]
+
+we can then sort the matrix of eigen-values using the sorted 
+indicies (\texttt{lx}) such that:
+\[\texttt{eMat = eMat(:, lx)}\]
+
+such that we essentially permute eMat to be sorted.
+
+\section*{Adjacency Matrix}
+we can calculate an adjacency matrix without a loop by doing:
+\begin{verbatim}
+        % set A(i,j) to 1
+        A(elist(:, 2) + (elist(:, 1)-1)*mA) = 1;
+        % symmetric, handle edge duplicates
+        A = (A+A') > 0;
+\end{verbatim}
+
+\end{document}
+

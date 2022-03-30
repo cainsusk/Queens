@@ -1,0 +1,160 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Classification - Single Artificial Neuron}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Artificial Neurons}
+Artificial Neural Networks are made up of Artificial Neurons. We
+can think of operations with Neural Networks as finding a hyper plane 
+of separation. There is also a biological analogy that can help explain
+neural networks and their neurons.
+
+
+\section*{b Data Flow and Computation for Neurons}
+\paragraph{Simple Model}
+The simple model of Data flow within a NN is made up of:
+\begin{align*}
+        &\text{inputs} &x_j\\
+        &\text{weights} &w_j\\
+        &\text{bias / threshold} &\beta
+\end{align*}
+
+Within this simple model an neuron will fire when the voltage or input
+exceeds the bias. 
+This can be represented as the equation:
+\[\sum^n_{j=1} x_jw_j \geq \beta\]
+\[\textbf{or}\]
+\[\sum^n_{j=1} x_jw_j + \beta \geq 0\]
+
+The output of a Neuron is it's \textbf{activation function} $\phi$
+
+\paragraph{Data Flow Through a Neuron}
+For each neuron within a neural network, it may have many inputs, which
+are first weighted, then summed and fed as input to the activation 
+function $\phi$ 
+(if the neuron has one)
+\incimg{NNData}{0.5}
+
+\paragraph{Linear Algebra}
+An observation is an input vector $\vec x_i$. The weighted sum of
+this observation is:
+\[u_i = u(\vec x_i)  = \vec x_i^\top \vec w + \beta\]
+
+Thus, a neuron with this input of a weighted sum only fires if and 
+only if:
+\[u_i \geq 0\]
+
+When training a Neural Network a user will provide labels for each 
+initial data vector. For this course the labelling will be binary with 
+each label $y_i \in \{0,1\}$. This differs from other machine 
+learning literature which may use $y_i = \pm 1$. 
+
+
+\section*{c Hyperplane of Separation for Neurons}
+This Section will explore how a Neural Network Does Hyperplane Operations.
+Recall a Hyperplane $\mathbb{H}$ is:
+\incimg{hyperP}{0.5}
+
+Where $\vec w$ is the weight vector associated with $\mathbb{H}$. $S_1, 
+S_2$ are the 2 sides of $\mathbb{H}$. The question is how does the 
+Neural Network decide which side $\vec x_1$ is on.
+
+In terms of Neural Networks, a hyperplane $\mathbb{H}$ is 
+$\vec w, \beta$ which are its axis and bias.
+Therefore, the pseudo-distance 
+from $\mathbb{H}$ for each point $\vec x_i$ 
+is:
+\[u_i = \vec x_i^\top \vec w + \beta\]
+
+Such that: 
+\[u_i \geq 0 \rightarrow \vec x_i \in S_1\]
+\[u_i < 0 \rightarrow \vec x_i \in S_2\]
+
+We then Augment the weight--and thus input vector as well--such that:
+\[\hat w = \begin{bmatrix} \vec w\\\beta\end{bmatrix} \;\;\; \hat x_i = \begin{bmatrix} \vec x_i\\1\end{bmatrix}\]
+
+Thus, the previous computation with these augmented values would be
+made faster with the equation:
+\[u_i = \hat x_i^\top \hat w  = \vec x_i^\top \vec w + 1 \times \beta\]
+ 
+Not only does it make it faster but in out code the bias scalar is better
+integrated into the equation in the augmented vector.
+
+\paragraph{General Activation}
+A General Activation function $\phi$ maps a real number to another
+real number
+\[\phi : \mathbb{R} \rightarrow \mathbb{R} \text{ or } z = \phi(u)\]
+
+Such that the linear algebra interpretation of $\phi$ is the 
+\textbf{score} of the input for each neuron. The score is 
+then put through a quantization
+function, maps the score to a set of `labels':
+\[q : \mathbb{R} \rightarrow \{0,1\} \text{ or } q(\phi(u_i)) = \{0,1\}\]
+
+Therefore, The classification function for points on 2 sides of a 
+hyperplane implemented with a Neural Network is:
+\[H(u_i) =^{def} \begin{cases} 1\text{ if }u\geq0\\0\text{ if }u<0\end{cases} \]
+
+Where $u_i$ is the pseudo-distance from a point $\vec x_i$ to the 
+hyperplane $\mathbb{H}$. Such that 
+if $\vec x_i$ is on the negative side of $\mathbb{H}$
+then $u_i$ will be negative. Additionally, 
+when $\vec x_i$ is on the positive side of 
+the hyperplane, $u_i$ is positive. This is the reasoning behind the
+classification function $H$, or the activation function of the neuron.
+
+\subsection*{Binary Classification}
+\begin{itemize}
+        \item each $\hat x_i$ has a label $y_i \in \{0,1\}$
+        \item each label representes the 2 sides of the hyperplane
+                such that:
+                \[y_i=\begin{cases}0\text{ if } \hat x_i \in S_2\\1\text{ if } \hat x_i \in S_1 \end{cases}\]
+        \item thus, the ideal match is:
+                \begin{align*}
+                        (y_i=0)&\leftrightarrow(\hat x_i^\top \hat w < 0)\\
+                        (y_i=1)&\leftrightarrow(\hat x_i^\top \hat w \geq 0)
+                \end{align*}
+\end{itemize}
+
+\section*{Learning Outcomes}
+Students should now be able to:
+\begin{itemize}
+        \item Augment data vectors for neural computation
+        \item Use augmented vectors to find pseudo distance
+        \item Quantize pseudo-distance as the activation of the neuron
+\end{itemize}
+\end{document}
+

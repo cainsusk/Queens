@@ -1,0 +1,182 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Supervised Learning - Perceptron Rule}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Perceptron Model of Neurons}
+this lecture will explore the perceptron algorithm. A perceptron is a binary,
+artificial representation of a neuron.
+\paragraph*{}
+given an augmented weight vector $\hat w$, the:
+\begin{itemize}
+        \item Augmented data `vector' is $\hat x_i$
+        \item Label for $\hat x_i$ ($y_i$) is either 0 or 1
+        \item linear weighted sum is $u_i = \hat x_i^\top \hat w$
+        \item $\hat x_i$ predicted in class 1 if and only if $u_i \geq 0$
+        \item Output is $q_i$ which is 0 or 1 (binary function)
+\end{itemize}
+
+The objective of the Perceptron Algorithm is to find a hyperplane that
+puts all the data with label 1 in the positive half-space and data with
+label 0 in the negative half-space.
+
+\subsection*{Perceptron: Basic Algorithm}
+The Preceptron was first created by Rosenblatt in 1959 and is the earliest
+known example of machine learning. Rosenblatt's key assumption was: \textbf{to
+iteratively update vector $\hat w$, use only \textit{mis}-classified data}.
+\paragraph*{}
+His Key result from this technique was that: \textbf{if the training `vectors'
+$\hat x_i$ are linearly separable, then the perceptron rule will converge}.
+
+\section*{b Deriving the Perceptron Rule}
+given:
+\begin{align*}
+        &\text{Hyperplane} &\hat w\\
+        &\text{Observation} &\hat x_i\\
+        &\text{Label} &y_i \in \{0,1\}
+\end{align*}
+Suppose the logic of the Perceptron Rule is as follows:
+\[(y_i = 1) \wedge (q_i = 1)\]
+The corresponding action is thus:
+\[\hat w \leftarrow \hat w\]
+
+There are 4 cases which can be caused:
+\begin{align*}
+        &\text{Logic} &\text{Action}\;\;\;\;\text{Case}\\
+        &(y_i = 1) \wedge (q_i = 1) &\hat w \leftarrow \hat w\;\;\;\;TP\\
+        &(y_i = 0) \wedge (q_i = 0) &\hat w \leftarrow \hat w\;\;\;\;TN\\
+        &(y_i = 1) \wedge (q_i = 0) &\hat w \leftarrow \hat w + \hat x_i\;\;\;\;TP\\
+        &(y_i = 0) \wedge (q_i = 1) &\hat w \leftarrow \hat w-\hat x_i\;\;\;\;FP
+\end{align*}
+
+Note: the error for data-point $i$ is equal to:
+\[e_i =^{def} y_i - q_i\]
+such that the respective errors for the above table are:
+\begin{align*}
+        \text{Error}\\
+        e_i = 0\\
+        e_i = 0\\
+        e_i = 1\\
+        e_i = -1\\
+\end{align*}
+
+Thus, the Perceptron Rule for iterating through all data-points $i$ is:
+\[\hat w_k \leftarrow \hat w_{k-1} + e_i\hat x_i\]
+\pagebreak
+
+\section*{c Pseudocode For The Perceptron Rule}
+This section will explore the Perceptron Rule in pseudocode.
+\begin{verbatim}
+missed <- true; // makes sure we enter while loop
+while (missed):
+        missed <- false;
+        for each training sample i:
+                // quantization
+                q_i <- heaviside(x'_i * w);        
+                e_i <- (y_i - q_i);
+                // correction by residial (error)
+                w <- w + e_i * x_i;
+                // checks if repeat is needed
+                if (e_i != 0):
+                        missed <- true;
+                fi
+        rof
+elihw
+
+\end{verbatim}
+
+For Linearly separable data, the Perceptron Rule:
+\begin{itemize}
+        \item is Guaranteed to converge
+        \item can be initialized with a random weight vector
+        \item has the complexity of $O(m)$ for $m$ data-vectors
+\end{itemize}
+
+For general data the Perceptron Rule:
+\begin{itemize}
+        \item can find a local optimum
+        \item may not converge but can oscillate locally
+        \item has no requirement for `good' separation.
+\end{itemize}
+
+Note: this process finds \textit{a} hyperplane, rather than the \textit{best}
+$\mathbb{H}$
+
+\subsection*{Batch Learning}
+For $m$ observations, the augmented design matrix is: $\hat X \in \mathbb{R}^{m \times (n + 1)}$
+
+where the calculation per data vector is:
+\[\hat w_k = \hat w_{k-1} + \hat x_i(y_i - q_i)\]
+
+But if one were to gather the labels into $\vec y$ and the output into
+$\vec q$, the formula for batch iteration of the Perceptron Rule is:
+\[\hat w_k = \hat w_{k-1} + \hat X^\top(\vec y - \vec q)\]
+
+\section*{d Perceptron Rule for Iris Data}
+Given the Iris data for the length data and width of 2 classes of plants and 
+a random start vector $\hat w$, the Perceptron Rule creates the following
+hyperplane:
+\incimg{iris1}{0.5}
+
+From differet starting vectors, we get different hyperplanes as the Perceptron
+Rule only finds a \textbf{local} optimum.
+\incimg{iris2}{0.5}
+
+Because of this lack of certainty for the fit of these hyperplanes, we will
+have to introduce a factor of optimization to the Rule.
+
+\section*{Perceptron Summary}
+\begin{itemize}
+        \item we use the augmented weight vector $\hat w$
+        \item it is simple, fast computation
+        \item linear algebra is fundamental to this rule
+        \item it also extends to multi-class problems
+\end{itemize}
+There are some limitations to the Perceptron Rule, however:
+\begin{itemize}
+        \item peculiar convergence to hyperplane
+        \item data must be linearly separable
+\end{itemize}
+
+\section*{Learning Outcomes}
+Students should now be able to:
+\begin{itemize}
+        \item transform data to augmented form
+        \item implement basic perceptron algorithm
+        \item test algorithm on simple data
+\end{itemize}
+\end{document}
+

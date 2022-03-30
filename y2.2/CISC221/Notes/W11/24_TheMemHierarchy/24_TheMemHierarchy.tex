@@ -1,0 +1,172 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{The Memory Heirarchy}
+\newcommand{\coursetitle}{Computer Architecture}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{The Hierarchy}
+different classes of memory are segregated by their speed of access,
+their relative speeds can be visualized on a graph like so:
+\incimg{memTri}{0.7}
+
+Faster Memory classes are more expensive in resources, and thus are mostly
+used in smaller quantities. (in addition to them being physically smaller
+than the lower classes of chips)
+
+\section*{Random-Access Memory}
+RAM are traditionally chips who's basic storage unit was a cell. Multiple cells
+of the word form a super cell, which id id'd by a single address. Many
+RAM chips then make up the Computers memory. This is in contrast to Sequential 
+Access Memory which can only be accessed by iterating a 
+pointer along an array.
+\pagebreak
+
+\paragraph{RAM Organization}
+the chip is normally organized with a 2D array like so; where the array 
+has the dimensions of $d \times w$, where $dw$ are the total bits organized as
+supercells of size $w$ bits.
+\incimg{RAM}{0.7}
+
+There are 4 bits for the access address because there is needed 2 bits for the 
+row address and 2 bits for the column address. When a row is addressed, it is 
+then saved into the RAM chip's internal row buffer. Then, then the column is 
+addresses, the specified column within the row is taken out and returned. When 
+writing this is the exact same thing but backwards. This is very fast as the
+row can be copied with parallel circuits. This Process can also be scaled up 
+with many (8) $8 \times 8$ RAM chips. if we had 64 bit word across this \textbf{
+memory module}, we would copy into the memory controller buffer.
+\incimg{memMod}{0.5}
+
+\paragraph{SRAM v. DRAM}
+there are 2 types of RAM, SRAM and DRAM. this first is Static RAM while the 
+second is Dynamic RAM. Static RAM's are fast and costly while Dynamic RAM's
+are slow and less costly, with only 1 transistor.
+\incimg{ramvram}{0.5}
+
+All of this memory is what is known as Volatile Memory, which means that
+if the power were to be fully shut off on the computer, the data stored in these
+chips would be lost, as, they require power to retain information.
+This requires what is known as \textbf{non-volatile memory} 
+
+\section*{Non-Volatile Memory}
+There are a few types of memory that are non-volatile, meaning they do not lose
+their data once power is cut to them.
+\begin{itemize}
+        \item Read-Only Memory (ROM): normally programmed during production of
+                chip
+        \item Programmable ROM (PROM): can be programmed once
+        \item Erasable PROM (EPROM): can be bulk erased (commonly with UV or 
+                x-rays)
+        \item Electric EPROM (EEPROM): electronically erasable EPROM
+        \item Flash Memory: EEPROM(s) with partial (block level)
+                erase capability. These wear out after around 100,000 erasures.
+\end{itemize}
+
+These are used for Firmware programs stored in a ROM (BIOS, Controllers for Disks
+, network cards, graphics accelerators, security subsystems, ...) or also Solid
+State Disks.
+
+\section*{Traditional Bus Structure}
+A bus is a collection of parallel wires that carry addresses, data, and control
+signals. A bus is shared between multiple devices, connecting them. The most 
+important use of a bus is connecting the CPU to Memory in order to read and
+write data for executing programs.
+\incimg{bus}{0.5}
+
+\paragraph{Reading}
+When the CPU is \textbf{reading} memory the transaction goes as follows:
+\begin{enumerate}
+        \item The CPU places an address $A$ onto the memory bus - 
+        \item The Main memory reads $A$ from the memory bi=us, and retrieves the 
+                word $x$ at address $A$, and places $x$ on the bus 
+        \item Lastly, the CPU reads the word $x$ from the bus and copies it into
+                register \texttt{\%rax}
+\end{enumerate}
+Note: the assembly operation for this would be: \texttt{movq A, \%rax}
+
+\paragraph{Writing}
+When a CPU is \textbf{writing} to memory, the operation goes as follows:
+\begin{enumerate}
+        \item The CPU places the address $A$ on a bus, the Main memory then 
+                reads it and waits for the corresponding data word to arrive.
+        \item The CPU then places the data word $y$ on the bus
+        \item Finally, the Main memory reads the data word $y$ from the bus and
+                stores it at address $A$
+\end{enumerate}
+Note: the assembly operation for this would be: \texttt{movq \%rax, A}
+\pagebreak
+
+\section*{Hard Disk Drive}
+If one were to open up a disk drive in their computer, it would look like this:
+\incimg{disk}{0.5}
+The spindle, in combination with the rotating disk, finds parts (or sectors) of
+memory. This can be seen like so
+\incimg{diskMem}{0.5}
+
+Many sectors make a Track, and many tracks make a cylinder, which can be 
+visualized as many disks stacked on top of each other:
+\incimg{disks}{0.5}
+
+\paragraph{Disk Memory}
+The memory that can be stored in a disk can be using:
+\begin{itemize}
+        \item track density (bits/in)
+        \item recording density (tracks/in)
+        \item areal density (bits/$\text{in}^2$)
+\end{itemize}
+
+Note: it should be considered that because the disk is well, a disk, the diameter
+gets smaller as the the radius gets smaller, meaning less data can be stored
+closer to the middle of the disk. Therefore, disks are partitioned as 
+such:
+\incimg{diskPart}{0.7}
+
+Therefore, the calculation for the capacity for a disk would be:
+{\scriptsize
+\[C = (bytes/sector)\times(avg.sectors/track)\times(tracks/surface)\times(surfaces/platter)\times(platters/disk)\]
+}
+
+\paragraph{Disk Operations}
+Disk Reading and writing are carried out by the rotating disk and arm. when
+there are multiple disks, there are multiple arms that all work in unison, and
+all the disks are on one rotating spindle.
+
+\incimg{diskOps}{0.7}
+
+
+
+
+\end{document}
+

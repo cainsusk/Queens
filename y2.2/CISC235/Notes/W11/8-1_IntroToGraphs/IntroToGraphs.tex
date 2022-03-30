@@ -1,0 +1,91 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Introduction to Graphs}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Graphs}
+Grpahs are made up of nodes which can be anythinf from data, to a person, to 
+another network). The nodes are connected via edges which define with 
+nodes are related to which.
+\incimg{graph}{0.7}
+
+\section*{Graph Reoresentation}
+A graph can be represented as either an adjacency matrix or edge list:
+\incimg{Amat}{0.5}
+
+Because of the flexibility of the edge list, which is a linked list of arrays, 
+it is a better option to implement and represent a graph in code. However, if 
+you know your graph will be quite full, this flexibility isn't used and the speed
+from pre-allocating an array (adjacency matrix) will be more helpful.
+
+Graphs can be both dense or sparse, an example of a sparse graph is a subway map
+like so:
+\incimg{subway}{0.5}
+\pagebreak
+
+\section*{Graph as ADT}
+A conceptual Graph would have the following operations:
+\begin{itemize}
+        \item Test if graph is empty
+        \item Get number of nodes in graph
+        \item Get number of edges in graph
+        \item See whether edge exists between 2 nodes
+        \item Insert node into graph
+        \item Insert edge between nodes in graph
+        \item Remove node from graph and any edges to said node
+        \item Remove edge between two nodes in graph
+\end{itemize}
+
+\incimg{code}{0.5}
+
+\section*{Traversal}
+like with a tree (which is almost a kind of graph) there are may
+way to traverse a graph:
+
+\paragraph{Breadth first Search}
+This way explores the graph in \textbf{growing concentric circles}, exploring a
+node's first edge, then their second, etc...Iterating over Graph
+
+\paragraph{Depth first Search}
+A depth first search keeps moving forward until it hits a dead end or a 
+previously-visited node. It then backtracks and tries another path.
+
+\subsection*{Breadth First Implementation}
+\incimg{bftCode}{0.5}
+
+
+\end{document}
+

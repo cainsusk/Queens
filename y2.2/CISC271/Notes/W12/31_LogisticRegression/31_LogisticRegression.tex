@@ -1,0 +1,180 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Classification - Logistic Regression}
+\newcommand{\coursetitle}{Linear Data Analysis}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{a Shortcomings of Perceptrons}
+Perceptrons as a singular or as a single `layer' 
+are unable to solve certain hyperplanes. A common 
+pattern in which this occurs is Exclusive Or.
+This is caused by the fact that we use a binary activation function.
+To solve this, multi-layered networks would be needed but the method
+to train them was unknown.
+
+\paragraph{Example}
+if we had data which modeled an exclusive or truth table we would get:
+\incimg{Xor}{0.5}
+
+Intuitively, it can be seen that there is no 2-dimensional line that
+separates the blue and red points.
+
+\subsection*{Error Propogation}
+In order to resolve this issue, in 1985 Rumelhart et al,
+created a method to 
+propagate labels through a multi-layered using a `logistic activation
+function'. However this was a rediscovery of Paul Werbos' work from 
+1974.
+
+\section*{b Scores From Logistic Activation}
+Consider a single neuron with linear activation. This would be a
+weighted linear sum. Similarly a layers of linear activation neurons 
+is weighted linear sum. This means many layers can only do as much as
+one neuron (with a linear activation function).
+
+Thus, we must introduce non-linearity somewhere.
+
+\subsection*{Semilinear Activation}
+instead of using a linear activation function, we will use a 
+Sigmoid function in order to introduce more complexity. 
+
+\paragraph{Logistic Activation}
+Consider the plot below:
+\incimg{sigmoid}{1}
+
+It shows the sigmoid function plotted along an x axis of score.
+Recall score is defined as:
+\[z(\hat x_i) = \frac{1}{1+e^{-\hat x_i^\top \hat w}}\]
+
+We know this equation is differentiable because:
+\[\frac{d}{d\hat w}\rightarrow 0\text{ as } z\rightarrow\pm\infty\]
+
+The derivative of the function can be seen to represent a point's
+closeness to the hyperplane, as the farther away from the hyperplane
+a point goes, the bigger it's score will be, which will put it on a 
+flat part of the sigmoid function, which means the derivative is 0.
+
+Unfortunately, to date there is no known closed form solution for the
+equation.
+
+\subsection*{Residual Error}
+The residual error of a classification is the difference between 
+it's label and the actual output. There are many ways of representing
+the error, for example: Squared Error.
+
+\section*{c Residual Error of Scores}
+This section will explore 2 ways of formulating error for a 
+single artificial neuron. The exact formula for Residual Error
+$r_i$ is:
+\[r_i = y_1 - z(\hat w;\hat x_i)\]
+
+There are 2 formulations which are used for calculating the error
+of a neuron:
+\begin{align}
+        e_i &= (r_i)^2\\
+        e_i &= \begin{cases} 
+                -\ln(1-z(\hat w; \hat x_i)) & \text{if } y_i = 0\\
+                -\ln(z(\hat w; \hat x_i)) & \text{if } y_i = 1
+        \end{cases}
+\end{align}
+
+\subsection*{Example 1}
+If we were to plot the error, using equation (1),
+of 2 points with labels 1 and 0 with the
+Logistic Function, we would get something like these:
+\incimg{sig0}{0.4}
+\incimg{sig1}{0.4}
+
+Then, if one were to add the errors together, one would get the net 
+squared error (with a local minimum!)
+\incimg{sig0+1}{0.4}
+\pagebreak
+
+\subsection*{Example 2}
+If we then did the same thing with equation (2) we would get:
+\incimg{log0}{0.5}
+\incimg{log1}{0.5}
+
+Such that the summation looks like this. Note that this equation
+more heavily penalizes misclassification compared to the above formula.
+\incimg{log0+1}{0.5}
+
+\subsection*{Sigmoid Summary}
+\begin{itemize}
+        \item errors are added for all $m$ observations
+        \item The net error is non-linear as a function of the weights
+                $\hat w$
+        \item the numerical methods for finding the error are:
+                \begin{itemize}
+                        \item squared error - optimised by following
+                                the steepest descent
+                        \item logistic regression - optimized by
+                                maximum likelihood. (can be done 
+                                using \texttt{glmfit} in MatLab
+                \end{itemize}
+\end{itemize}
+
+Note: using logistic regression on linearly separable data will cause
+the weights to go to infinity.
+
+\section*{d Logistic Regression for Iris Data}
+If one were to take the score of data using both equation 1 and 2, and
+then plot them one would see that 0 is the separating score and
+that the scores from equation (2) are nearly a factor of 10 larger 
+than those from (1).
+\incimg{squareErr}{0.5}
+\incimg{logErr}{0.5}
+
+\subsection*{Semilinear Activation Summary}
+\begin{itemize}
+        \item Is needed for non-linear classification (ie. Xor)
+        \item requires a numerical solution
+        \item there are many conceptual frameworks for use; it just 
+                depends on the data and eventual uses.
+\end{itemize}
+
+\section*{Learning Outcomes}
+Students should now be able to:
+\begin{itemize}
+        \item determine whether data may be linearly seperable by plotting
+                the data for 2D or plotting the scores for higher 
+                dimensions.
+        \item Use library functions to compute scores 
+                (ie. \texttt{glmfit})
+        \item assess the results, using accuracy or otherwise.
+\end{itemize}
+
+\end{document}
+

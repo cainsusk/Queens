@@ -1,0 +1,128 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Assignment 4}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\begin{enumerate}
+        \item The Precondition for the given statements should be:
+        \begin{enumerate}
+                \item \texttt{x == 1}
+                \item \texttt{x == 2}
+                \item \texttt{0 < 2y + 2z}
+                \item \texttt{2(y*z + 3) > y + 2}
+                \item \texttt{Exists(y = 0; y < 10) 2y + 1 == 50}
+                \item \texttt{Exists(y = 0; y < 15) 2(x+y) == y + t}
+                \item \texttt{ForAll(z =1; z < 100) 3y + 1 > z + 2}
+                \item \texttt{ForAll(y = 1; y < x) 2x + 2y < 100}
+                \item \texttt{Exists(y+z = 0; y+z < 10) z*z + 2(y + z)== 15}
+                \item \texttt{Exists(y = 0; y < 100)(2y + z == 15 || 2z*y + y < 100)}
+        \end{enumerate}
+        \item These following statements have been verified:
+        \begin{enumerate}
+                \item \begin{verbatim}
+ASSERT( x >= 5 || ( x <= 0 && y == 2 ) )
+z = x - y;
+ASSERT(y == 2)
+y = y + z;
+ASSERT(y - z == 2 || y > 3)
+x = y - z;
+ASSERT( x == 2 || y > 3 )
+                \end{verbatim}
+                \item \begin{verbatim}
+ASSERT( z >= 0 )
+if ( x < 2 ) { y = z+3; } //end-if 
+ASSERT(y > x + 1 || x + z > 1)
+z = x + z;
+ASSERT(y > x + 1|| z > 1)
+                \end{verbatim}
+        \end{enumerate}
+
+        \item \begin{enumerate}
+                \item The Loop Invariant is:
+                        \texttt{i > 0}
+\pagebreak
+                \item The Complete Proof Tableau is:
+                        \begin{verbatim}
+ASSERT(k >= 0)
+i = k;
+ASSERT(i > 0)
+sum = k;
+while( i > 0 )
+{
+        ASSERT(sum+i-1 == j && i > 0)
+        i = i - 1;
+        ASSERT(sum+i == j && i > 0)
+        sum =sum+i; 
+}
+ASSERT(sum == SUM{j=0->k}(j))
+                        \end{verbatim}
+        \end{enumerate}
+
+        \item \begin{verbatim}
+const int n; /* the program will 
+                compute the sum of the squares
+                of the n smallest positive odd integers*/
+int sum;     /* the sum is stored in this variable */
+
+int count = 0;
+int i = 0;
+
+ASSERT( n >= 1 )
+
+while(count < n)
+        i++
+        ASSERT(count < n)
+        if (i % 2 != 0){
+                ASSERT(count < n && i*i == 
+                        (2*count)*(2*count))
+                count++;
+                ASSERT(count < n && i*i == 
+                        (2*count+1)*(2*count+1))
+                sum += i*i;
+        }
+}
+ASSERT( sum == SUM{i=0->n-1} (2*i+1)*(2*i+1) )
+        \end{verbatim}
+
+        The loop invariant is \texttt{count < n} and the
+        agrgument for any sequene of numbers there are a given 
+        number of odd numbers. Becuase the program can generate a functionally endless sequence of numbers, there will always be to one
+        point $n$ odd number is a series. this is not always 
+        possible for extremely large values of $n$
+\end{enumerate}
+
+\end{document}
+

@@ -1,0 +1,110 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Computable Specifications - Reducibility}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{The Church-Turing Thesis}
+The thesis claims that any algorithmic problem that has an informed algorithm can be solved
+by a Turing machine. This thesis is \textit{generally} believed to be true, however it is not
+possible to prove the CR thesis as `informed algorithm' does not have a precise definition.
+
+\section*{Reducibility}
+The process described in the previous note was long and tedious, and not something we want to
+do every time we want to show something is incomputable. Thus, we can use \textbf{reduction}
+in order to show that a function is incomputable by taking a function that has already been 
+proven to be incomputable, and reduce the proven function to the unproven one.
+
+\paragraph{Algorithm}
+function $A$ reduces to function $B$ \textbf{if} an algorithm for $B$ can be used to construct
+an algorithm for $A$
+
+When $A$ is reducible to $B$, it can be possible that:
+\begin{itemize}
+        \item $A$ is computable then $B$ is incomputable
+        \item $A$ and $B$ are both computable
+        \item both $A$ and $B$ are incomputable 
+\end{itemize}
+
+\subsection*{Example}
+given:
+\[\texttt{bool haltsOnEmpty(FILE *func)}\]
+which returns \textbf{true} if func contains a definition of an
+int function with one file parameter and that function halts when 
+applied to the empty file. Returns \textbf{false} otherwise.
+
+From an initial observation, one may be able to note that \texttt{haltsOnEmpty} reduces to 
+\texttt{halts} as it is a special case of \texttt{halts}. Thus, in order
+to show \texttt{haltsOnEmpty} is incomputable, we must reduce it to \texttt{halts}.
+
+Note: The \texttt{halts} problem is the only known incomputable function.
+\pagebreak
+
+In order to reduce the function, we must implement a file transformation such that:
+\[\texttt{merge(func, arg, funcArg}\]
+
+where if \texttt{func} contains a function \texttt{int f(FILE *a)\{C\}}, then
+merge writes to FUncArg following definition:
+\begin{verbatim}
+inf f(FILE *b)
+{ 
+        FILE *a = tmpfile();
+        
+        fprintf(a, "%s", "arg");
+
+        C # code C refers to file a
+}
+\end{verbatim}
+
+Now that we have the reduced code, we must show you can create \texttt{halts} with
+\texttt{haltsOnEmpty}:
+\begin{verbatim}
+bool halts (FILE *func, FILE *arg){
+        FILE *funcArg = tmpfile();
+        merge(func, arg, funcArg);
+
+        return haltsOnEmpty(funcArg);
+\end{verbatim}
+
+This works because the function written to \texttt{funcArg} operates
+like \texttt{func} on input \texttt{arg}.
+
+Assuming that \texttt{haltsOnEmpty} satisfies it's specification then the
+above program implements \texttt{halts}
+
+Therefore, \texttt{haltsOnEmpty} is incomputable.
+
+\end{document}
+

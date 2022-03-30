@@ -1,0 +1,141 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Memory Cache}
+\newcommand{\coursetitle}{Computer Architecture}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Cache}
+The concept of a cache is to have a smaller `cache' of used data from all data from memory in order to make the 
+accessing of said important data faster. Recall that, faster memory is smaller and more expensive, hence only the important
+data is in the cache. A cache is conventionally based on SRAM, where the hardware manages the cache. When a CPU is looking
+for data in a computer, it looks in the cache first. An example of a cache structure is the following:
+\incimg{cacheStruc}{0.5}
+
+\subsection*{Organization}
+A cache is divided into sets $S$ of lines $E$, in which each line can store a certain amount of bits $B$. Therefore, the Size of 
+a cache is:
+\[C = S \times E \times B\]
+
+Within each word there is a `valid' bit, a tag (the address for the word), and the data stored in $B$ number of bits.
+
+\subsection*{Read}
+The algorithm for reading from a cache is as follows:
+\begin{itemize}
+        \item Locate set
+        \item Check if any line in set has matching tag
+        \item if yes and valid bit = true, hit !
+        \item Locate data starting at offset
+\end{itemize}
+\pagebreak
+
+In more detail, the Tag and Addressing process is shown below:
+\incimg{readCache}{0.3}
+
+\subsection*{Direct Addressing}
+In a direct address cache, each set $S$ only has 1 line $E=1$.
+Such that, when we are adding data to a direct address cache, there are two discrete outcomes:
+\[\text{hit}\;\;\;\;\text{miss}\]
+if there is a data point at the tag $x$, and one is trying to add data at that data-point, it is a miss. If
+there was no previous data at $x$, then it is a hit.
+
+\paragraph*{Reading}
+When a direct address cache reads, it must parse the address to find the correct place of the data.
+Given the address:
+\[0[0000_2]\]
+Assuming that: $M=16, B=2, S=4, E=1$, ($M$=mem) this input would be a miss and the desired data in the computer's memory would be:
+$M[0:1]$
+\incimg{cacheInp}{0.3}
+
+\section*{Set Associative Cache}
+for a 2 way set associative cache there are 2 lines per set ($E=2$).
+Each set is addressed by the tag of both words in the set, followed 
+by the specification of which word in the set (it can be 0/1). And
+the block offset in memory.
+
+\incimg{assCache}{0.5}
+
+While this style of cache uses less memory for addressing, it 
+cannot store as much information and will evict data more often than
+a conventional cache.
+
+\section*{Fully Associative Cache}
+A Fully associative cache is a cache which only has $S=1$ set with
+all of the words in the cache ($E=C/B$). The problem with this configuration
+is that it makes it so that the tag must be quite large to be able to
+index the whole set. Additionally, when we search for a word, we are
+essentially doing linear search, which is not quite as fast as
+with the previous cache types
+\pagebreak
+
+\section*{Writing}
+Data has multiple copies on the many memory units on a computer.
+
+\paragraph{Hit}
+When there is a hit, 2 things may happen:
+\begin{itemize}
+        \item Write Through - write direct to memory
+        \item Write Back - defer write to memory until eviction of line
+\end{itemize}
+Note: for write-back an extra (dirty) bit is needed to specify 
+if a word is in memory yet.
+
+
+\paragraph{Miss}
+If there is a miss, 2 things can also happen:
+\begin{itemize}
+        \item Write Allocate - load into cache and update in cache
+        \item No Write Allocate - writes direct to memory, does not load into
+                cache
+\end{itemize}
+Note: write-allocate is good for when more writes to the same location follow
+
+\section*{Cache Performance}
+There are a few metrics we use in order to measure the performance 
+of a cache:
+\begin{itemize}
+        \item[\textbf{Miss Rate}] This is equal to the fraction of memory which 
+                is not found in the cache. This can range from 3-10\%
+                for L1 and $<1\%$ in L2.
+        \item[\textbf{Hit Time}] This equals the time to deliver a line from the cache
+                to the processor. This is typically 4 cycles for L1 and 
+                10 for L2.
+        \item[\textbf{Miss Penalty}] This equals the additional time required 
+                when a miss occurs in the cache. This is normally 
+                50-200 cycles for main memory.
+\end{itemize}
+
+
+\end{document}
+

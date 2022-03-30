@@ -1,0 +1,91 @@
+a. P { x = 2; } x = = 1
+
+Solution- wp (x = 2, x == 1)
+
+x == 1
+
+b. P { x = 2 ;} x > 2
+
+Solution- wp (x = 2, x > 2) = x >= 2
+
+c. P { x = y + z} x < y + z
+
+Solution- wp (x = y + z, x < y + z) = x <= y + z
+
+d. P { x = x + y + z } z > x * x + 2
+
+Solution- wp (x = x + y + z, z > x * x + 2 ) = z > ( x + y + z ) ( x + y + z ) + 2
+
+= z > x * x + x * y + x * z + y * x + y * y + y * z + z * x + z * y + z * z
+
+= z > x * x + y * y + z * z + 2 * x * y + 2 * x * z + 2 * y * z
+
+e. P { x = x + y + z } y * y > z + 5
+
+Solution- wp ( x = x + y + z , y * y > z + 5 ) = z < ( - z ) ( - z ) - 5
+
+= z < z * z - 5
+
+f. P { x = y + z } exists (w = 0 ; w < 10 ) x + w = = 50
+
+wp (x = y + z , there exists w w = 0^w < 10 ^x + w = = 50 )
+
+wp ( x = y + z , w = 0 , x + w = = 50) = y + z + 0 = = 50
+
+= y + z = = 50
+
+g. P { x = y + z } for all ( z = 1 ; z < 100) x + 2 * z > w + 2
+
+wp ( x = y + z , ( z = 1^z < 100 )^( x + 2 * z > w + 2 ) )
+
+= wp ( x = y + z , ( z = 1 )^( x + 2 * 1 > w + 2 )
+
+= y + z + 2 > w + 2
+
+= y + z > w
+
+= y > w
+
+h. P { x = y + z } for all ( x = 1 ; x < z ) x + y + 2 < 100
+
+wp ( x = y + z , ( x = 1^x < z ) ^ ( x + y + 2 ) < 100 )
+
+= wp ( x = y + z , z > 1^( y + z + y + 2 ) < 100)
+
+= 2 y + z < 98 ^ z > 1
+
+=2y + 2 < 98
+
+= 2 y < 96
+
+= y < 48
+
+(i. P {x = y + z } for all ( y = 1 ; y < n ) exists ( z = 1 z < n ) x * y < 3z + w
+
+wp ( x = y + z , ( n > 1 )^( n > 1 )^( y + z ) * y < 3z + w )
+
+= y * y + y * z < 3z + w
+
+=1 * 1 + 1 * 1 < 3 * 1 + w
+
+= 2 < 3 + w
+
+= w > 2 - 3
+
+= w > -1
+
+j. P { x = y + z } for all ( y = 1 ; y < n ) exists ( x = 1 x < n ) x * y < 3z + w
+
+wp ( x = y + z , ( n > 1 ) ^ ( n > 1 )^( x ) * y < 3z + w )
+
+= 1 * 1 < 3z + w ^1 * 1 + z * 1 < 3z + w
+
+= 1 < 3z + w^1 <2 z + w
+
+=2 * z + z + w > 1
+
+=2 + w > 1
+
+= w > -1
+
+

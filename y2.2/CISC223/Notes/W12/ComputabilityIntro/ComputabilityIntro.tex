@@ -1,0 +1,119 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Intro to Computability}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Computability}
+Computability is an algorithmic problem with:
+\begin{itemize}
+        \item infinite set of inputs
+        \item function that associates an output to input.
+\end{itemize}
+
+The solution to this problem is an algorithm that computes the function. For 
+example: for each input the function computes the correct output.
+
+\paragraph{Un-Computability}
+may well defined algorithms problems are unsolvable, which is to say, an 
+algorithm \textbf{does not exist}.
+
+\section*{Un-Computable Example}
+The specifications for the halting problem are as follows:
+given 2 parameters \texttt{func} and \texttt{arg}:
+\begin{itemize}
+        \item[i] function returns true if the file \texttt{func} contains a
+                $C$ function definition with one file parameter, and the function
+                terminates if applied to the file \texttt{arg}
+        \item[ii] function returns false otherwise
+\end{itemize}
+
+which means that:
+the function \textbf{returns true} if \texttt{func} contains a function 
+which halts given the input \texttt{arg}
+
+\paragraph*{Proving Un-Computability}
+The Technique used for proving that a function is un-computable is called
+digitalization. For the sake of contradiction, assume we can define:
+\[\texttt{halts(FILE *func, FILE *arg) \{...\}}\]
+\pagebreak
+
+The implementation of the \texttt{halts} function is as follows:
+\begin{verbatim}
+int test(FILE *f){
+        FILE *a = tmpfile();
+        copy(f, a);
+        if (halts(f, a)) for (j j) {...}
+        return 0;
+}
+int main(void){
+        FILE *f = tmpfile();
+        fprintf(f, ...)
+        /* write to file f the definition
+        of test() */
+        return test(f);
+}
+\end{verbatim}
+
+In the main program, the \texttt{test()} function is called with 
+a parameter that contains the definition of \texttt{test()} such that:
+\begin{enumerate}
+        \item[i] if inside \texttt{test()}, halts returns true then
+                \texttt{test()} with it's own description which goes into
+                an infinite loop, which causes \texttt{halt} to
+                return an incorrect answer.
+        \item[ii] if halt returns false then \texttt{test()} on its 
+                own description terminates normally, again \texttt{halt}
+                has returned an incorrect answer.
+\end{enumerate}
+
+Thus, in all cases \texttt{halts} returns an incorrect answer and is a 
+contradiction. Therefore, \texttt{halts} cannot be implemented.
+
+\section*{Dependence on Language}
+From a computability point of view, all general purpose languages
+are equivalent; which is to say they can implement the same
+class of functions. This has been proven by using the fact that
+many languages compile to the same low-level language. Furthermore,
+there exists simple theoretical models that are equivalent (in terms
+of computability) to general purpose programming languages. For example: 
+Turing Machines.
+
+Strictly speaking, we have only proved that \texttt{halts} cannot be implemented
+in \textit{C}. However, the argument used above will owrk for any programming 
+language (for \texttt{halts}).
+
+\end{document}
+

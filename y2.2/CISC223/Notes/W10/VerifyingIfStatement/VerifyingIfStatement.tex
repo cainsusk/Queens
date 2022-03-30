@@ -1,0 +1,103 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Verifying If Statement}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Verifying If Statements}
+\subsection*{If Part}
+\begin{verbatim}
+ASSERT(I && i != n && A[i] != B[i])
+// i <= n && i != n implies i + 1 <= n when i is int
+// A[i] != B[i] implies that 
+ASSERT(0 <= i+1 <= n && false iff ForAll(k=0, k<i+1)A[b] = -B[k])
+        equal = false
+ASSERT(0 <= i + 1 < = n && eual iff FofAll(k=0; k < i+1)A[k]==B[k])
+\end{verbatim}
+
+\subsection*{Else Part}
+\begin{verbatim}
+I && i != n && A[i] == B[i] implies (*) 0 <= i+1 <= n && 
+        equal iff ForAll(k=0, k<i+1) A[k] == B[k]
+
+(*) i <= n && i != n implies i+1 <= n when i,n are ints 
+        (equal iff ForAll(k=0, k<i) A[k] == B[k]) && A[i] == B[i] 
+        implies equal iff ForAll(k = 1, n < i+1)A[k] == B[k]
+\end{verbatim}
+
+\section*{Verifying For Loops}
+For Loops are written in C like so: \texttt{for(i=n; i<N; i++)C}
+. The general form of a for loop is represented as:
+\[for(A_o; B; A_1)\]
+
+A verification works like so:
+\begin{verbatim}
+ASSERT(P) // pre-condition
+        ...
+A_o;
+ASSERT(I) // I invariant
+while(B){
+        ASSERT(I&&B)
+                CA_1;
+        }
+ASSERT(I&&!B)
+\end{verbatim}
+Consider the following example:
+\begin{verbatim}
+ASSERT(0 <= n < max){
+        int i;
+        for (i = 0; A[i] != x &&i < n; i++)
+                {}
+        present = (i<n)
+ASSERT(present iff x in A[0:n-1])
+\end{verbatim}
+to verify it we must frist re write it as a while loop:
+\begin{verbatim}
+ASSERT(0 <= n < max){
+        int i;
+        for (i = 0; A[i] != x &&i < n; i++)
+                {i++;}
+        ASSERT(i < n iff x in A[0:n-1]) // while loop post condition
+        present = (i<n)
+ASSERT(present iff x in A[0:n-1])
+\end{verbatim}
+The Invariant \texttt{I} is bounded by \texttt{0 <= i <= n} from the while loop 
+bounds but what is the invariant it's self. The idea is we continue the 
+execution of the loop untill we find the target element, thus the first \texttt{i}
+entiries are not equal to \texttt{x}, therefore the invariant is:
+\[0 \geq i \geq n \wedge \{\forall_k k > i\}\;\;x \neq A[k]\]
+
+\end{document}
+

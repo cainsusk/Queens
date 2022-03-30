@@ -1,0 +1,96 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Minimum Spanning tree}
+\newcommand{\coursetitle}{Data Structures}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Time Complexity}
+The time complexity for an MST with $n$ elements is:
+\begin{align*}
+        &\text{Create} &O(1)\\
+        &\text{Find} &O(\log n)\text{ or }O(1)\\
+        &\text{Union} &O(\log n)\text{ or }O(1)\\
+\end{align*}
+the last 2 are $O(1)$ if the targets are already found. (ie. already found root $a$ and $b$ for Union)
+
+\section*{Prim's Algorithm}
+This is an algorithm to grow a MST in successive steps:
+\begin{enumerate}
+        \item given the set $S$ of the $n$ edges we are choosing
+        \item randomly choose a vertex $v \in T$ and the rest of the vertices are in the set $Q$
+        \item while the size of $S$ is less than $n-1$:
+                \begin{enumerate}
+                        \item let $e$ be the edge with the lowest weight which connects $v$ to any vertex in $Q$ (ie. $e=(x,y)$ where $x$ is in 
+                                $T$ and $y$ is in $Q$)
+                        \item add $e$ to $S$
+                        \item add $y$ to $T$
+                        \item remove $y$ from $Q$
+                \end{enumerate}
+        \item return $S$
+\end{enumerate}
+Note: this  is a `greedy'/`local' algorithm for taking a 
+graph and converting it into a MST. 
+
+\paragraph*{Finding Lightest Edge}
+a key part of Prim's algorithm is finding the lightest edge in a Tree. To quickly do this, we are given a list/dictionary $K$ which stores
+a priority-vertex pair. $K[v]$ stores the `shortest distance' between $v$ and the current tree. The algorithm is as follows:
+\begin{enumerate}
+        \item After adding a new node to the tree $T$ we update the weights of all nodes adjacent to it
+        \item $K[v] = \infty$ if $v$ is not adjacent to any vertices in $T$
+\end{enumerate}
+
+Consider the following example of Prim's algorithm where we are given a graph, and it is gradually converted into
+MST:
+\incimg{example}{0.42}
+
+This is just an example of 2 iterations of the algorithm, going from $b$ to $c$, and choosing $i$ as the next vertex with the 
+lightest edge.
+
+The final result for this graph would be:
+\incimg{result}{0.55}
+\pagebreak
+
+\section*{Prim's v. Kruskal's}
+For either algorithm that is used to make a MST, there are pro's and cons.
+\incimg{PvK}{0.5}
+
+It is also good to note that both algorithms will always give
+the same solutions with the same length, even if the order in which
+the vertices are chosen is different. Occasionally, the algorithms will
+choose different edges but this is ony when either option is the same
+length.
+
+\end{document}
+
