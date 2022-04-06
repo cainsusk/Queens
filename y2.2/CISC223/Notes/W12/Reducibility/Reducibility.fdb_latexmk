@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1648671598 "Reducibility.tex" "Reducibility.pdf" "Reducibility" 1648671599
+["pdflatex"] 1648671598 "Reducibility.tex" "Reducibility.pdf" "Reducibility" 1648749811
   "/usr/local/Cellar/texlive/58837_1/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1618176823 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/Cellar/texlive/58837_1/share/texmf-dist/fonts/map/fontname/texfonts.map" 1618176823 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/Cellar/texlive/58837_1/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1618176823 5169161 faec376d6e4a0f9287e20add9eecc042 ""
@@ -59,8 +59,8 @@
   "/usr/local/Cellar/texlive/58837_1/share/texmf-dist/web2c/texmf.cnf" 1647822937 39975 4b05abf73e01b5eea84984a594557aa7 ""
   "/usr/local/Cellar/texlive/58837_1/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1618176823 2724827 453e7eaed0a256e060aae0ff20c97683 ""
   "Reducibility.aux" 1648671599 116 2061cf4423d040d7ff917fafff1c94db "pdflatex"
-  "Reducibility.tex" 1648671598 3493 2f4e81c173def8b3e6d87392f99e9393 ""
+  "Reducibility.tex" 1648749803 3493 2f4e81c173def8b3e6d87392f99e9393 ""
   (generated)
-  "Reducibility.log"
-  "Reducibility.aux"
   "Reducibility.pdf"
+  "Reducibility.aux"
+  "Reducibility.log"

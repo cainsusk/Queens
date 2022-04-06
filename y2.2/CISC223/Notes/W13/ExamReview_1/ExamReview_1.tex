@@ -1,0 +1,67 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Exam Review}
+\newcommand{\coursetitle}{Software Specifications}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{What To Expect}
+It will be at:
+\[\texttt{Chernoff Auditorium}\]
+\[\texttt{Tuesday, April 19, 9:00am}\]
+The exam will be:
+\begin{itemize}
+        \item in person, bring \textbf{Queens ID} and seQure app.
+        \item 3 Hour closed book exam
+        \item aids allowed: 1 two sided $8.5 \time 11$ inch sheet of notes (can be printed, typed etc.)
+\end{itemize}
+
+\section*{What is Covered}
+The exam covers all the meterial in the course (although computablility questions may be easy cause we didnt cover it much).
+The sections is the textbook are:
+\begin{itemize}
+        \item Part A  ch. 1-4
+        \item Part B  ch. 7-11
+        \item Part D  ch. 12
+\end{itemize}
+Note: there is no part B.
+
+Loop verification and these kind of questions will be the most difficult and is should focus
+on those for studying. (proof tableaus etc.)
+
+There will be about 10 questions on the exam.
+
+
+\end{document}
+
