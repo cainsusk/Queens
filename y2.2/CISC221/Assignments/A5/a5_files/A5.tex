@@ -1,0 +1,102 @@
+\documentclass[12pt]{book} 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+
+\setlength{\parindent}{0em}  % sets auto indent at new paragraph to none
+
+\newcommand{\incfig}[1]{%
+        \import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand{\incimg}[2]{%
+       \begin{figure}[h]
+               \centering
+               \includegraphics[scale = #2]{./figures/#1}
+       \end{figure}
+}
+
+\title{\coursetitle\linebreak\lecturename}
+\author{\\Cain Susko\\ 
+           \\ \\ \\
+      Queen's University 
+    \\School of Computing\\} 
+
+%=-=-=-=-=-title-=-=-=-=-=%
+\newcommand{\lecturename}{Assignment 5 - Memory Hierarchy}
+\newcommand{\coursetitle}{Computer Architecture}
+%=-=-=-=-=-#####-=-=-=-=-=%
+
+\begin{document}
+\begin{titlepage}
+        \maketitle
+\end{titlepage}
+
+
+\section*{Answer 1}
+Assuming that:
+
+\begin{align*}
+        &\texttt{T avg seek} &4ms \\
+        &\texttt{T avg rotation} &\frac{\texttt{T max rotation}}{2} =\frac{(60/15000) \times 1000}{2}  = 2ms \\
+        &\texttt{T avg transfer} &\frac{60}{15000}\times\frac{1}{1000}\times1000 = 0.004ms \\
+        &\texttt{T locate} &\texttt{T avg seek + T avg rotation} = 6ms\\
+\end{align*}
+Note, 
+\[m = \frac{2}{512} = 4000\]
+
+Thus, the answers are:
+\begin{itemize}
+        \item[A]
+                \[\texttt{T = T locate + m * T avg transfer = 22ms}\]
+        \item[B]
+                \[\texttt{T = m * (T locate + T avg transfer) = 24016ms = 24.016s}\]
+\end{itemize}
+
+\section*{Answer 2}
+The Answer is the following table:
+\begin{table}[h]
+\centering
+\begin{tabular}{lllllllll}
+\hline
+cache & m  & C    & B  & E   & S   & t  & s & b \\ \hline
+1     & 32 & 1024 & 4  & 4   & 64  & 24 & 6 & 2 \\
+2     & 32 & 1024 & 4  & 256 & 1   & 30 & 0 & 2 \\
+3     & 32 & 1024 & 8  & 1   & 128 & 22 & 7 & 3 \\
+4     & 32 & 1024 & 8  & 128 & 1   & 29 & 0 & 3 \\
+5     & 32 & 1024 & 32 & 1   & 32  & 22 & 5 & 5 \\
+6     & 32 & 1024 & 32 & 4   & 8   & 24 & 3 & 5 \\ \hline
+\end{tabular}
+\end{table}
+\pagebreak
+
+\section*{Answer 3}
+The Answers are:
+\begin{itemize}
+        \item[A] given:
+                \begin{align*}
+                        &t &0x45 = 0b01000101\\
+                        &s &0b001\\
+                        &b &xx : x \in \{0,1\}
+                \end{align*}
+
+                The address may be:
+                \[01000101\;001\;xx\]
+                which would be formatted as:
+                \[0\;1000\;1010\;01xx\]
+
+                where the address range is between $0x08A4 - 0x08A7$.
+                Furthermore:
+                \[t = 0x38\]
+                with an eddress range between $0x0704 - 0x0707$
+
+        \item[B] the range is:
+                \[0x1238 - 0x123B\]
+\end{itemize}
+
+
+\end{document}
+
